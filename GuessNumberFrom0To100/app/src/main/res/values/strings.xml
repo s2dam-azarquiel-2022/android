@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GuessNumberFrom0To100</string>
+    <string name="defaultValue">0</string>
+    <string name="checkBtn">Check number</string>
+</resources>
