@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Guess Sum</string>
+    <string name="numberTxt">%1$d</string>
+    <string name="resultTxt">Result: %1$d</string>
+    <string name="guessesTxt">Guessed: %1$d</string>
+    <string name="nextNumberBtn">Next number</string>
+</resources>

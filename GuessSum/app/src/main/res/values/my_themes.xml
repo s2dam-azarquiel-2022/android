@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.GuessSum.button" parent="Theme.GuessSum">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:backgroundTint">#9C27B0</item>
+        <item name="android:text">@string/numberTxt</item>
+    </style>
+    <style name="Theme.GuessSum.textView" parent="Theme.GuessSum">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:text">@string/numberTxt</item>
+    </style>
+</resources>
