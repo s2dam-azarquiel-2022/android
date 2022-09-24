@@ -10,7 +10,7 @@ import kotlin.random.nextInt
 class MainActivity : AppCompatActivity() {
     private var sumResult: Int = 0
     private var correctGuesses: Int = 0
-    private val startTime: Long = System.currentTimeMillis()
+    private var startTime: Long = 0
     private lateinit var addendsViews: List<TextView>
     private lateinit var resultView: TextView
     private lateinit var guessedView: TextView
@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         correctGuesses = 0
         guessedView.text = getString(R.string.guessesTxt, 0)
         guessStatus.clear()
+        startTime = System.currentTimeMillis()
     }
 
     private fun gameOver() {
