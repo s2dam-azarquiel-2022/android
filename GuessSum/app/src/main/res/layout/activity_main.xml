@@ -22,7 +22,6 @@
     </TableLayout>
 
     <LinearLayout
-        android:id="@+id/sumView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
@@ -31,8 +30,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView style="@style/Theme.GuessSum.textView" />
-        <TextView style="@style/Theme.GuessSum.textView" />
+        <LinearLayout
+            android:id="@+id/addends"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView style="@style/Theme.GuessSum.textView" />
+            <TextView style="@style/Theme.GuessSum.textView" />
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"

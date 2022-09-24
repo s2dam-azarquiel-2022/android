@@ -4,18 +4,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class MainActivity : AppCompatActivity() {
     private var sumResult: Int = 0
     private var correctGuesses: Int = 0
     private val startTime: Long = System.currentTimeMillis()
-    private lateinit var numberViews: List<TextView>
+    private lateinit var addendsViews: List<TextView>
     private lateinit var resultView: TextView
     private lateinit var guessedView: TextView
     private lateinit var guessStatus: ImageView
 
     private fun genRandomNumber() {
-        sumResult = (2..18).random()
+        sumResult = Random(System.currentTimeMillis()).nextInt(2..18)
         resultView.text = getString(R.string.resultTxt, sumResult)
     }
 
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNewGame() {
         genRandomNumber()
-        numberViews.clear()
+        addendsViews.clear()
         correctGuesses = 0
         guessedView.text = getString(R.string.guessesTxt, 0)
         guessStatus.clear()
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkSum() {
-        if ((numberViews.sumOf { it.toInt() }) == sumResult) {
+        if ((addendsViews.sumOf { it.toInt() }) == sumResult) {
             guessStatus.setImageResource(R.drawable.correct)
             incCorrectGuesses()
         } else { guessStatus.setImageResource(R.drawable.incorrect) }
@@ -57,10 +59,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addNumber(n: Int) {
-        for ((i, textView) in numberViews.withIndex()) {
+        for ((i, textView) in addendsViews.withIndex()) {
             if (textView.text == "") {
                 textView.text = getString(R.string.numberTxt, n)
-                if (i == numberViews.size-1) { checkSum() }
+                if (i == addendsViews.size-1) { checkSum() }
                 else { return }
             }
         }
@@ -80,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun nextNumber() {
         if (correctGuesses < 10) {
-            numberViews.clear()
+            addendsViews.clear()
             genRandomNumber()
             guessStatus.clear()
         }
@@ -90,8 +92,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        numberViews = findViewById<LinearLayout>(R.id.sumView).let {
-            (0..1).map { n -> (it.getChildAt(n) as TextView) }
+        addendsViews = findViewById<LinearLayout>(R.id.addends).let {
+            (0 until it.childCount).map { n -> (it.getChildAt(n) as TextView) }
         }
         resultView = findViewById(R.id.resultView)
         guessedView = findViewById(R.id.guessedView)
