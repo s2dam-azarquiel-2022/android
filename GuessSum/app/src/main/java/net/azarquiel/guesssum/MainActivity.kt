@@ -2,8 +2,10 @@ package net.azarquiel.guesssum
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import kotlinx.coroutines.*
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -24,10 +26,6 @@ class MainActivity : AppCompatActivity() {
     private fun incCorrectGuesses() {
         correctGuesses++
         guessedView.text = getString(R.string.guessesTxt, correctGuesses)
-    }
-
-    private fun ImageView.clear() {
-        this.setImageDrawable(null)
     }
 
     private fun setupNewGame() {
@@ -54,9 +52,23 @@ class MainActivity : AppCompatActivity() {
         if ((addendsViews.sumOf { it.toInt() }) == sumResult) {
             guessStatus.setImageResource(R.drawable.correct)
             incCorrectGuesses()
-        } else { guessStatus.setImageResource(R.drawable.incorrect) }
+        } else {
+            guessStatus.setImageResource(R.drawable.incorrect)
+        }
 
+        GlobalScope.launch {
+            SystemClock.sleep(1000)
+            MainScope().launch { nextNumber() }
+        }
+    }
+
+    private fun nextNumber() {
         if (correctGuesses == 10) { gameOver() }
+        else {
+            addendsViews.clear()
+            guessStatus.clear()
+            genRandomNumber()
+        }
     }
 
     private fun addNumber(n: Int) {
@@ -81,14 +93,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun nextNumber() {
-        if (correctGuesses < 10) {
-            addendsViews.clear()
-            genRandomNumber()
-            guessStatus.clear()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -101,7 +105,6 @@ class MainActivity : AppCompatActivity() {
         guessStatus = findViewById(R.id.guessStatus)
 
         findViewById<TableLayout>(R.id.numberBtns).setupNumberBtns()
-        findViewById<Button>(R.id.nextNumberBtn).setOnClickListener { nextNumber() }
 
         setupNewGame()
     }
