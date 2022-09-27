@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     private var sumResult: Int = 0
     private var correctGuesses: Int = 0
     private var startTime: Long = 0
-    private lateinit var addendsViews: List<TextView>
+    private lateinit var addendsViews: Array<TextView>
     private lateinit var resultView: TextView
     private lateinit var guessedView: TextView
     private lateinit var guessStatus: ImageView
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun checkSum() {
         if ((addendsViews.sumOf { it.toInt() }) == sumResult) {
             guessStatus.setImageResource(R.drawable.correct)
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         addendsViews = findViewById<LinearLayout>(R.id.addends).let {
-            (0 until it.childCount).map { n -> (it.getChildAt(n) as TextView) }
+            Array(it.childCount) { i -> it.getChildAt(i) as TextView }
         }
         resultView = findViewById(R.id.resultView)
         guessedView = findViewById(R.id.guessedView)

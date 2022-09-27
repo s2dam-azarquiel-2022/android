@@ -9,7 +9,7 @@ fun TextView.toInt(): Int {
     return this.text.toString().toInt()
 }
 
-fun List<TextView>.clear() {
+fun Array<TextView>.clear() {
     for (textView in this) { textView.text = "" }
 }
 
