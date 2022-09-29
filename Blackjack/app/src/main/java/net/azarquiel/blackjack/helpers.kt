@@ -1,10 +1,12 @@
 package net.azarquiel.blackjack
 
+import android.content.Context
+import android.widget.Toast
+
 fun List<Player>?.toString(): String {
-    if (this == null) return "No one"
-    var result = ""
-    for (player in this) {
-        result += "${player.name}, "
-    }
-    return (if (result.isNotEmpty()) result.substring(0..result.length-3) else result)
+    return this?.joinToString(", ") { player -> player.name } ?: "No one"
+}
+
+fun Context.showS(text: String) {
+    Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }

@@ -33,11 +33,43 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addNextCardToView() {
-        deck[nextCard].let { card ->
-            card.addToView()
-            players[playing].points += card.rank
-        }
-        nextCard++
+        if (nextCard < 40) {
+            deck[nextCard].let { card ->
+                card.addToView()
+                players[playing].points += card.rank
+            }
+            nextCard++
+        } else { showS("You have already showed all the cards!") }
+    }
+
+    private fun setupNextPlayer() {
+        cardsView.removeAllViews()
+        deck = genDeck()
+        playing++
+        nextCard = 0
+        for (i in 1..2) { addNextCardToView() }
+    }
+
+    private fun setupNewGame() {
+        playing = -1
+        players = MutableList(2) { i -> Player(name = "Player ${i+1}")}
+        setupNextPlayer()
+    }
+
+    private fun calcPoints() {
+        if (playing == players.size - 1) { endGame() }
+        else { setupNextPlayer() }
+    }
+
+    private fun endGame() {
+        val winners: List<Player>? = calcWinners()
+
+        AlertDialog.Builder(this)
+            .setTitle("Completed!")
+            .setMessage("${winners.toString()} won!")
+            .setPositiveButton("New game") { _, _ -> setupNewGame() }
+            .setNegativeButton("End game") { _, _ -> finish() }
+            .show()
     }
 
     private fun calcWinners(): MutableList<Player>? {
@@ -55,35 +87,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return winners
-    }
-
-    private fun endGame() {
-        val winners: List<Player>? = calcWinners()
-
-        AlertDialog.Builder(this)
-            .setTitle("Completed!")
-            .setMessage("${winners.toString()} won!")
-            .setPositiveButton("New game") { _, _ -> setupNewGame() }
-            .setNegativeButton("End game") { _, _ -> finish() }
-            .show()
-    }
-
-    private fun calcPoints() {
-        if (playing == players.size - 1) { endGame() }
-        else { setupNextPlayer() }
-    }
-
-    private fun setupNextPlayer() {
-        cardsView.removeAllViews()
-        deck = genDeck()
-        playing++
-        for (i in 1..2) { addNextCardToView() }
-    }
-
-    private fun setupNewGame() {
-        playing = -1
-        players = MutableList(2) { i -> Player(name = "Player ${i+1}")}
-        setupNextPlayer()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
