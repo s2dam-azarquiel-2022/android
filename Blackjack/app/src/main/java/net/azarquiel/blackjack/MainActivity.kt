@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() {
         val winners: List<Player>? = calcWinners()
 
         AlertDialog.Builder(this)
-            .setTitle("Completed!")
-            .setMessage("${winners.toString()} won!")
+            .setTitle("${winners.toString()} won!")
+            .setMessage(players.joinToString("\n") { p -> p.toString() } )
             .setPositiveButton("New game") { _, _ -> setupNewGame() }
             .setNegativeButton("End game") { _, _ -> finish() }
             .show()
