@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 "drawable",
                 packageName
             ))
-        })
+        }, 0) // <- Insert at start
     }
 
     private fun addNextCardToView() {
