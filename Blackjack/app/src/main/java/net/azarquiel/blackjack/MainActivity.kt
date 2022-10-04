@@ -2,10 +2,14 @@ package net.azarquiel.blackjack
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -41,12 +45,21 @@ class MainActivity : AppCompatActivity() {
         } else { showS("You have already showed all the cards!") }
     }
 
-    private fun setupNextPlayer() {
+    private fun addFirst2Cards() {
+        for (i in 1..2) { addNextCardToView() }
+    }
+
+    private fun setupNextPlayer(wait: Boolean = false) {
         cardsView.removeAllViews()
         deck = genDeck()
         playing++
         nextCard = 0
-        for (i in 1..2) { addNextCardToView() }
+        if (wait) {
+            GlobalScope.launch {
+                SystemClock.sleep(5000)
+                MainScope().launch { addFirst2Cards() }
+            }
+        } else { addFirst2Cards() }
     }
 
     private fun setupNewGame() {
@@ -57,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun calcPoints() {
         if (playing == players.size - 1) { endGame() }
-        else { setupNextPlayer() }
+        else { setupNextPlayer(true) }
     }
 
     private fun endGame() {
