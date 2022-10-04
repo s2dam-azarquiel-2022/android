@@ -11,7 +11,7 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity() {
     private lateinit var deck: Array<Card>
     private var nextCard: Int = 0
-    private lateinit var players: MutableList<Player>
+    private lateinit var players: List<Player>
     private var playing: Int = -1
     private lateinit var cardsView: LinearLayout
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNewGame() {
         playing = -1
-        players = MutableList(2) { i -> Player(name = "Player ${i+1}")}
+        players = List(2) { i -> Player(name = "Player ${i+1}")}
         setupNextPlayer()
     }
 
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun calcWinners(): MutableList<Player>? {
+    private fun calcWinners(): List<Player>? {
         var winners: MutableList<Player>? = null
         for (player in players) {
             if (player.points <= 21) {
