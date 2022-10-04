@@ -2,7 +2,6 @@ package net.azarquiel.blackjack
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -75,7 +74,6 @@ class MainActivity : AppCompatActivity() {
     private fun calcWinners(): MutableList<Player>? {
         var winners: MutableList<Player>? = null
         for (player in players) {
-            Log.d("aru", player.toString())
             if (player.points <= 21) {
                 if (winners == null) {
                     winners = mutableListOf(player)
