@@ -4,8 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.widget.ImageView
-import android.widget.TableLayout
-import android.widget.TableRow
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -16,14 +15,14 @@ import kotlin.random.nextInt
 
 class MainActivity : AppCompatActivity() {
     private lateinit var pokemons: IntArray
-    private lateinit var cardsLayout: TableLayout
+    private lateinit var cardsLayout: LinearLayout
     private var lastImg: ImageView? = null
     private var startTime: Long = 0
     private var correct: Int = 0
 
     private inline fun iteratePokemonImages(f: (image: ImageView, n: Int) -> Unit) {
         for (j in 0 until cardsLayout.childCount) {
-            val row: TableRow = cardsLayout.getChildAt(j) as TableRow
+            val row: LinearLayout = cardsLayout.getChildAt(j) as LinearLayout
             for (i in 0 until row.childCount) {
                 f(row.getChildAt(i) as ImageView, j * row.childCount + i)
             }

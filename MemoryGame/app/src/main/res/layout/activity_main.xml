@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TableLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/pokemonsLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -14,41 +15,42 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:measureWithLargestChild="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow style="@style/tableRow">
+        <LinearLayout style="@style/imageRow">
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
-        </TableRow>
-        <TableRow style="@style/tableRow">
+        </LinearLayout>
+        <LinearLayout style="@style/imageRow">
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
-        </TableRow>
-        <TableRow style="@style/tableRow">
+        </LinearLayout>
+        <LinearLayout style="@style/imageRow">
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
-        </TableRow>
-        <TableRow style="@style/tableRow">
+        </LinearLayout>
+        <LinearLayout style="@style/imageRow">
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
-        </TableRow>
-        <TableRow style="@style/tableRow">
+        </LinearLayout>
+        <LinearLayout style="@style/imageRow">
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
             <ImageView style="@style/imageCard" />
-        </TableRow>
+        </LinearLayout>
 
-    </TableLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
