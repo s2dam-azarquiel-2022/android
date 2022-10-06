@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupPokemons() {
         Random(System.currentTimeMillis()).let { rnGesus ->
             IntArray(10) { rnGesus.nextInt(1..809) }.let { randomPokes ->
-                pokemons = (randomPokes + randomPokes).also { it.shuffle() }
+                pokemons = (randomPokes + randomPokes).also { it.shuffle(rnGesus) }
             }
         }
 
