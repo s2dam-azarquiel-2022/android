@@ -3,10 +3,11 @@ package net.azarquiel.memorygame
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TableLayout
 import android.widget.TableRow
+import androidx.appcompat.app.AlertDialog
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -15,13 +16,14 @@ import kotlin.random.nextInt
 
 class MainActivity : AppCompatActivity() {
     private lateinit var pokemons: IntArray
-    private lateinit var pokemonsLayout: TableLayout
+    private lateinit var cardsLayout: TableLayout
     private var lastSelectedView: ImageView? = null
-    private var completedPokemons: MutableList<Int> = mutableListOf()
+    private var startTime: Long = 0
+    private var corrrect: Int = 0
 
     private inline fun iteratePokemonImages(f: (image: ImageView, n: Int) -> Unit) {
-        for (j in 0 until pokemonsLayout.childCount) {
-            val row: TableRow = pokemonsLayout.getChildAt(j) as TableRow
+        for (j in 0 until cardsLayout.childCount) {
+            val row: TableRow = cardsLayout.getChildAt(j) as TableRow
             for (i in 0 until row.childCount) {
                 f(row.getChildAt(i) as ImageView, j * row.childCount + i)
             }
@@ -36,30 +38,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         iteratePokemonImages { img, n ->
-            Log.d("aru", "$n")
             img.setBackgroundResource(
-                resources.getIdentifier(
-                    "pokemon${pokemons[n]}",
-                    "drawable",
-                    packageName
-                )
+                resources.getIdentifier("pokemon${pokemons[n]}", "drawable", packageName)
             )
             img.tag = "${pokemons[n]}"
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun ImageView.hideAndShow() {
         GlobalScope.launch {
             launch(Main) { this@hideAndShow.setTransparentFg() }
-            SystemClock.sleep(1000)
+            SystemClock.sleep(500)
             launch(Main) {
-                if (this@hideAndShow.tagToInt() !in completedPokemons) {
-                    this@hideAndShow.setImageResource(R.drawable.tapa)
-                }
+                this@hideAndShow.setImageResource(R.drawable.tapa)
             }
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun ImageView.setTransparentFg() {
         GlobalScope.launch { launch(Main) {
             this@setTransparentFg.setImageResource(android.R.color.transparent)
@@ -69,30 +66,56 @@ class MainActivity : AppCompatActivity() {
     private fun imageOnClick(img: ImageView) {
         if (lastSelectedView == null) {
             lastSelectedView = img
-            img.hideAndShow()
+            img.setTransparentFg()
         } else {
-            if (lastSelectedView!!.tagToInt() == img.tagToInt()) {
-                lastSelectedView!!.setTransparentFg()
+            if (lastSelectedView!! == img) {
+                img.hideAndShow()
+            } else if (lastSelectedView!!.tag == img.tag) {
                 img.setTransparentFg()
-                completedPokemons.add(img.tagToInt())
+                img.isEnabled = false
+                lastSelectedView!!.setTransparentFg()
+                lastSelectedView!!.isEnabled = false
+                corrrect++
             } else {
+                lastSelectedView!!.hideAndShow()
                 img.hideAndShow()
             }
             lastSelectedView = null
         }
+
+        if (corrrect == 10) { endGame() }
+    }
+
+    private fun endGame() {
+        AlertDialog.Builder(this)
+            .setTitle("Completed!")
+            .setMessage("It took you ${(System.currentTimeMillis() - startTime)/1000} seconnds.")
+            .setPositiveButton("New game") { _, _ -> setupNewGame() }
+            .setNegativeButton("End game") { _, _ -> finish() }
+            .show()
     }
 
     private fun setupImageOnClicks() {
         iteratePokemonImages { img, _ -> img.setOnClickListener { imageOnClick(img) } }
     }
 
+    private fun setupNewGame() {
+        setupPokemons()
+        iteratePokemonImages { i, _ ->
+            i.isEnabled = true;
+            i.setImageResource(R.drawable.tapa)
+        }
+        startTime = System.currentTimeMillis()
+        corrrect = 0
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        pokemonsLayout = findViewById(R.id.pokemonsLayout)
+        cardsLayout = findViewById(R.id.pokemonsLayout)
 
-        setupPokemons()
+        setupNewGame()
         setupImageOnClicks()
     }
 }
