@@ -17,9 +17,9 @@ import kotlin.random.nextInt
 class MainActivity : AppCompatActivity() {
     private lateinit var pokemons: IntArray
     private lateinit var cardsLayout: TableLayout
-    private var lastSelectedView: ImageView? = null
+    private var lastImg: ImageView? = null
     private var startTime: Long = 0
-    private var corrrect: Int = 0
+    private var correct: Int = 0
 
     private inline fun iteratePokemonImages(f: (image: ImageView, n: Int) -> Unit) {
         for (j in 0 until cardsLayout.childCount) {
@@ -64,26 +64,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun imageOnClick(img: ImageView) {
-        if (lastSelectedView == null) {
-            lastSelectedView = img
+        if (lastImg == null) {
+            lastImg = img
             img.setTransparentFg()
         } else {
-            if (lastSelectedView!! == img) {
+            if (lastImg == img) {
                 img.hideAndShow()
-            } else if (lastSelectedView!!.tag == img.tag) {
+            } else if (lastImg!!.tag == img.tag) {
                 img.setTransparentFg()
                 img.isEnabled = false
-                lastSelectedView!!.setTransparentFg()
-                lastSelectedView!!.isEnabled = false
-                corrrect++
+                lastImg!!.setTransparentFg()
+                lastImg!!.isEnabled = false
+                correct++
             } else {
-                lastSelectedView!!.hideAndShow()
+                lastImg!!.hideAndShow()
                 img.hideAndShow()
             }
-            lastSelectedView = null
+            lastImg = null
         }
 
-        if (corrrect == 10) { endGame() }
+        if (correct == 10) { endGame() }
     }
 
     private fun endGame() {
@@ -102,11 +102,11 @@ class MainActivity : AppCompatActivity() {
     private fun setupNewGame() {
         setupPokemons()
         iteratePokemonImages { i, _ ->
-            i.isEnabled = true;
+            i.isEnabled = true
             i.setImageResource(R.drawable.tapa)
         }
         startTime = System.currentTimeMillis()
-        corrrect = 0
+        correct = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
