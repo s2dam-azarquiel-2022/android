@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             launch(Main) { this@hideAndShow.setTransparentFg() }
             SystemClock.sleep(500)
             launch(Main) {
-                this@hideAndShow.setImageResource(R.drawable.tapa)
+                if (this@hideAndShow.isEnabled) this@hideAndShow.setImageResource(R.drawable.tapa)
             }
         }
     }
