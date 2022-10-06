@@ -46,39 +46,40 @@ class MainActivity : AppCompatActivity() {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun ImageView.hideAndShow() {
+    private fun ImageView.showAndHide() {
         GlobalScope.launch {
-            launch(Main) { this@hideAndShow.setTransparentFg() }
-            SystemClock.sleep(500)
+            launch(Main) { this@showAndHide.show() }
+            SystemClock.sleep(250)
             launch(Main) {
-                if (this@hideAndShow.isEnabled) this@hideAndShow.setImageResource(R.drawable.tapa)
+                if (this@showAndHide.isEnabled) this@showAndHide.hide()
             }
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun ImageView.setTransparentFg() {
-        GlobalScope.launch { launch(Main) {
-            this@setTransparentFg.setImageResource(android.R.color.transparent)
-        } }
+    private fun ImageView.show() {
+            this@show.setImageResource(android.R.color.transparent)
+    }
+
+    private fun ImageView.hide() {
+            this@hide.setImageResource(R.drawable.tapa)
     }
 
     private fun imageOnClick(img: ImageView) {
         if (lastImg == null) {
             lastImg = img
-            img.setTransparentFg()
+            img.show()
         } else {
             if (lastImg == img) {
-                img.hideAndShow()
+                img.showAndHide()
             } else if (lastImg!!.tag == img.tag) {
-                img.setTransparentFg()
+                img.show()
                 img.isEnabled = false
-                lastImg!!.setTransparentFg()
+                lastImg!!.show()
                 lastImg!!.isEnabled = false
                 correct++
             } else {
-                lastImg!!.hideAndShow()
-                img.hideAndShow()
+                lastImg!!.showAndHide()
+                img.showAndHide()
             }
             lastImg = null
         }
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     private fun endGame() {
         AlertDialog.Builder(this)
             .setTitle("Completed!")
-            .setMessage("It took you ${(System.currentTimeMillis() - startTime)/1000} seconnds.")
+            .setMessage("It took you ${(System.currentTimeMillis() - startTime)/1000} seconds.")
             .setPositiveButton("New game") { _, _ -> setupNewGame() }
             .setNegativeButton("End game") { _, _ -> finish() }
             .show()
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         setupPokemons()
         iteratePokemonImages { i, _ ->
             i.isEnabled = true
-            i.setImageResource(R.drawable.tapa)
+            i.hide()
         }
         startTime = System.currentTimeMillis()
         correct = 0
