@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/hangedImg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        app:tint="@color/dark"
+        app:srcCompat="@drawable/hanged_0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/wordLetterImages"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <ImageView style="@style/wordLetter" />
+
+        <ImageView style="@style/wordLetter" />
+
+        <ImageView style="@style/wordLetter" />
+
+        <ImageView style="@style/wordLetter" />
+
+        <ImageView style="@style/wordLetter" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/keyboard"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/keyboardRow">
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/keyboardRow">
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/keyboardRow">
+
+            <ImageView
+                style="@style/wordLetter"
+                android:visibility="invisible" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView style="@style/wordLetter" />
+
+            <ImageView
+                style="@style/wordLetter"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Hanged</string>
+    <string name="actualWord">The word was %s.</string>
+    <string name="lostTitle">You lost!</string>
+    <string name="wonTitle">You won!</string>
+    <plurals name="timeTaken">
+        <item quantity="one">It took you: %d second.\n</item>
+        <item quantity="other">It took you: %d seconds.\n</item>
+    </plurals>
+    <plurals name="livesLost">
+        <item quantity="one">You had %d mistake.</item>
+        <item quantity="other">You had %d mistakes.</item>
+    </plurals>
+</resources>

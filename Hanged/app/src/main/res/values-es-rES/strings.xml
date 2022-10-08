@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ahorcado</string>
+    <string name="actualWord">La palabra era %s.</string>
+    <plurals name="timeTaken">
+        <item quantity="one">Has tardado: %d segundos.\n</item>
+        <item quantity="other">Has tardado: %d segundos.\n</item>
+    </plurals>
+    <plurals name="livesLost">
+        <item quantity="one">Tuviste %d fallo.</item>
+        <item quantity="other">Tuviste %d fallos.</item>
+    </plurals>
+    <string name="lostTitle">Has perdido!</string>
+    <string name="wonTitle">Has ganado!</string>
+</resources>
