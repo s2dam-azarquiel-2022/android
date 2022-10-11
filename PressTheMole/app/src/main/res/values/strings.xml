@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PressTheMole</string>
+    <string name="points">%d</string>
+</resources>
