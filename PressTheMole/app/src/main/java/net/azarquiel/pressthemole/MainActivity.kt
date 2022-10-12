@@ -18,28 +18,22 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
-    private val maxMoles: Int = 10
     private lateinit var mainLayout: ConstraintLayout
-    private var mainW: Int = 0
-    private var mainH: Int = 0
-    private lateinit var imgSizeR: IntRange
-    private lateinit var rnGesus: Random
-    private var luckyNumber: Int = 0
-    private var moleCount: Int = 0
-    private var points: Long = 0
     private lateinit var pointsView: TextView
+    private lateinit var burrow: Burrow
+    private var points: Long = 0
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun addPoints(x: Float, y: Float, w: Int, h: Int, shiny: Boolean) {
         // Add `p` to `points` and update `pointsView` to show them
-        val pointsGained = (mainW / w).let { n ->
-            if (shiny) n * luckyNumber
+        val pointsGained = (burrow.width / w).let { n ->
+            if (shiny) n * burrow.luckyNumber
             else n / 4
         }
         points += pointsGained
         pointsView.text = getString(R.string.points, points)
         mainLayout.addView(TextView(this).also {
-            it.text = "+$pointsGained"
+            it.text = getString(R.string.pointsGained, pointsGained)
             it.x = x + (w / 2)
             it.y = y + (h / 2)
             GlobalScope.launch {
@@ -79,11 +73,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addMole() {
-        moleCount++
-        rnGesus = Random(System.currentTimeMillis())
-        mainLayout.addView(Mole(this, imgSizeR, mainW, mainH, luckyNumber, {
+        burrow.moles++
+        mainLayout.addView(Mole(this, burrow, {
             addPoints(it.x, it.y, it.layoutParams.width, it.layoutParams.height, it.isShiny)
-            moleCount--
+            burrow.moles--
             mainLayout.removeView(it)
         }, {
             removePoints(it.x, it.y, it.layoutParams.width, it.layoutParams.height)
@@ -93,23 +86,22 @@ class MainActivity : AppCompatActivity() {
     private fun setupSizes() {
         // Get the screen's width and height
         Resources.getSystem().let { sys ->
-            mainW = sys.displayMetrics.widthPixels
-            mainH = sys.displayMetrics.heightPixels
+            burrow.width = sys.displayMetrics.widthPixels
+            burrow.height = sys.displayMetrics.heightPixels
         }
 
         // Sets the minimum and maximum sizes of a mole
-        imgSizeR = mainW/12..mainW/6
+        burrow.sizeRatio = burrow.width/12..burrow.width/6
 
         // Removes the max size of a mole from the size of the screen, so moles don't appear
         // on the end of the screen
-        mainW -= imgSizeR.last
-        mainH -= imgSizeR.last
+        burrow.width -= burrow.sizeRatio.last
+        burrow.height -= burrow.sizeRatio.last
     }
 
     private fun setupNewGame() {
-        rnGesus = Random(System.currentTimeMillis())
-        luckyNumber = rnGesus.nextInt(100)
-        moleCount = 0
+        burrow = Burrow(Random(System.currentTimeMillis()).nextInt())
+        burrow.moles = 0
         points = 0
         pointsView.text = getString(R.string.points, 0)
     }
@@ -148,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                 launch(Main) {
                     // There is a max quantity of moles to exist at once, so not to make
                     // your phone explode
-                    if (moleCount < maxMoles) addMole()
+                    if (burrow.moles < burrow.maxMoles) addMole()
                 }
             }
         }

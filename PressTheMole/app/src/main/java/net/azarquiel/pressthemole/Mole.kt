@@ -13,10 +13,7 @@ import kotlin.random.nextInt
 
 class Mole(
     context: Context,
-    sizeRatio: IntRange,
-    mainW: Int,
-    mainH: Int,
-    luckyNumber: Int,
+    private val burrow: Burrow,
     fOk: (self: Mole) -> Unit,
     fWrong: (self: Mole) -> Unit
 ) : androidx.appcompat.widget.AppCompatImageView(context) {
@@ -25,13 +22,13 @@ class Mole(
     private val rnGesus: Random = Random(System.currentTimeMillis())
 
     init {
-        isShiny = rnGesus.nextInt(100) == luckyNumber
+        isShiny = rnGesus.nextInt(100) == burrow.luckyNumber
 
-        rnGesus.nextInt(sizeRatio).let { s ->
+        rnGesus.nextInt(burrow.sizeRatio).let { s ->
             this.layoutParams = ConstraintLayout.LayoutParams(s, s)
         }
 
-        this.moveRandom(mainW, mainH)
+        this.moveRandom()
 
         this.setBackgroundResource(
             if (isShiny) R.drawable.special_animated
@@ -47,7 +44,7 @@ class Mole(
                 delay(500)
                 launch(Dispatchers.Main) {
                     this@Mole.visibility = View.VISIBLE
-                    this@Mole.moveRandom(mainW, mainH)
+                    this@Mole.moveRandom()
                 }
             }
         }
@@ -58,8 +55,8 @@ class Mole(
         }
     }
 
-    private fun moveRandom(mainW: Int, mainH: Int) {
-        this.x = rnGesus.nextInt(mainW).toFloat()
-        this.y = rnGesus.nextInt(mainH).toFloat()
+    private fun moveRandom() {
+        this.x = rnGesus.nextInt(burrow.width).toFloat()
+        this.y = rnGesus.nextInt(burrow.height).toFloat()
     }
 }
