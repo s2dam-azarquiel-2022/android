@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PressTheMole</string>
-    <string name="points">%d</string>
-    <string name="pointsGained">%c%d</string>
+    <string name="app_name">Press the Mole</string>
+    <string name="points" translatable="false">%d</string>
+    <string name="pointsGained" translatable="false">%c%d</string>
 </resources>
