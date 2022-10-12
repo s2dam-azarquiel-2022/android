@@ -20,7 +20,7 @@ import kotlin.random.Random
 import kotlin.random.nextInt
 
 class MainActivity : AppCompatActivity() {
-    private val maxMoles: Int = 20
+    private val maxMoles: Int = 10
     private lateinit var mainLayout: ConstraintLayout
     private var mainW: Int = 0
     private var mainH: Int = 0
@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         val shiny = rnGesus.nextInt(100) == luckyNumber
         mainLayout.addView(ImageView(this).also {
             it.moveRandom()
-            rnGesus.nextInt(imgSizeR).let {
-                s -> it.layoutParams = ConstraintLayout.LayoutParams(s,s)
+            rnGesus.nextInt(imgSizeR).let { s ->
+                it.layoutParams = ConstraintLayout.LayoutParams(s, s)
             }
 
             it.setBackgroundResource(
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
             GlobalScope.launch {
                 while (true) {
-                    delay(rnGesus.nextInt(1..2).toLong() * 1600)
+                    delay(rnGesus.nextInt(1..3).toLong() * 1600)
                     launch(Main) { it.visibility = View.INVISIBLE }
                     delay(500)
                     launch(Main) { it.visibility = View.VISIBLE; it.moveRandom() }
@@ -118,10 +118,17 @@ class MainActivity : AppCompatActivity() {
         pointsView = findViewById(R.id.pointsView)
 
         addPoints(0) // Just to show 0 on the screen
+    }
+
+    override fun onResume() {
+        // Seems like onResume works better than waiting 1 second in onCreate to use `setupSizes()`
+        // The problem with `setupSizes()` is it got the size of the screen in portrait mode
+        // since it did not give time for the activity to turn into landscape mode.
+        super.onResume()
+
+        setupSizes()
 
         GlobalScope.launch {
-            delay(1000)
-            setupSizes()
             while (true) {
                 delay(1000)
                 launch(Main) {
