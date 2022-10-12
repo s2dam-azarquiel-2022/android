@@ -1,12 +1,11 @@
 package net.azarquiel.pressthemole
 
+import android.animation.ObjectAnimator
 import android.content.res.Resources
-import android.graphics.drawable.AnimationDrawable
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import kotlinx.coroutines.Dispatchers.Main
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
@@ -17,7 +16,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
-import kotlin.random.nextInt
 
 class MainActivity : AppCompatActivity() {
     private val maxMoles: Int = 10
@@ -26,62 +24,70 @@ class MainActivity : AppCompatActivity() {
     private var mainH: Int = 0
     private lateinit var imgSizeR: IntRange
     private lateinit var rnGesus: Random
-    private var luckyNumber: Int = Random.nextInt(100)
+    private var luckyNumber: Int = 0
     private var moleCount: Int = 0
     private var points: Long = 0
     private lateinit var pointsView: TextView
 
-    private fun ImageView.moveRandom() {
-        // Move a ImageView to a random position on the screen
-        this.x = rnGesus.nextInt(mainW).toFloat()
-        this.y = rnGesus.nextInt(mainH).toFloat()
-    }
-
-    private fun addPoints(p: Int) {
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun addPoints(x: Float, y: Float, w: Int, h: Int, shiny: Boolean) {
         // Add `p` to `points` and update `pointsView` to show them
-        points += p
+        val pointsGained = (mainW / w).let { n ->
+            if (shiny) n * luckyNumber
+            else n / 4
+        }
+        points += pointsGained
         pointsView.text = getString(R.string.points, points)
+        mainLayout.addView(TextView(this).also {
+            it.text = "+$pointsGained"
+            it.x = x + (w / 2)
+            it.y = y + (h / 2)
+            GlobalScope.launch {
+                launch(Main) {
+                    ObjectAnimator.ofFloat(it, "translationY", -100f).apply {
+                        duration = 500
+                        start()
+                    }
+                }
+                delay(500)
+                launch(Main) { mainLayout.removeView(it) }
+            }
+        })
     }
 
     @OptIn(DelicateCoroutinesApi::class)
+    private fun removePoints(x: Float, y: Float, w: Int, h: Int) {
+        // Remove `p` to `points` and update `pointsView` to show them
+        points -= 1
+        pointsView.text = getString(R.string.points, points)
+        mainLayout.addView(TextView(this).also {
+            it.text = "-1"
+            it.x = x + (w / 2)
+            it.y = y + (h / 2)
+            it.setTextColor(Color.RED)
+            GlobalScope.launch {
+                launch(Main) {
+                    ObjectAnimator.ofFloat(it, "translationY", -100f).apply {
+                        duration = 500
+                        start()
+                    }
+                }
+                delay(500)
+                launch(Main) { mainLayout.removeView(it) }
+            }
+        })
+    }
+
     private fun addMole() {
         moleCount++
         rnGesus = Random(System.currentTimeMillis())
-        val shiny = rnGesus.nextInt(100) == luckyNumber
-        mainLayout.addView(ImageView(this).also {
-            it.moveRandom()
-            rnGesus.nextInt(imgSizeR).let { s ->
-                it.layoutParams = ConstraintLayout.LayoutParams(s, s)
-            }
-
-            it.setBackgroundResource(
-                if (shiny) R.drawable.special_animated
-                else R.drawable.normal_animated
-            )
-
-            val animation: AnimationDrawable = it.background as AnimationDrawable
-            animation.start()
-
-            it.setOnClickListener { _ ->
-                if (animation.current != animation.getFrame(0)) {
-                    addPoints((mainW / it.layoutParams.width).let { n ->
-                        if (shiny) n * luckyNumber
-                        else n / 4
-                    })
-                    moleCount--
-                    mainLayout.removeView(it)
-                }
-            }
-
-            GlobalScope.launch {
-                while (true) {
-                    delay(rnGesus.nextInt(1..3).toLong() * 1600)
-                    launch(Main) { it.visibility = View.INVISIBLE }
-                    delay(500)
-                    launch(Main) { it.visibility = View.VISIBLE; it.moveRandom() }
-                }
-            }
-        })
+        mainLayout.addView(Mole(this, imgSizeR, mainW, mainH, luckyNumber, {
+            addPoints(it.x, it.y, it.layoutParams.width, it.layoutParams.height, it.isShiny)
+            moleCount--
+            mainLayout.removeView(it)
+        }, {
+            removePoints(it.x, it.y, it.layoutParams.width, it.layoutParams.height)
+        }))
     }
 
     private fun setupSizes() {
@@ -100,8 +106,15 @@ class MainActivity : AppCompatActivity() {
         mainH -= imgSizeR.last
     }
 
+    private fun setupNewGame() {
+        rnGesus = Random(System.currentTimeMillis())
+        luckyNumber = rnGesus.nextInt(100)
+        moleCount = 0
+        points = 0
+        pointsView.text = getString(R.string.points, 0)
+    }
+
     @Suppress("DEPRECATION")
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -117,9 +130,10 @@ class MainActivity : AppCompatActivity() {
         mainLayout = findViewById(R.id.mainLayout)
         pointsView = findViewById(R.id.pointsView)
 
-        addPoints(0) // Just to show 0 on the screen
+        setupNewGame()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onResume() {
         // Seems like onResume works better than waiting 1 second in onCreate to use `setupSizes()`
         // The problem with `setupSizes()` is it got the size of the screen in portrait mode
