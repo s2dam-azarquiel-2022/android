@@ -1,30 +1,31 @@
 package net.azarquiel.pressthemole
 
+import android.animation.ObjectAnimator
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.view.View
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 import kotlin.random.nextInt
 
 class Mole(
     context: Context,
     private val burrow: Burrow,
-    fOk: (self: Mole) -> Unit,
-    fWrong: (self: Mole) -> Unit
 ) : androidx.appcompat.widget.AppCompatImageView(context) {
     var isShiny: Boolean = false
     private var animation: AnimationDrawable
-    private val rnGesus: Random = Random(System.currentTimeMillis())
 
     init {
-        isShiny = rnGesus.nextInt(100) == burrow.luckyNumber
+        burrow.moles++
 
-        rnGesus.nextInt(burrow.sizeRatio).let { s ->
+        isShiny = burrow.rnGesus.nextInt(100) == burrow.luckyNumber
+
+        burrow.rnGesus.nextInt(burrow.sizeRatio).let { s ->
             this.layoutParams = ConstraintLayout.LayoutParams(s, s)
         }
 
@@ -39,7 +40,7 @@ class Mole(
 
         GlobalScope.launch {
             while (true) {
-                delay(rnGesus.nextInt(1..3).toLong() * 1600)
+                delay(burrow.rnGesus.nextInt(1..3).toLong() * 1600)
                 launch(Dispatchers.Main) { this@Mole.visibility = View.INVISIBLE }
                 delay(500)
                 launch(Dispatchers.Main) {
@@ -50,13 +51,45 @@ class Mole(
         }
 
         this.setOnClickListener {
-            if (animation.current != animation.getFrame(0)) fOk(this)
-            else fWrong(this)
+            if (animation.current != animation.getFrame(0)) {
+                showScorePoints((burrow.width / this.layoutParams.width).let { n ->
+                    if (this.isShiny) n * burrow.luckyNumber
+                    else n / 4
+                })
+                burrow.mainLayout.removeView(this)
+                burrow.moles--
+            }
+            else showScorePoints(-1)
         }
     }
 
+    private fun showScorePoints(score: Int) {
+        burrow.score += score
+        burrow.pointsView.text = context.getString(R.string.points, burrow.score)
+        burrow.mainLayout.addView(TextView(context).also {
+            if (score < 0) it.setTextColor(Color.RED)
+            it.text = context.getString(
+                R.string.pointsGained,
+                if (score >= 0) '+' else '-',
+                score
+            )
+            it.x = this.x + (this.layoutParams.width / 2)
+            it.y = this.y + (this.layoutParams.height / 2)
+            GlobalScope.launch {
+                launch(Dispatchers.Main) {
+                    ObjectAnimator.ofFloat(it, "translationY", -100F).apply {
+                        duration = 500
+                        start()
+                    }
+                }
+                delay(500)
+                launch(Dispatchers.Main) { burrow.mainLayout.removeView(it) }
+            }
+        })
+    }
+
     private fun moveRandom() {
-        this.x = rnGesus.nextInt(burrow.width).toFloat()
-        this.y = rnGesus.nextInt(burrow.height).toFloat()
+        this.x = burrow.rnGesus.nextInt(burrow.width).toFloat()
+        this.y = burrow.rnGesus.nextInt(burrow.height).toFloat()
     }
 }
