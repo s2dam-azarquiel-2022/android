@@ -1,23 +1,23 @@
 package net.azarquiel.pressthemole
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.random.nextInt
 
+@SuppressLint("ViewConstructor")
+@OptIn(DelicateCoroutinesApi::class)
 class Mole(
     context: Context,
     private val burrow: Burrow,
 ) : androidx.appcompat.widget.AppCompatImageView(context) {
-    var isShiny: Boolean = false
+    private var isShiny: Boolean = false
     private var animation: AnimationDrawable
 
     init {
