@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 launch(Dispatchers.Main) {
                     // There is a max quantity of moles to exist at once, so not to make
                     // your phone explode
-                    if (burrow.moles < burrow.maxMoles) {
+                    if (burrow.moles.size < burrow.maxMoles) {
                         burrow.mainLayout.addView(Mole(this@MainActivity, burrow))
                     }
                 }

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.*
+import kotlin.math.absoluteValue
 import kotlin.random.nextInt
 
 @SuppressLint("ViewConstructor")
@@ -21,7 +22,7 @@ class Mole(
     private var animation: AnimationDrawable
 
     init {
-        burrow.moles++
+        burrow.moles.add(this)
 
         isShiny = burrow.rnGesus.nextInt(100) == burrow.luckyNumber
 
@@ -57,7 +58,7 @@ class Mole(
                     else n / 4
                 })
                 burrow.mainLayout.removeView(this)
-                burrow.moles--
+                burrow.moles.remove(this)
             }
             else showScorePoints(-1)
         }
@@ -91,5 +92,14 @@ class Mole(
     private fun moveRandom() {
         this.x = burrow.rnGesus.nextInt(burrow.width).toFloat()
         this.y = burrow.rnGesus.nextInt(burrow.height).toFloat()
+
+        // Take care this WILL crash when `burrow.maxMoles` is too high.
+        for (mole in burrow.moles) {
+            if (
+                mole != this &&
+                (this.x - mole.x).absoluteValue < burrow.sizeRatio.first &&
+                (this.y - mole.y).absoluteValue < burrow.sizeRatio.first
+            ) moveRandom()
+        }
     }
 }

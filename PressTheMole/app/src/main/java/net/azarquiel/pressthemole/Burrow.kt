@@ -13,6 +13,6 @@ data class Burrow(
     @JvmField var width: Int = 0,
     @JvmField var height: Int = 0,
     @JvmField var maxMoles: Int = 10,
-    @JvmField var moles: Int = 0,
+    @JvmField var moles: MutableList<Mole> = mutableListOf(),
     @JvmField var score: Long = 0,
 )
