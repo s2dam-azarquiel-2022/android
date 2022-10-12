@@ -58,10 +58,12 @@ class MainActivity : AppCompatActivity() {
                 if (shiny) R.drawable.special_animated
                 else R.drawable.normal_animated
             )
-            (it.background as AnimationDrawable).start()
+
+            val animation: AnimationDrawable = it.background as AnimationDrawable
+            animation.start()
 
             it.setOnClickListener { _ ->
-                if ((it.background as AnimationDrawable).level == 0) {
+                if (animation.current != animation.getFrame(0)) {
                     addPoints((mainW / it.layoutParams.width).let { n ->
                         if (shiny) n * luckyNumber
                         else n / 4
