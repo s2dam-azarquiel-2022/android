@@ -1,12 +1,10 @@
 package net.azarquiel.pressthemole
 
-import android.app.Activity
 import android.content.res.Resources
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import kotlinx.coroutines.Dispatchers.Main
 import android.widget.ImageView
 import android.widget.TextView
@@ -34,11 +32,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pointsView: TextView
 
     private fun ImageView.moveRandom() {
+        // Move a ImageView to a random position on the screen
         this.x = rnGesus.nextInt(mainW).toFloat()
         this.y = rnGesus.nextInt(mainH).toFloat()
     }
 
     private fun addPoints(p: Int) {
+        // Add `p` to `points` and update `pointsView` to show them
         points += p
         pointsView.text = getString(R.string.points, points)
     }
@@ -83,12 +83,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSizes() {
+        // Get the screen's width and height
         Resources.getSystem().let { sys ->
             mainW = sys.displayMetrics.widthPixels
             mainH = sys.displayMetrics.heightPixels
         }
+
+        // Sets the minimum and maximum sizes of a mole
         imgSizeR = mainW/12..mainW/6
 
+        // Removes the max size of a mole from the size of the screen, so moles don't appear
+        // on the end of the screen
         mainW -= imgSizeR.last
         mainH -= imgSizeR.last
     }
@@ -99,7 +104,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Para quitar la barra de estado de arriba, parece q solo funciona en androids mas nuevos
+        // Snippet to remove the state bar at the top and make the app "fullscreen".
+        // This seems to orly work on newer android versions, so to avoid it not working in older
+        // ones I'm using the `?` operator to check for null
         ViewCompat.getWindowInsetsController(window.decorView)?.let {
             it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             it.hide(WindowInsetsCompat.Type.systemBars())
@@ -115,7 +122,11 @@ class MainActivity : AppCompatActivity() {
             setupSizes()
             while (true) {
                 delay(1000)
-                launch(Main) { if (moleCount < maxMoles) addMole() }
+                launch(Main) {
+                    // There is a max quantity of moles to exist at once, so not to make
+                    // your phone explode
+                    if (moleCount < maxMoles) addMole()
+                }
             }
         }
     }
