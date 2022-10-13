@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         burrow.pointsView.text = getString(R.string.points, 0)
     }
 
-    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

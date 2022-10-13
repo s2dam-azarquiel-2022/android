@@ -97,7 +97,7 @@ class Mole(
                 (this.y - mole.y).absoluteValue < burrow.sizeRatio.average()
             ) { return false }
         }
-        return true;
+        return true
     }
 
     private fun moveRandom() {
