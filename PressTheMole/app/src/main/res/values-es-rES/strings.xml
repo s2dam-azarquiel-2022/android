@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Presiona el Topo</string>
+    <string name="shoppingCartBtnDesc">Mostrar tienda de mejoras</string>
+    <string name="upgradesShopTitle">Tienda de mejoras</string>
+    <string name="pointPrice">%d puntos</string>
+    <string name="slowerMolesText">Topos más lentos</string>
+    <string name="doublePointsText">El doble de puntos</string>
+    <string name="aLuckierPersonText">Una persona mas suertuda</string>
+    <string name="upgradesShopCloseBtnDesc">Cerrar tienda de mejoras</string>
+    <string name="buyUpgrade">Comprar</string>
 </resources>

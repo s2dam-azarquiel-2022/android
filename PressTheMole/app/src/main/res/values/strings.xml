@@ -2,4 +2,12 @@
     <string name="app_name">Press the Mole</string>
     <string name="points" translatable="false">%d</string>
     <string name="pointsGained" translatable="false">%c%d</string>
+    <string name="shoppingCartBtnDesc">Show upgrades shop</string>
+    <string name="upgradesShopCloseBtnDesc">Close upgrades shop</string>
+    <string name="upgradesShopTitle">Upgrades shop</string>
+    <string name="pointPrice">%d points</string>
+    <string name="slowerMolesText">Slower moles</string>
+    <string name="doublePointsText">Double points</string>
+    <string name="aLuckierPersonText">A luckier person</string>
+    <string name="buyUpgrade">Buy</string>
 </resources>
