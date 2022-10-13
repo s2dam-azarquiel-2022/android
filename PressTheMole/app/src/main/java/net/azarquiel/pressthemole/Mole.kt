@@ -55,7 +55,7 @@ class Mole(
             if (animation.current != animation.getFrame(0)) {
                 showScorePoints((burrow.width / this.layoutParams.width).let { n ->
                     if (this.isShiny) n * burrow.luckyNumber
-                    else n / 4
+                    else n / 5
                 })
                 burrow.mainLayout.removeView(this)
                 burrow.moles.remove(this)
@@ -89,17 +89,21 @@ class Mole(
         })
     }
 
-    private fun moveRandom() {
-        this.x = burrow.rnGesus.nextInt(burrow.width).toFloat()
-        this.y = burrow.rnGesus.nextInt(burrow.height).toFloat()
-
-        // Take care this WILL crash when `burrow.maxMoles` is too high.
+    private fun posIsCorrect(): Boolean {
         for (mole in burrow.moles) {
             if (
                 mole != this &&
                 (this.x - mole.x).absoluteValue < burrow.sizeRatio.first &&
                 (this.y - mole.y).absoluteValue < burrow.sizeRatio.first
-            ) moveRandom()
+            ) { return false }
         }
+        return true;
+    }
+
+    private fun moveRandom() {
+        do {
+            this.x = burrow.rnGesus.nextInt(burrow.width).toFloat()
+            this.y = burrow.rnGesus.nextInt(burrow.height).toFloat()
+        } while (!posIsCorrect())
     }
 }

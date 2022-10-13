@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Sets the minimum and maximum sizes of a mole
-        burrow.sizeRatio = burrow.width/12..burrow.width/6
+        burrow.sizeRatio = burrow.width/14..burrow.width/8
 
         // Removes the max size of a mole from the size of the screen, so moles don't appear
         // on the end of the screen
@@ -39,14 +39,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Snippet to remove the state bar at the top and make the app "fullscreen".
-        // This seems to orly work on newer android versions, so to avoid it not working in older
-        // ones I'm using the `?` operator to check for null
-        ViewCompat.getWindowInsetsController(window.decorView)?.let {
-            it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            it.hide(WindowInsetsCompat.Type.systemBars())
-        }
 
         setupNewGame()
     }
