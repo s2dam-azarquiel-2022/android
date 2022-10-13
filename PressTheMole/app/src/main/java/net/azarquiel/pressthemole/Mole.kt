@@ -24,7 +24,7 @@ class Mole(
     init {
         burrow.moles.add(this)
 
-        isShiny = burrow.rnGesus.nextInt(100) == burrow.luckyNumber
+        isShiny = burrow.rnGesus.nextInt(maxLuckyNumber) == burrow.luckyNumber
 
         burrow.rnGesus.nextInt(burrow.sizeRatio).let { s ->
             this.layoutParams = ConstraintLayout.LayoutParams(s, s)
@@ -41,9 +41,9 @@ class Mole(
 
         GlobalScope.launch {
             while (true) {
-                delay(burrow.rnGesus.nextInt(1..3).toLong() * 1600)
+                delay(burrow.rnGesus.nextInt(delayCountMin..delayCountMax).toLong() * delayDuration)
                 launch(Dispatchers.Main) { this@Mole.visibility = View.INVISIBLE }
-                delay(500)
+                delay(excavatingDuration)
                 launch(Dispatchers.Main) {
                     this@Mole.visibility = View.VISIBLE
                     this@Mole.moveRandom()
@@ -55,12 +55,12 @@ class Mole(
             if (animation.current != animation.getFrame(0)) {
                 showScorePoints((burrow.width / this.layoutParams.width).let { n ->
                     if (this.isShiny) n * burrow.luckyNumber
-                    else n / 5
+                    else n / pointsRatio
                 })
                 burrow.mainLayout.removeView(this)
                 burrow.moles.remove(this)
             }
-            else showScorePoints(-1)
+            else showScorePoints(missclickPointsLost)
         }
     }
 
@@ -79,11 +79,11 @@ class Mole(
             GlobalScope.launch {
                 launch(Dispatchers.Main) {
                     ObjectAnimator.ofFloat(it, "translationY", -100F).apply {
-                        duration = 500
+                        duration = scoreTextAnimationDuration
                         start()
                     }
                 }
-                delay(500)
+                delay(scoreTextAnimationDuration)
                 launch(Dispatchers.Main) { burrow.mainLayout.removeView(it) }
             }
         })
@@ -93,8 +93,8 @@ class Mole(
         for (mole in burrow.moles) {
             if (
                 mole != this &&
-                (this.x - mole.x).absoluteValue < burrow.sizeRatio.first &&
-                (this.y - mole.y).absoluteValue < burrow.sizeRatio.first
+                (this.x - mole.x).absoluteValue < burrow.sizeRatio.average() &&
+                (this.y - mole.y).absoluteValue < burrow.sizeRatio.average()
             ) { return false }
         }
         return true;

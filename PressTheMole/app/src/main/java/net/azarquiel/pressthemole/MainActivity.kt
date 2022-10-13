@@ -3,9 +3,6 @@ package net.azarquiel.pressthemole
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Sets the minimum and maximum sizes of a mole
-        burrow.sizeRatio = burrow.width/14..burrow.width/8
+        burrow.sizeRatio = burrow.width/maxSizeRatio .. burrow.width/minSizeRatio
 
         // Removes the max size of a mole from the size of the screen, so moles don't appear
         // on the end of the screen
@@ -54,11 +51,11 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             while (true) {
-                delay(1000)
+                delay(newMoleWaitDuration)
                 launch(Dispatchers.Main) {
                     // There is a max quantity of moles to exist at once, so not to make
                     // your phone explode
-                    if (burrow.moles.size < burrow.maxMoles) {
+                    if (burrow.moles.size < maxMoles) {
                         burrow.mainLayout.addView(Mole(this@MainActivity, burrow))
                     }
                 }
