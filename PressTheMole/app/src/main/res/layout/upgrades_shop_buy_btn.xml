@@ -6,6 +6,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/buyUpgrade"
-    android:textSize="18dp"
+    android:textSize="18sp"
     app:cornerRadius="20dp"
     tools:showIn="@layout/upgrades_shop" />

@@ -15,10 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupSizes() {
         // Get the screen's width and height
-        Resources.getSystem().displayMetrics.let { metrics ->
-            burrow.width = metrics.widthPixels
-            burrow.height = metrics.heightPixels
-        }
+        burrow.width = burrow.mainLayout.width
+        burrow.height = burrow.mainLayout.height
 
         // Sets the minimum and maximum sizes of a mole
         burrow.sizeRatio = burrow.width/Stats.maxSizeRatio .. burrow.width/Stats.minSizeRatio
@@ -104,15 +102,17 @@ class MainActivity : AppCompatActivity() {
 
         setupNewGame()
         setupBoostsShop()
+
+        findViewById<Button>(R.id.startBtn).setOnClickListener {
+            it.visibility = View.GONE
+            upgradesShopOpener.visibility = View.VISIBLE
+            burrow.pointsView.visibility = View.VISIBLE
+            startGame()
+        }
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    override fun onResume() {
-        // Seems like onResume works better than waiting 1 second in onCreate to use `setupSizes()`
-        // The problem with `setupSizes()` is it got the size of the screen in portrait mode
-        // since it did not give time for the activity to turn into landscape mode.
-        super.onResume()
-
+    fun startGame() {
         setupSizes()
 
         GlobalScope.launch {

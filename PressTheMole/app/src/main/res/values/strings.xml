@@ -10,4 +10,5 @@
     <string name="doublePointsText">Double points</string>
     <string name="aLuckierPersonText">A luckier person</string>
     <string name="buyUpgrade">Buy</string>
+    <string name="startBtnText">START</string>
 </resources>
