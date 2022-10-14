@@ -15,13 +15,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupSizes() {
         // Get the screen's width and height
-        Resources.getSystem().let { sys ->
-            burrow.width = sys.displayMetrics.widthPixels
-            burrow.height = sys.displayMetrics.heightPixels
+        Resources.getSystem().displayMetrics.let { metrics ->
+            burrow.width = metrics.widthPixels
+            burrow.height = metrics.heightPixels
         }
 
         // Sets the minimum and maximum sizes of a mole
-        burrow.sizeRatio = burrow.width/maxSizeRatio .. burrow.width/minSizeRatio
+        burrow.sizeRatio = burrow.width/Stats.maxSizeRatio .. burrow.width/Stats.minSizeRatio
 
         // Removes the max size of a mole from the size of the screen, so moles don't appear
         // on the end of the screen
@@ -61,36 +61,37 @@ class MainActivity : AppCompatActivity() {
         upgradesShopCloser.setOnClickListener { closeUpgradesShop() }
 
         findViewById<LinearLayout>(R.id.upgradeSlowerMoles).let {
-            (it.getChildAt(1) as TextView).text = getString(R.string.pointPrice, slowerMolesPrice)
+            (it.getChildAt(1) as TextView).text = getString(R.string.pointPrice, Stats.slowerMolesPrice)
             (it.getChildAt(2) as Button).setOnClickListener { btn ->
-                if (burrow.score >= slowerMolesPrice) {
-                    burrow.delayDuration *= 2
-                    burrow.moleSkin = R.drawable.normal_animated_slow
-                    burrow.shinyMoleSkin = R.drawable.shiny_animated_slow
-                    usePoints(slowerMolesPrice)
+                if (burrow.score >= Stats.slowerMolesPrice) {
+                    burrow.delayDuration = Stats.delayDurationSlow
+                    burrow.moleSkin = Stats.moleSkinSlow
+                    burrow.shinyMoleSkin = Stats.shinyMoleSkinSlow
+                    usePoints(Stats.slowerMolesPrice)
                     btn.isEnabled = false
                 }
             }
         }
 
         findViewById<LinearLayout>(R.id.upgradeDoublePoints).let {
-            (it.getChildAt(1) as TextView).text = getString(R.string.pointPrice, doublePointsPrice)
+            (it.getChildAt(1) as TextView).text = getString(R.string.pointPrice, Stats.doublePointsPrice)
             (it.getChildAt(2) as Button).setOnClickListener { btn ->
-                if (burrow.score >= doublePointsPrice) {
-                    burrow.pointsMultiplier *= 2
-                    usePoints(doublePointsPrice)
+                if (burrow.score >= Stats.doublePointsPrice) {
+                    burrow.pointsMultiplier = Stats.pointsMultiplierDouble
+                    usePoints(Stats.doublePointsPrice)
                     btn.isEnabled = false
                 }
             }
         }
 
         findViewById<LinearLayout>(R.id.upgradeALuckierPerson).let {
-            (it.getChildAt(1) as TextView).text = getString(R.string.pointPrice, aLuckierPersonPrice)
+            (it.getChildAt(1) as TextView).text = getString(R.string.pointPrice, Stats.aLuckierPersonPrice)
             (it.getChildAt(2) as Button).setOnClickListener { btn ->
-                if (burrow.score >= aLuckierPersonPrice) {
-                    burrow.maxLuckyNumber /= 2
+                if (burrow.score >= Stats.aLuckierPersonPrice) {
+                    burrow.maxLuckyNumber = Stats.maxLuckyNumberUpgraded
                     burrow.luckyNumber = burrow.rnGesus.nextInt(burrow.maxLuckyNumber)
-                    usePoints(aLuckierPersonPrice)
+                    burrow.shinyPointsMultiplier = Stats.shinyPointsMultiplierDouble
+                    usePoints(Stats.aLuckierPersonPrice)
                     btn.isEnabled = false
                 }
             }
@@ -116,11 +117,11 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             while (true) {
-                delay(newMoleWaitDuration)
+                delay(Stats.newMoleWaitDuration)
                 launch(Dispatchers.Main) {
                     // There is a max quantity of moles to exist at once, so not to make
                     // your phone explode
-                    if (burrow.moles.size < maxMoles) {
+                    if (burrow.moles.size < Stats.maxMoles) {
                         burrow.mainLayout.addView(Mole(this@MainActivity, burrow))
                     }
                 }

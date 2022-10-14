@@ -42,11 +42,11 @@ class Mole(
         GlobalScope.launch {
             while (true) {
                 delay(
-                    burrow.rnGesus.nextInt(delayCountMin..delayCountMax).toLong() *
+                    burrow.rnGesus.nextInt(Stats.delayCountMin..Stats.delayCountMax).toLong() *
                     burrow.delayDuration
                 )
                 launch(Dispatchers.Main) { this@Mole.visibility = View.INVISIBLE }
-                delay(excavatingDuration)
+                delay(Stats.excavatingDuration)
                 launch(Dispatchers.Main) {
                     this@Mole.visibility = View.VISIBLE
                     this@Mole.moveRandom()
@@ -57,13 +57,13 @@ class Mole(
         this.setOnClickListener {
             if (animation.current != animation.getFrame(0)) {
                 showScorePoints((burrow.width / this.layoutParams.width).let { n ->
-                    if (this.isShiny) n * burrow.luckyNumber
+                    if (this.isShiny) n * burrow.shinyPointsMultiplier
                     else n
-                } / pointsRatio * burrow.pointsMultiplier)
+                } / Stats.pointsRatio * burrow.pointsMultiplier)
                 burrow.mainLayout.removeView(this)
                 burrow.moles.remove(this)
             }
-            else showScorePoints(missclickPointsLost)
+            else showScorePoints(Stats.missclickPointsLost)
         }
     }
 
@@ -81,12 +81,12 @@ class Mole(
             it.y = this.y + (this.layoutParams.height / 2)
             GlobalScope.launch {
                 launch(Dispatchers.Main) {
-                    ObjectAnimator.ofFloat(it, "translationY", -100F).apply {
-                        duration = pointsTextAnimationDuration
+                    ObjectAnimator.ofFloat(it, "translationY", -0.001F).apply {
+                        duration = Stats.pointsTextAnimationDuration
                         start()
                     }
                 }
-                delay(pointsTextAnimationDuration)
+                delay(Stats.pointsTextAnimationDuration)
                 launch(Dispatchers.Main) { burrow.mainLayout.removeView(it) }
             }
         })
