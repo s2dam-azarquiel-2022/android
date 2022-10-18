@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Dice</string>
+    <string name="playBtnRollTxt">ROLL</string>
+    <string name="playBtnNextTxt">NEXT PLAYER</string>
+    <string name="playBtnEndTxt">END GAME</string>
+</resources>
