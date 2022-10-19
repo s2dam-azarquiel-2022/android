@@ -12,10 +12,6 @@ data class Cup(
         (diceHolder.getChildAt(i) as Dice).also { it.rnGesus = rnGesus }
     }
 ) {
-    fun roll() { dice.forEach { d -> d.roll() } }
-    fun stop() { dice.forEach { d -> d.stop() } }
-    fun clear() { dice.forEach { d -> d.clear() } }
-
     // Just so that the warning to create them doesn't show
     override fun equals(other: Any?): Boolean { TODO() }
     override fun hashCode(): Int { TODO() }

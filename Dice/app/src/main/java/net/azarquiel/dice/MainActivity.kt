@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         if (isWaitingForNext) setupNextPlayer()
         else {
-            cup.roll()
+            cup.dice.forEach { it.roll() }
             startBtn.isEnabled = false
             GlobalScope.launch {
                 delay(1425)
                 launch(Dispatchers.Main) {
-                    cup.stop()
+                    cup.dice.forEach { it.stop() }
                     startBtn.isEnabled = true
                     cup.players[cup.currentPlayer].rollsLeft--
                     if (cup.players[cup.currentPlayer].rollsLeft == 0) checkNextPlayer()
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         else {
             isWaitingForNext = false
             startBtn.text = getString(R.string.playBtnRollTxt)
-            cup.clear()
+            cup.dice.forEach { it.clear() }
         }
     }
 
