@@ -48,14 +48,14 @@ class Dice(
         this.isEnabled = false
         if (!isPinned) {
             this.background = animation
-            animation!!.start()
+            animation.start()
         }
     }
 
     fun stop() {
         this.isEnabled = true
         if (!isPinned) {
-            animation!!.stop()
+            animation.stop()
             face = "face${rnGesus!!.nextInt(1..5)}"
             this.setBackgroundResource(face)
         }
