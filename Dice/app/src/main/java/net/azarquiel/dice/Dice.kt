@@ -11,7 +11,7 @@ import kotlin.random.nextInt
 
 class Dice(
     c: Context,
-    private val a: AttributeSet,
+    a: AttributeSet,
     d: Int
 ) : androidx.appcompat.widget.AppCompatImageView(c, a, d), OnClickListener {
     constructor(c: Context, a: AttributeSet) : this(c, a, 0)

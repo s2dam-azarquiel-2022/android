@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -24,6 +21,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         startBtn.setOnClickListener(this)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onClick(p0: View?) {
         if (isWaitingForNext) setupNextPlayer()
         else {

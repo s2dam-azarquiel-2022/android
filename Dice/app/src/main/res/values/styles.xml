@@ -11,5 +11,6 @@
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:background">@drawable/face_unknown</item>
+        <item name="contentDescription">Dice</item>
     </style>
 </resources>
