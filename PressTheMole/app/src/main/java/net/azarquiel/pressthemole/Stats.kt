@@ -10,7 +10,7 @@ object Stats {
 
     const val delayDurationDefault: Long = 1600
     const val delayDurationSlow: Long = delayDurationDefault + 500
-    const val excavatingDuration: Long = 1000
+    val excavatingDuration: LongRange = 1000L..3000L
     const val newMoleWaitDuration: Long = 2000
     const val pointsTextAnimationDuration: Long = 500
 

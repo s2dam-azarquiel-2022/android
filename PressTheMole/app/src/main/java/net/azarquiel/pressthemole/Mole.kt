@@ -20,6 +20,7 @@ class Mole(
 ) : androidx.appcompat.widget.AppCompatImageView(context) {
     private var isShiny: Boolean = false
     private var animation: AnimationDrawable
+    private var isAlive = true
 
     init {
         burrow.moles.add(this)
@@ -40,22 +41,33 @@ class Mole(
         animation.start()
 
         GlobalScope.launch {
-            while (true) {
-                delay(
-                    burrow.rnGesus.nextInt(Stats.delayCountMin..Stats.delayCountMax).toLong() *
-                    burrow.delayDuration
-                )
-                launch(Dispatchers.Main) { this@Mole.visibility = View.INVISIBLE }
-                delay(Stats.excavatingDuration)
+            while (isAlive) {
+                repeat(burrow.rnGesus.nextInt(Stats.delayCountMin..Stats.delayCountMax)) {
+                    if (isAlive) {
+                        delay(1000)
+                        launch(Dispatchers.Main) {
+                            burrow.soundPool.play(burrow.moleShowSound, 1f, 1f, 1, 0, 1f)
+                        }
+                        delay(burrow.delayDuration - 1000)
+                    }
+                }
+                launch(Dispatchers.Main) {
+                    this@Mole.visibility = View.INVISIBLE
+                    animation.stop()
+                }
+                delay(burrow.rnGesus.nextLong(Stats.excavatingDuration.first))
                 launch(Dispatchers.Main) {
                     this@Mole.visibility = View.VISIBLE
                     this@Mole.moveRandom()
+                    animation.start()
                 }
             }
         }
 
         this.setOnClickListener {
             if (animation.current != animation.getFrame(0)) {
+                isAlive = false
+                burrow.soundPool.play(burrow.moleKillSound, 1f, 1f, 2, 0, 1f)
                 showScorePoints((burrow.width / this.layoutParams.width).let { n ->
                     if (this.isShiny) n * burrow.shinyPointsMultiplier
                     else n

@@ -1,5 +1,7 @@
 package net.azarquiel.pressthemole
 
+import android.media.AudioAttributes
+import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -27,9 +29,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNewGame() {
+        val soundPool =
+            SoundPool.Builder()
+                .setMaxStreams(5)
+                .setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_GAME)
+                        .build()
+                ).build()
         burrow = Burrow(
             mainLayout = findViewById(R.id.mainLayout),
-            pointsView = findViewById(R.id.pointsView)
+            pointsView = findViewById(R.id.pointsView),
+            soundPool = soundPool,
+            moleShowSound = soundPool.load(this, R.raw.mole_sound, 1),
+            moleKillSound = soundPool.load(this, R.raw.death_sound, 2),
         )
         burrow.pointsView.text = getString(R.string.points, burrow.score)
     }

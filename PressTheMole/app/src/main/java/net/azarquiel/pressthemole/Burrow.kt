@@ -1,5 +1,6 @@
 package net.azarquiel.pressthemole
 
+import android.media.SoundPool
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlin.random.Random
@@ -20,4 +21,7 @@ data class Burrow(
     @JvmField var shinyMoleSkin: Int = Stats.shinyMoleSkinDefault,
     @JvmField var maxLuckyNumber: Int = Stats.maxLuckyNumber,
     @JvmField var luckyNumber: Int = rnGesus.nextInt(maxLuckyNumber),
+    @JvmField val soundPool: SoundPool,
+    @JvmField var moleShowSound: Int,
+    @JvmField var moleKillSound: Int,
 )
