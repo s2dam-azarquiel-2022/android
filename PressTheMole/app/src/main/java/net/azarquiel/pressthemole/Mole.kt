@@ -81,7 +81,7 @@ class Mole(
             it.y = this.y + (this.layoutParams.height / 2)
             GlobalScope.launch {
                 launch(Dispatchers.Main) {
-                    ObjectAnimator.ofFloat(it, "translationY", -0.001F).apply {
+                    ObjectAnimator.ofFloat(it, "translationY", it.y - 100).apply {
                         duration = Stats.pointsTextAnimationDuration
                         start()
                     }

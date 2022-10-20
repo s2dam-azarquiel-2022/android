@@ -1,6 +1,5 @@
 package net.azarquiel.pressthemole
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
