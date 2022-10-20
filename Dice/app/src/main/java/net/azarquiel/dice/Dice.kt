@@ -30,7 +30,7 @@ class Dice(
             it.recycle()
             animation
         }
-    private var face: String = ""
+    var face: String = ""
     private var isPinned: Boolean = false
 
     init {
