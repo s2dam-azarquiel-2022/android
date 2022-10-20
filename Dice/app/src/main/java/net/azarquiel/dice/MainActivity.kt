@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.*
 import kotlin.random.Random
 
@@ -19,6 +20,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         )
         startBtn = findViewById(R.id.playBtn)
         startBtn.setOnClickListener(this)
+    }
+
+    private fun setupNewGame() {
+        cup.rnGesus = Random(System.currentTimeMillis())
+        cup.dice.forEach {
+            it.rnGesus = cup.rnGesus
+            it.clear()
+        }
+        cup.currentPlayer = 0
+        cup.players = genDefaultPlayers()
+        startBtn.isEnabled = true
+        startBtn.text = getString(R.string.playBtnRollTxt)
+        isWaitingForNext = false
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -55,6 +69,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun endGame() {
         startBtn.isEnabled = false
+        cup.players.maxBy { p -> p.points }.let { winner ->
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.gameEndTitle, winner.name))
+                .setMessage(cup.players.joinToString("\n") { p ->
+                    getString(R.string.gameEndDescItem, p.name, p.points)
+                })
+                .setPositiveButton(R.string.newGameTxt) { _, _ -> setupNewGame() }
+                .setNegativeButton(R.string.endGameTxt) { _, _ -> finish() }
+                .show()
+        }
     }
 
     private fun setupNextPlayer() {

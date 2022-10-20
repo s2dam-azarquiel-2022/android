@@ -3,4 +3,8 @@
     <string name="playBtnRollTxt">ROLL</string>
     <string name="playBtnNextTxt">NEXT PLAYER</string>
     <string name="playBtnEndTxt">END GAME</string>
+    <string name="gameEndTitle">%s won!</string>
+    <string name="gameEndDescItem">%s had %d points.</string>
+    <string name="newGameTxt">New game</string>
+    <string name="endGameTxt">End game</string>
 </resources>

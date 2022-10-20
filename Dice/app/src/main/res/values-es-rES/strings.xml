@@ -4,4 +4,8 @@
     <string name="playBtnRollTxt">TIRAR</string>
     <string name="playBtnNextTxt">SIGUIENTE JUGAD</string>
     <string name="playBtnEndTxt">TERMINAR PARTIDA</string>
+    <string name="gameEndTitle">Gano %s!</string>
+    <string name="gameEndDescItem">%s tiene %d puntos.</string>
+    <string name="newGameTxt">Nueva partida</string>
+    <string name="endGameTxt">Acabar el juego</string>
 </resources>
