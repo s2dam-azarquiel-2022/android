@@ -30,7 +30,7 @@ class Dice(
             it.recycle()
             animation
         }
-    var face: String = ""
+    var face: Face = Face.face0
     private var isPinned: Boolean = false
 
     init {
@@ -56,13 +56,13 @@ class Dice(
         this.isEnabled = true
         if (!isPinned) {
             animation.stop()
-            face = "face${rnGesus!!.nextInt(1..5)}"
-            this.setBackgroundResource(face)
+            face = Face.values()[rnGesus!!.nextInt(1..5)]
+            this.setBackgroundResource("$face")
         }
     }
 
     override fun onClick(p0: View?) {
         isPinned = !isPinned
-        this.setBackgroundResource(if (isPinned) "${face}_pinned" else face)
+        this.setBackgroundResource(if (isPinned) "${face}_pinned" else "$face")
     }
 }

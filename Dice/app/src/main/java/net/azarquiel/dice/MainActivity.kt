@@ -53,20 +53,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun Player.countPoints() {
-        cup.dice.forEach {
-            this.points += when (it.face) {
-                "face0" -> 1
-                "face1" -> 3
-                "face2" -> 5
-                "face3" -> 7
-                "face4" -> 10
-                "face5" -> 14
-                else -> 0
-            }
-        }
-    }
-
     private fun endGame() {
         startBtn.isEnabled = false
         cup.players.maxBy { p -> p.points }.let { winner ->
@@ -91,7 +77,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun checkNextPlayer() {
-        cup.players[cup.currentPlayer].countPoints()
+        cup.players[cup.currentPlayer].points = cup.dice.sumOf { it.face.points }
         cup.currentPlayer++
         isWaitingForNext = true
         startBtn.text = getString(
