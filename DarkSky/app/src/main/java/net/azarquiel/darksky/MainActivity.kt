@@ -2,9 +2,11 @@ package net.azarquiel.darksky
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 import net.azarquiel.darksky.Utils.colorFromTemp
 import net.azarquiel.darksky.Utils.darken
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.currentPressure).text = getString(R.string.pressure, data.currently.pressure)
         findViewById<TextView>(R.id.currentWindSpeed).text = getString(R.string.windSpeed, data.currently.windSpeed)
         findViewById<TextView>(R.id.currentVisibility).text = getString(R.string.visibility, data.currently.visibility)
-        // TODO findViewById<ImageView>(R.id.currentIcon).setImageResource() add picasso
+        Picasso.get().load(data.currently.getIcon()).into(findViewById<ImageView>(R.id.currentIcon))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
