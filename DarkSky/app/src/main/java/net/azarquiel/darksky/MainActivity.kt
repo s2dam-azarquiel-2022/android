@@ -3,7 +3,7 @@ package net.azarquiel.darksky
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.*
@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         data = DarkSky.getForecast()
         mainView = findViewById(R.id.mainView)
         mainColor = colorFromTemp(data.currently.temperature + 2.5F)
-        Log.d("aru", data.currently.temperature.toString())
     }
 
     private fun colorFromTemp(temp: Float): Int {
@@ -45,11 +44,22 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun setCurrentTime() {
+        findViewById<TextView>(R.id.currentTemp).text = getString(R.string.temp, data.currently.temperature)
+        findViewById<TextView>(R.id.currentSummary).text = getString(R.string.summary, data.currently.summary)
+        findViewById<TextView>(R.id.currentPrecipProbability).text = getString(R.string.precipProbability, data.currently.precipProbability)
+        findViewById<TextView>(R.id.currentHumidity).text = getString(R.string.humidity, data.currently.humidity)
+        findViewById<TextView>(R.id.currentPressure).text = getString(R.string.pressure, data.currently.pressure)
+        findViewById<TextView>(R.id.currentWindSpeed).text = getString(R.string.windSpeed, data.currently.windSpeed)
+        findViewById<TextView>(R.id.currentVisibility).text = getString(R.string.visibility, data.currently.visibility)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setup()
         setGradientBackground()
+        setCurrentTime()
     }
 }

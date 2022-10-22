@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">DarkSky</string>
+    <string name="summary">%s</string>
+    <string name="temp">%.0fº</string>
+    <string name="precipProbability">%.0f%%</string>
+    <string name="humidity">%.0f%%</string>
+    <string name="pressure">%.0fhPa</string>
+    <string name="windSpeed">%.0fkm/h</string>
+    <string name="visibility">%.0f+mi</string>
 </resources>

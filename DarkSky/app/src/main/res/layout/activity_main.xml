@@ -32,10 +32,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="De noche"
+            android:text="@string/summary"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/currentTemp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -43,12 +43,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="23º"
+            android:text="@string/temp"
             android:textSize="96sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/currentSummary" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -56,14 +57,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/currentIcon">
+            app:layout_constraintTop_toBottomOf="@+id/currentTemp">
 
             <TextView
                 android:id="@+id/currentPrecipProbability"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="10%" />
+                android:text="@string/precipProbability" />
 
             <TextView
                 android:id="@+id/currentHumidity"
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="25%" />
+                android:text="@string/humidity" />
 
             <TextView
                 android:id="@+id/currentPressure"
@@ -79,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="1000hPa" />
+                android:text="@string/pressure" />
 
             <TextView
                 android:id="@+id/currentWindSpeed"
@@ -87,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="7m/h" />
+                android:text="@string/windSpeed" />
 
             <TextView
                 android:id="@+id/currentVisibility"
@@ -95,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="10+mi" />
+                android:text="@string/visibility" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
