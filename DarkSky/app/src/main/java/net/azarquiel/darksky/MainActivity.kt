@@ -1,5 +1,6 @@
 package net.azarquiel.darksky
 
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.widget.ImageView
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUIMainColor() {
         findViewById<ConstraintLayout>(R.id.current).background.setTint(uiMainColor)
+        window.statusBarColor = uiMainColor
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(uiMainColor))
     }
 
     private fun setCurrentTime() {

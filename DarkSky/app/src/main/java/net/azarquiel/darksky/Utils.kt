@@ -3,12 +3,12 @@ package net.azarquiel.darksky
 import android.graphics.Color
 
 object Utils {
-    fun Float.between(min: Int, max: Int): Int =
+    private fun Float.between(min: Int, max: Int): Int =
         if (this > max) max
         else if (this < min) min
         else this.toInt()
 
-    fun Float.min(min: Int): Int =
+    private fun Float.min(min: Int): Int =
         if (this < min) min
         else this.toInt()
 
