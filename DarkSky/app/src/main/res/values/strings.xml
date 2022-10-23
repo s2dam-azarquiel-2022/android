@@ -6,10 +6,11 @@
     <string name="summary">%s</string>
     <string name="temp">%.0fº</string>
     <string name="precipProbability">%.0f%%</string>
+    <string name="precipIcon">&#xf740;</string>
     <string name="humidity">%.0f%%</string>
-    <string name="pressure">%.0fhPa</string>
+    <string name="humidityIcon">&#xf043;</string>
     <string name="windSpeed">%.0fkm/h</string>
-    <string name="visibility">%.0f+mi</string>
+    <string name="windSpeedIcon">&#xf72e;</string>
 
     <!-- Note: there is a \n between each character -->
     <string name="today">T\nO\nD\nA\nY</string>
@@ -29,7 +30,5 @@
     <string name="tempPrev">23º</string>
     <string name="precipProbabilityPrev">20%</string>
     <string name="humidityPrev">30%</string>
-    <string name="pressurePrev">1050hPa</string>
     <string name="windSpeedPrev">35fkm/h</string>
-    <string name="visibilityPrev">20+mi</string>
 </resources>

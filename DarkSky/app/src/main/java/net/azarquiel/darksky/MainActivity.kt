@@ -55,9 +55,7 @@ class MainActivity : AppCompatActivity() {
         R.id.currentSummary.setText(R.string.summary, data.currently.summary)
         R.id.currentPrecipProbability.setText(R.string.precipProbability, data.currently.getPrecipProbability())
         R.id.currentHumidity.setText(R.string.humidity, data.currently.humidity)
-        R.id.currentPressure.setText(R.string.pressure, data.currently.pressure)
         R.id.currentWindSpeed.setText(R.string.windSpeed, data.currently.windSpeed)
-        R.id.currentVisibility.setText(R.string.visibility, data.currently.visibility)
         Picasso.get().load(data.currently.getIcon()).into(findViewById<ImageView>(R.id.currentIcon))
     }
 

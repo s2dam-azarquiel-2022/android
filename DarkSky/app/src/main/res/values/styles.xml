@@ -12,4 +12,12 @@
         <item name="android:paddingEnd">@dimen/layoutPaddingBig</item>
         <item name="android:layout_marginStart">@dimen/layoutMarginSmall</item>
     </style>
+
+    <style name="icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fontFamily">@font/font_awesome</item>
+        <item name="android:layout_marginStart">@dimen/layoutMarginSmall</item>
+        <item name="android:gravity">center_vertical|end</item>
+    </style>
 </resources>

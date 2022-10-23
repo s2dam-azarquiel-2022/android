@@ -57,9 +57,7 @@ class DailyAdapter(
             R.id.summary.setText(R.string.summary, item.summary)
             R.id.precipProbability.setText(R.string.precipProbability, item.getPrecipProbability())
             R.id.humidity.setText(R.string.humidity, item.humidity)
-            R.id.pressure.setText(R.string.pressure, item.pressure)
             R.id.windSpeed.setText(R.string.windSpeed, item.windSpeed)
-            R.id.visibility.setText(R.string.visibility, item.visibility)
             Picasso.get().load(item.getIcon()).into(itemView.findViewById<ImageView>(R.id.icon))
             itemView.tag = item
         }

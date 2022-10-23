@@ -32,14 +32,10 @@ object DarkSky {
         var summary: String,
         private var icon: String,
         var time: Long,
-        var precipIntensity: Float,
         private var precipProbability: Float,
         var temperature: Float,
         var humidity: Float,
-        var pressure: Float,
         var windSpeed: Float,
-        var cloudCover: Float,
-        var visibility: Float,
     ) {
         fun getIcon(): String = "https://darksky.net/images/weather-icons/$icon.png"
         fun getPrecipProbability(): Float = precipProbability * 100
@@ -49,15 +45,11 @@ object DarkSky {
         var summary: String,
         private var icon: String,
         var time: Long,
-        var precipIntensity: Float,
         private var precipProbability: Float,
         var temperatureMax: Float,
         var temperatureMin: Float,
         var humidity: Float,
-        var pressure: Float,
         var windSpeed: Float,
-        var cloudCover: Float,
-        var visibility: Float,
     ) {
         fun getIcon(): String = "https://darksky.net/images/weather-icons/$icon.png"
         fun getPrecipProbability(): Float = precipProbability * 100
