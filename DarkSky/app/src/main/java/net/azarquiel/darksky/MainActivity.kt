@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         data = DarkSky.getForecast(this@MainActivity)
         mainView = findViewById(R.id.mainView)
         uiMainColor = data.currently.temperature.toColor().darken()
-        dailyAdapter = DailyAdapter(this@MainActivity, R.layout.day, uiMainColor)
+        dailyAdapter = DailyAdapter(this@MainActivity, R.layout.day)
     }
 
     private fun setGradientBackground() {
@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUIMainColor() {
-        findViewById<ConstraintLayout>(R.id.current).background.setTint(uiMainColor)
         window.statusBarColor = uiMainColor
         supportActionBar?.setBackgroundDrawable(ColorDrawable(uiMainColor))
     }

@@ -9,7 +9,7 @@
     android:layout_marginEnd="@dimen/layoutMarginBig"
     android:layout_marginBottom="@dimen/layoutMarginBig"
     android:background="@drawable/rounded_corners"
-    android:backgroundTint="#673AB7"
+    android:backgroundTint="@color/darken"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">

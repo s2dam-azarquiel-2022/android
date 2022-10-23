@@ -16,7 +16,7 @@ object DarkSky {
     private const val units: String = "units=ca"
 
     data class Result(
-        var currently: Time,
+        var currently: TimeCurrent,
         var daily: Daily,
     )
 
@@ -28,13 +28,28 @@ object DarkSky {
         fun getIcon(): String = "https://darksky.net/images/weather-icons/$icon.png"
     }
 
+    data class TimeCurrent(
+        var summary: String,
+        private var icon: String,
+        var time: Long,
+        var precipIntensity: Float,
+        var precipProbability: Float,
+        var temperature: Float,
+        var humidity: Float,
+        var pressure: Float,
+        var windSpeed: Float,
+        var cloudCover: Float,
+        var visibility: Float,
+    ) {
+        fun getIcon(): String = "https://darksky.net/images/weather-icons/$icon.png"
+    }
+
     data class Time(
         var summary: String,
         private var icon: String,
         var time: Long,
-        var precipIntesity: Int,
+        var precipIntensity: Float,
         var precipProbability: Float,
-        var temperature: Float,
         var temperatureLow: Float,
         var temperatureHigh: Float,
         var humidity: Float,
@@ -47,6 +62,7 @@ object DarkSky {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
+    @Suppress("BlockingMethodInNonBlockingContext")
     suspend fun getForecast(context: Context): Result {
         val lang = "lang=${context.getString(R.string.apiLang)}"
         var result: Result? = null
