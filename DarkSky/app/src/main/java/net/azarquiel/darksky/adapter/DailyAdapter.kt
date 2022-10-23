@@ -53,7 +53,8 @@ class DailyAdapter(
                         it.get(Calendar.DAY_OF_WEEK) - 1
                     ]
                 }
-            R.id.temp.setText(R.string.temp, item.temperatureMin)
+            R.id.tempMin.setText(R.string.temp, item.temperatureMin)
+            R.id.tempMax.setText(R.string.temp, item.temperatureMax)
             R.id.summary.setText(R.string.summary, item.summary)
             R.id.precipProbability.setText(R.string.precipProbability, item.getPrecipProbability())
             R.id.humidity.setText(R.string.humidity, item.humidity)
