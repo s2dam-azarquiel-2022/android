@@ -1,16 +1,16 @@
 <resources>
-    <string name="app_name">DarkSky</string>
+    <string name="app_name" translatable="false">DarkSky</string>
 
     <string name="apiLang">en</string>
 
-    <string name="summary">%s</string>
-    <string name="temp">%.0fº</string>
-    <string name="precipProbability">%.0f%%</string>
-    <string name="precipIcon">&#xf740;</string>
-    <string name="humidity">%.0f%%</string>
-    <string name="humidityIcon">&#xf043;</string>
-    <string name="windSpeed">%.0fkm/h</string>
-    <string name="windSpeedIcon">&#xf72e;</string>
+    <string name="summary" translatable="false">%s</string>
+    <string name="temp" translatable="false">%.0fº</string>
+    <string name="precipProbability" translatable="false">%.0f%%</string>
+    <string name="precipIcon" translatable="false">&#xf740;</string>
+    <string name="humidity" translatable="false">%.0f%%</string>
+    <string name="humidityIcon" translatable="false">&#xf043;</string>
+    <string name="windSpeed" translatable="false">%.0fkm/h</string>
+    <string name="windSpeedIcon" translatable="false">&#xf72e;</string>
 
     <!-- Note: there is a \n between each character -->
     <string name="today">T\nO\nD\nA\nY</string>
@@ -27,8 +27,8 @@
     <string name="summaryPrev">Sunny</string>
     <string name="longSummaryPrev">Possible drizzle in the morning.</string>
     <string name="dayPrev">W\nE\nD\nN\nE\nS\nD\nA\nY</string>
-    <string name="tempPrev">23º</string>
-    <string name="precipProbabilityPrev">20%</string>
-    <string name="humidityPrev">30%</string>
-    <string name="windSpeedPrev">35fkm/h</string>
+    <string name="tempPrev" translatable="false">23º</string>
+    <string name="precipProbabilityPrev" translatable="false">20%</string>
+    <string name="humidityPrev" translatable="false">30%</string>
+    <string name="windSpeedPrev" translatable="false">35fkm/h</string>
 </resources>

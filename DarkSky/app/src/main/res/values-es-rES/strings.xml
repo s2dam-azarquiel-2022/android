@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="apiLang">es</string>
+    <string name="today">H\nO\nY</string>
+    <string-array name="daysOfTheWeek">
+        <item>D\nO\nM\nI\nN\nG\nO</item>
+        <item>L\nU\nN\nE\nS</item>
+        <item>M\nA\nR\nT\nE\nS</item>
+        <item>M\nI\nÉ\nR\nC\nO\nL\nE\nS</item>
+        <item>J\nU\nE\nV\nE\nS</item>
+        <item>V\nI\nE\nR\nN\nE\nS</item>
+        <item>S\nÁ\nB\nA\nD\nO</item>
+    </string-array>
+    <string name="summaryPrev">Soleado</string>
+    <string name="longSummaryPrev">Posible llovizna por la mañana.</string>
+    <string name="dayPrev">M\nI\nÉ\nR\nC\nO\nL\nE\nS</string>
+</resources>
