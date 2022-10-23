@@ -12,6 +12,7 @@
     <string name="visibility">%.0f+mi</string>
 
     <string name="summaryPrev">Sunny</string>
+    <string name="longSummaryPrev">Possible drizzle in the morning.</string>
     <string name="tempPrev">23º</string>
     <string name="precipProbabilityPrev">20%</string>
     <string name="humidityPrev">30%</string>

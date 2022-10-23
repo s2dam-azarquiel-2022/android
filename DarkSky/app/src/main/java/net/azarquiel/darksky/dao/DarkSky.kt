@@ -35,6 +35,8 @@ object DarkSky {
         var precipIntesity: Int,
         var precipProbability: Float,
         var temperature: Float,
+        var temperatureLow: Float,
+        var temperatureHigh: Float,
         var humidity: Float,
         var pressure: Float,
         var windSpeed: Float,

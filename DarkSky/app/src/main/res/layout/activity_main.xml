@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layoutMarginBig"
         android:background="@drawable/rounded_corners"
+        android:backgroundTint="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -46,6 +47,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/layoutMarginBig"
             android:layout_marginEnd="@dimen/layoutMarginBig"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@+id/currentTemp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,11 +97,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/other"
+        android:id="@+id/daily"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/layoutMarginBig"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="@dimen/layoutMarginBig"
+        android:layout_marginBottom="@dimen/layoutMarginBig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
