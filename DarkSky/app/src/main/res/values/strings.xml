@@ -7,4 +7,12 @@
     <string name="pressure">%.0fhPa</string>
     <string name="windSpeed">%.0fkm/h</string>
     <string name="visibility">%.0f+mi</string>
+
+    <string name="summaryPrev">Sunny</string>
+    <string name="tempPrev">23º</string>
+    <string name="precipProbabilityPrev">20%</string>
+    <string name="humidityPrev">30%</string>
+    <string name="pressurePrev">1050hPa</string>
+    <string name="windSpeedPrev">35fkm/h</string>
+    <string name="visibilityPrev">20+mi</string>
 </resources>

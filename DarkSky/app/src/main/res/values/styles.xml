@@ -6,10 +6,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/rounded_corners</item>
         <item name="android:backgroundTint">@color/darken</item>
-        <item name="android:paddingTop">2dp</item>
-        <item name="android:paddingBottom">2dp</item>
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:paddingEnd">8dp</item>
-        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:paddingTop">@dimen/layoutPaddingSmall</item>
+        <item name="android:paddingBottom">@dimen/layoutPaddingSmall</item>
+        <item name="android:paddingStart">@dimen/layoutPaddingBig</item>
+        <item name="android:paddingEnd">@dimen/layoutPaddingBig</item>
+        <item name="android:layout_marginStart">@dimen/layoutMarginSmall</item>
     </style>
 </resources>

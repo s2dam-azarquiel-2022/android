@@ -12,29 +12,18 @@
         android:id="@+id/current"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/layoutMarginBig"
         android:background="@drawable/rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/currentIcon"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/currentTemp"
-            app:layout_constraintTop_toBottomOf="@+id/currentSummary"
-            app:srcCompat="@drawable/clearnight" />
-
         <TextView
             android:id="@+id/currentSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/summary"
+            android:layout_margin="@dimen/layoutMarginBig"
+            android:text="@string/summaryPrev"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,17 +33,31 @@
             android:id="@+id/currentTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/temp"
+            android:layout_margin="@dimen/layoutMarginBig"
+            android:text="@string/tempPrev"
             android:textSize="96sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentSummary" />
 
+        <ImageView
+            android:id="@+id/currentIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/layoutMarginBig"
+            android:layout_marginEnd="@dimen/layoutMarginBig"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/currentTemp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/currentTemp"
+            app:layout_constraintTop_toTopOf="@+id/currentTemp"
+            app:srcCompat="@drawable/clearnight" />
+
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/layoutMarginBig"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -66,28 +69,39 @@
                 android:id="@+id/currentPrecipProbability"
                 style="@style/secondaryInfoText"
                 android:layout_marginStart="0dp"
-                android:text="@string/precipProbability" />
+                android:text="@string/precipProbabilityPrev" />
 
             <TextView
                 android:id="@+id/currentHumidity"
                 style="@style/secondaryInfoText"
-                android:text="@string/humidity" />
+                android:text="@string/humidityPrev" />
 
             <TextView
                 android:id="@+id/currentPressure"
                 style="@style/secondaryInfoText"
-                android:text="@string/pressure" />
+                android:text="@string/pressurePrev" />
 
             <TextView
                 android:id="@+id/currentWindSpeed"
                 style="@style/secondaryInfoText"
-                android:text="@string/windSpeed" />
+                android:text="@string/windSpeedPrev" />
 
             <TextView
                 android:id="@+id/currentVisibility"
                 style="@style/secondaryInfoText"
-                android:text="@string/visibility" />
+                android:text="@string/visibilityPrev" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/other"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/layoutMarginBig"
+        android:layout_marginTop="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current" />
 </androidx.constraintlayout.widget.ConstraintLayout>
