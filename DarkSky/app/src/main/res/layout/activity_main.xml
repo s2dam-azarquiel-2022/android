@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,41 +64,28 @@
 
             <TextView
                 android:id="@+id/currentPrecipProbability"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/secondaryInfoText"
+                android:layout_marginStart="0dp"
                 android:text="@string/precipProbability" />
 
             <TextView
                 android:id="@+id/currentHumidity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                style="@style/secondaryInfoText"
                 android:text="@string/humidity" />
 
             <TextView
                 android:id="@+id/currentPressure"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                style="@style/secondaryInfoText"
                 android:text="@string/pressure" />
 
             <TextView
                 android:id="@+id/currentWindSpeed"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                style="@style/secondaryInfoText"
                 android:text="@string/windSpeed" />
 
             <TextView
                 android:id="@+id/currentVisibility"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                style="@style/secondaryInfoText"
                 android:text="@string/visibility" />
         </LinearLayout>
 
