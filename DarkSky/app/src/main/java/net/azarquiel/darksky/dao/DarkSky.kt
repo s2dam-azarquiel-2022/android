@@ -33,7 +33,7 @@ object DarkSky {
         private var icon: String,
         var time: Long,
         var precipIntensity: Float,
-        var precipProbability: Float,
+        private var precipProbability: Float,
         var temperature: Float,
         var humidity: Float,
         var pressure: Float,
@@ -42,6 +42,7 @@ object DarkSky {
         var visibility: Float,
     ) {
         fun getIcon(): String = "https://darksky.net/images/weather-icons/$icon.png"
+        fun getPrecipProbability(): Float = precipProbability * 100
     }
 
     data class Time(
@@ -49,9 +50,9 @@ object DarkSky {
         private var icon: String,
         var time: Long,
         var precipIntensity: Float,
-        var precipProbability: Float,
-        var temperatureLow: Float,
-        var temperatureHigh: Float,
+        private var precipProbability: Float,
+        var temperatureMax: Float,
+        var temperatureMin: Float,
         var humidity: Float,
         var pressure: Float,
         var windSpeed: Float,
@@ -59,6 +60,7 @@ object DarkSky {
         var visibility: Float,
     ) {
         fun getIcon(): String = "https://darksky.net/images/weather-icons/$icon.png"
+        fun getPrecipProbability(): Float = precipProbability * 100
     }
 
     @OptIn(DelicateCoroutinesApi::class)
