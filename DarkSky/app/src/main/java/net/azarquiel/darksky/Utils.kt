@@ -21,12 +21,12 @@ object Utils {
         )
     }
 
-    fun colorFromTemp(temp: Float): Int {
+    fun Float.toColor(): Int {
         // Took me a while to make this
         return Color.rgb(
-            ((temp + 30F) * 3.4F).between(0, 255),
-            (100F - temp).between(0, 100),
-            (255F - (temp * 3.4F)).between(0, 255)
+            ((this + 30F) * 3.4F).between(0, 255),
+            (100F - this).between(0, 100),
+            (255F - (this * 3.4F)).between(0, 255)
         )
     }
 }

@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
-import net.azarquiel.darksky.Utils.colorFromTemp
 import net.azarquiel.darksky.Utils.darken
+import net.azarquiel.darksky.Utils.toColor
 import net.azarquiel.darksky.dao.DarkSky
 
 
@@ -24,14 +24,14 @@ class MainActivity : AppCompatActivity() {
     private fun setup() = runBlocking {
         data = DarkSky.getForecast()
         mainView = findViewById(R.id.mainView)
-        uiMainColor = colorFromTemp(data.currently.temperature).darken()
+        uiMainColor = data.currently.temperature.toColor().darken()
     }
 
     private fun setGradientBackground() {
         val bg: GradientDrawable = mainView.background as GradientDrawable
         bg.colors = intArrayOf(
-            colorFromTemp(data.currently.temperature-2.5F),
-            colorFromTemp(data.currently.temperature+2.5F)
+            (data.currently.temperature - 2.5F).toColor(),
+            (data.currently.temperature + 2.5F).toColor()
         )
     }
 
@@ -41,14 +41,20 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setBackgroundDrawable(ColorDrawable(uiMainColor))
     }
 
+    @Suppress("NOTHING_TO_INLINE")
+    private inline fun Int.setText(stringId: Int, vararg: Any) {
+        findViewById<TextView>(this).text = getString(stringId, vararg)
+    }
+
     private fun setCurrentTime() {
-        findViewById<TextView>(R.id.currentTemp).text = getString(R.string.temp, data.currently.temperature)
-        findViewById<TextView>(R.id.currentSummary).text = getString(R.string.summary, data.currently.summary)
-        findViewById<TextView>(R.id.currentPrecipProbability).text = getString(R.string.precipProbability, data.currently.precipProbability)
-        findViewById<TextView>(R.id.currentHumidity).text = getString(R.string.humidity, data.currently.humidity)
-        findViewById<TextView>(R.id.currentPressure).text = getString(R.string.pressure, data.currently.pressure)
-        findViewById<TextView>(R.id.currentWindSpeed).text = getString(R.string.windSpeed, data.currently.windSpeed)
-        findViewById<TextView>(R.id.currentVisibility).text = getString(R.string.visibility, data.currently.visibility)
+        R.id.currentTemp.setText(R.string.temp, data.currently.temperature)
+        R.id.currentTemp.setText(R.string.temp, data.currently.temperature)
+        R.id.currentSummary.setText(R.string.summary, data.currently.summary)
+        R.id.currentPrecipProbability.setText(R.string.precipProbability, data.currently.precipProbability)
+        R.id.currentHumidity.setText(R.string.humidity, data.currently.humidity)
+        R.id.currentPressure.setText(R.string.pressure, data.currently.pressure)
+        R.id.currentWindSpeed.setText(R.string.windSpeed, data.currently.windSpeed)
+        R.id.currentVisibility.setText(R.string.visibility, data.currently.visibility)
         Picasso.get().load(data.currently.getIcon()).into(findViewById<ImageView>(R.id.currentIcon))
     }
 
