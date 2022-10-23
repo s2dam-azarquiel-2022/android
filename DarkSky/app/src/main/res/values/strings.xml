@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">DarkSky</string>
+
+    <string name="apiLang">en</string>
+
     <string name="summary">%s</string>
     <string name="temp">%.0fº</string>
     <string name="precipProbability">%.0f%%</string>

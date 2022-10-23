@@ -1,9 +1,11 @@
 package net.azarquiel.darksky.dao
 
+import android.content.Context
 import com.google.gson.Gson
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import net.azarquiel.darksky.R
 import java.net.URL
 
 object DarkSky {
@@ -12,7 +14,6 @@ object DarkSky {
     private const val coords: String = "39.8710026,-4.0251675"
     private const val exclude: String = "exclude=minutely,hourly,alerts,flags"
     private const val units: String = "units=ca"
-    private const val lang: String = "lang=es"
 
     data class Result(
         var currently: Time,
@@ -44,7 +45,8 @@ object DarkSky {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    suspend fun getForecast(): Result {
+    suspend fun getForecast(context: Context): Result {
+        val lang = "lang=${context.getString(R.string.apiLang)}"
         var result: Result? = null
         GlobalScope.launch {
             val json = URL("$url/$appID/$coords?$lang&$units&$exclude").readText(Charsets.UTF_8)
