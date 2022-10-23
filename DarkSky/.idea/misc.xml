@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/drawable/default_gradient.xml" value="0.335" />
         <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/day.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/day.xml" value="0.5" />
       </map>
     </option>
   </component>
@@ -15,12 +15,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.18" />
-      </ProjectState>
-    </option>
   </component>
 </project>

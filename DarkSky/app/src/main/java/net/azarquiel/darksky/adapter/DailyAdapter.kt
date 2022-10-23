@@ -2,6 +2,7 @@ package net.azarquiel.darksky.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import net.azarquiel.darksky.R
 import net.azarquiel.darksky.dao.DarkSky
+import java.time.Instant
+import java.util.*
 
 class DailyAdapter(
     private val context: Context,
@@ -23,7 +26,7 @@ class DailyAdapter(
         context,
     )
 
-    override fun onBindViewHolder(holder: ViewHolder, pos: Int) = holder.bind(data[pos])
+    override fun onBindViewHolder(holder: ViewHolder, pos: Int) = holder.bind(data[pos], pos)
 
     override fun getItemCount(): Int = data.size
 
@@ -43,7 +46,15 @@ class DailyAdapter(
             itemView.findViewById<TextView>(this).text = context.getString(stringId, vararg)
         }
 
-        fun bind(item: DarkSky.Time) {
+        fun bind(item: DarkSky.Time, pos: Int) {
+            itemView.findViewById<TextView>(R.id.day).text =
+                if (pos == 0) context.getString(R.string.today)
+                else Calendar.getInstance().let {
+                    it.timeInMillis = item.time * 1000
+                    context.resources.getStringArray(R.array.daysOfTheWeek)[
+                        it.get(Calendar.DAY_OF_WEEK) - 1
+                    ]
+                }
             R.id.temp.setText(R.string.temp, item.temperatureLow)
             R.id.summary.setText(R.string.summary, item.summary)
             R.id.precipProbability.setText(R.string.precipProbability, item.precipProbability)

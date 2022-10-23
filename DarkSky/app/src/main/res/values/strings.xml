@@ -11,8 +11,21 @@
     <string name="windSpeed">%.0fkm/h</string>
     <string name="visibility">%.0f+mi</string>
 
+    <!-- Note: there is a \n between each character -->
+    <string name="today">T\nO\nD\nA\nY</string>
+    <string-array name="daysOfTheWeek">
+        <item>S\nU\nN\nD\nA\nY</item>
+        <item>M\nO\nN\nD\nA\nY</item>
+        <item>T\nU\nE\nS\nD\nA\nY</item>
+        <item>W\nE\nD\nN\nE\nS\nD\nA\nY</item>
+        <item>T\nH\nU\nR\nS\nD\nA\nY</item>
+        <item>F\nR\nI\nD\nA\nY</item>
+        <item>S\nA\nT\nU\nR\nD\nA\nY</item>
+    </string-array>
+
     <string name="summaryPrev">Sunny</string>
     <string name="longSummaryPrev">Possible drizzle in the morning.</string>
+    <string name="dayPrev">W\nE\nD\nN\nE\nS\nD\nA\nY</string>
     <string name="tempPrev">23º</string>
     <string name="precipProbabilityPrev">20%</string>
     <string name="humidityPrev">30%</string>

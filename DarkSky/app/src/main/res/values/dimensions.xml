@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="layoutMarginBig">10dp</dimen>
+    <dimen name="layoutMarginMedium">5dp</dimen>
     <dimen name="layoutMarginSmall">3dp</dimen>
     <dimen name="layoutPaddingBig">5dp</dimen>
     <dimen name="layoutPaddingSmall">2dp</dimen>
