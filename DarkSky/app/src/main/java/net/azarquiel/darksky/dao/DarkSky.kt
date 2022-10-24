@@ -23,7 +23,7 @@ object DarkSky {
     data class Daily(
         var summary: String,
         private var icon: String,
-        var data: List<Time>
+        var data: List<TimeDaily>
     ) {
         fun getIcon(): String = "https://darksky.net/images/weather-icons/$icon.png"
     }
@@ -41,7 +41,7 @@ object DarkSky {
         fun getPrecipProbability(): Float = precipProbability * 100
     }
 
-    data class Time(
+    data class TimeDaily(
         var summary: String,
         private var icon: String,
         var time: Long,

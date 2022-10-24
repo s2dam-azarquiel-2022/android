@@ -16,7 +16,6 @@ import net.azarquiel.darksky.Utils.toColor
 import net.azarquiel.darksky.adapter.DailyAdapter
 import net.azarquiel.darksky.dao.DarkSky
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var data: DarkSky.Result
     private lateinit var mainView: ConstraintLayout
