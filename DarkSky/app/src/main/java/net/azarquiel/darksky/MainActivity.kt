@@ -28,19 +28,15 @@ class MainActivity : AppCompatActivity() {
     private fun setup() = runBlocking {
         data = DarkSky.getForecast(this@MainActivity)
         mainView = findViewById(R.id.mainView)
-        uiMainColor = data.currently.temperature.toColor().darken()
         dailyAdapter = DailyAdapter(this@MainActivity, R.layout.day)
     }
 
-    private fun setGradientBackground() {
-        val bg: GradientDrawable = mainView.background as GradientDrawable
-        bg.colors = intArrayOf(
+    private fun setUIColors() {
+        uiMainColor = data.currently.temperature.toColor().darken()
+        (mainView.background as GradientDrawable).colors = intArrayOf(
             (data.currently.temperature - 2.5F).toColor(),
             (data.currently.temperature + 2.5F).toColor()
         )
-    }
-
-    private fun setUIMainColor() {
         window.statusBarColor = uiMainColor
         supportActionBar?.setBackgroundDrawable(ColorDrawable(uiMainColor))
     }
@@ -72,8 +68,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setup()
-        setGradientBackground()
-        setUIMainColor()
+        setUIColors()
         setCurrentTime()
         setDailyTime()
     }
