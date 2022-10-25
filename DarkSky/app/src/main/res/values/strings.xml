@@ -13,23 +13,23 @@
     <string name="windSpeedIcon" translatable="false">&#xf72e;</string>
 
     <!-- Note: there is a \n between each character -->
-    <string name="today">T\nO\nD\nA\nY</string>
+    <string name="today">TODAY</string>
     <string-array name="daysOfTheWeek">
-        <item>S\nU\nN\nD\nA\nY</item>
-        <item>M\nO\nN\nD\nA\nY</item>
-        <item>T\nU\nE\nS\nD\nA\nY</item>
-        <item>W\nE\nD\nN\nE\nS\nD\nA\nY</item>
-        <item>T\nH\nU\nR\nS\nD\nA\nY</item>
-        <item>F\nR\nI\nD\nA\nY</item>
-        <item>S\nA\nT\nU\nR\nD\nA\nY</item>
+        <item>SUNDAY</item>
+        <item>MONDAY</item>
+        <item>TUESDAY</item>
+        <item>WEDNESDAY</item>
+        <item>THURSDAY</item>
+        <item>FRIDAY</item>
+        <item>SATURDAY</item>
     </string-array>
-    <string name="hour" translatable="false">%02d:%02d %02d/%02d</string>
+    <string name="hour" translatable="false">%02d:%02d %s</string>
 
     <string name="summaryPrev">Sunny</string>
     <string name="longSummaryPrev">Possible drizzle in the morning</string>
     <string name="shortSummaryPrev">Windy and mostly cloudy</string>
-    <string name="dayPrev">W\nE\nD\nN\nE\nS\nD\nA\nY</string>
-    <string name="hourPrev" translatable="false">23:59 28/11</string>
+    <string name="dayPrev">WEDNESDAY</string>
+    <string name="hourPrev" translatable="false">23:59 WEDNESDAY</string>
     <string name="tempPrev" translatable="false">23º</string>
     <string name="precipProbabilityPrev" translatable="false">20%</string>
     <string name="humidityPrev" translatable="false">30%</string>

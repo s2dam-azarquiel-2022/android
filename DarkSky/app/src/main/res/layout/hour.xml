@@ -2,7 +2,6 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/layoutMarginBig"
@@ -27,84 +26,77 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/top"
+    <TextView
+        android:id="@+id/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/layoutMarginMedium"
+        android:text="@string/tempPrev"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/summary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layoutMarginMedium"
+        android:ellipsize="none"
+        android:gravity="center"
+        android:maxLines="2"
+        android:scrollHorizontally="false"
+        android:singleLine="false"
+        android:text="@string/longSummaryPrev"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/icon"
+        app:layout_constraintStart_toEndOf="@+id/temp"
+        app:layout_constraintTop_toBottomOf="@+id/day" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/layoutMarginMedium"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day">
-
-        <TextView
-            android:id="@+id/temp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/layoutMarginBig"
-            android:text="@string/tempPrev"
-            android:textSize="34sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/summary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/layoutMarginBig"
-            android:text="@string/shortSummaryPrev"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/temp"
-            app:layout_constraintEnd_toStartOf="@+id/icon"
-            app:layout_constraintStart_toEndOf="@+id/temp"
-            app:layout_constraintTop_toTopOf="@+id/temp" />
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/layoutMarginBig"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@+id/temp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/temp"
-            app:srcCompat="@drawable/clearnight" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/clearnight" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/secondaryInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layoutMarginMedium"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintEnd_toStartOf="@+id/icon"
+        app:layout_constraintStart_toEndOf="@+id/temp"
+        app:layout_constraintTop_toBottomOf="@+id/summary">
 
         <net.azarquiel.darksky.view.TextFA
-            app:textId="@+id/precipProbability"
-            app:text="@string/precipProbabilityPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:faIcon="@string/precipIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:text="@string/precipProbabilityPrev"
+            app:textId="@+id/precipProbability" />
 
         <net.azarquiel.darksky.view.TextFA
-            app:textId="@+id/humidity"
-            app:text="@string/humidityPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:faIcon="@string/humidityIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:text="@string/humidityPrev"
+            app:textId="@+id/humidity" />
 
         <net.azarquiel.darksky.view.TextFA
-            app:textId="@+id/windSpeed"
-            app:text="@string/windSpeedPrev"
-            app:faIcon="@string/windSpeedIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:faIcon="@string/windSpeedIcon"
+            app:text="@string/windSpeedPrev"
+            app:textId="@+id/windSpeed" />
 
     </LinearLayout>
 

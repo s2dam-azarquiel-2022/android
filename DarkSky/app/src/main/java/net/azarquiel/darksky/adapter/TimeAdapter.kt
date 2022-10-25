@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import net.azarquiel.darksky.R
+import java.util.*
 
 abstract class TimeAdapter<T : Any>(
     val context: Context,
@@ -35,6 +37,10 @@ abstract class TimeAdapter<T : Any>(
         inline fun Int.setText(stringId: Int, vararg: Any) {
             itemView.findViewById<TextView>(this).text = context.getString(stringId, vararg)
         }
+
+        @Suppress("NOTHING_TO_INLINE")
+        inline fun Int.toDayOfWeekName(): String =
+            context.resources.getStringArray(R.array.daysOfTheWeek)[this - 1]
 
         abstract fun bind(item: T, pos: Int)
     }

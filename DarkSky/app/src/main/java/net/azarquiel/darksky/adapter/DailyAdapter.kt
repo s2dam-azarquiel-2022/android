@@ -19,9 +19,10 @@ class DailyAdapter(c: Context, l: Int) : TimeAdapter<DarkSky.TimeDaily>(c, l) {
     )
 
     class DayView(c: Context, v: android.view.View) : ViewHolder<DarkSky.TimeDaily>(c, v) {
-        private fun Long.toDayOfWeek(): String = Calendar.getInstance().let {
+        @Suppress("NOTHING_TO_INLINE")
+        private inline fun Long.toDayOfWeek(): String = Calendar.getInstance().let {
             it.timeInMillis = this * 1000
-            context.resources.getStringArray(R.array.daysOfTheWeek)[it.get(Calendar.DAY_OF_WEEK)-1]
+            it.get(Calendar.DAY_OF_WEEK).toDayOfWeekName()
         }
 
         override fun bind(item: DarkSky.TimeDaily, pos: Int) {

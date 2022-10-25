@@ -9,7 +9,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/daily_hourly_switch.xml" value="0.67" />
         <entry key="app/src/main/res/layout/day.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/hour.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/hour.xml" value="0.2141891891891892" />
         <entry key="app/src/main/res/layout/secondary_info.xml" value="0.21351351351351353" />
         <entry key="app/src/main/res/layout/switch_item.xml" value="0.22" />
         <entry key="app/src/main/res/layout/text_fa.xml" value="0.5" />
@@ -22,5 +22,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.2141891891891892" />
+      </ProjectState>
+    </option>
   </component>
 </project>

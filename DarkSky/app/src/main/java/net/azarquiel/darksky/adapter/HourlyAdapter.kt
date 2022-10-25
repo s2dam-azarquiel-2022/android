@@ -19,19 +19,18 @@ class HourlyAdapter(c: Context, l: Int) : TimeAdapter<DarkSky.TimeHourly>(c, l) 
     )
 
     class HourView(c: Context, v: android.view.View) : ViewHolder<DarkSky.TimeHourly>(c, v) {
-        private fun Long.toDayOfWeek(): String = Calendar.getInstance().let {
+        private fun Long.toDate(): String = Calendar.getInstance().let {
             it.timeInMillis = this * 1000
             context.getString(
                 R.string.hour,
                 it.get(Calendar.HOUR),
                 it.get(Calendar.MINUTE),
-                it.get(Calendar.DAY_OF_MONTH),
-                it.get(Calendar.MONTH)
+                it.get(Calendar.DAY_OF_WEEK).toDayOfWeekName()
             )
         }
 
         override fun bind(item: DarkSky.TimeHourly, pos: Int) {
-            itemView.findViewById<TextView>(R.id.day).text = item.time.toDayOfWeek()
+            itemView.findViewById<TextView>(R.id.day).text = item.time.toDate()
             R.id.temp.setText(R.string.temp, item.temperature)
             R.id.summary.setText(R.string.summary, item.summary)
             R.id.precipProbability.setText(R.string.precipProbability, item.getPrecipProbability())
