@@ -100,56 +100,26 @@
         app:layout_constraintTop_toTopOf="@+id/tempMax"
         app:layout_constraintVertical_bias="1.0">
 
-        <LinearLayout
-            style="@style/secondaryInfoText"
+        <net.azarquiel.darksky.view.TextFA
+            app:textId="@+id/precipProbability"
+            app:text="@string/precipProbabilityPrev"
+            app:faIcon="@string/precipIcon"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/precipProbability"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/precipProbabilityPrev" />
-
-            <TextView
-                style="@style/icon"
-                android:text="@string/precipIcon" />
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/secondaryInfoText"
+        <net.azarquiel.darksky.view.TextFA
+            app:textId="@+id/humidity"
+            app:text="@string/humidityPrev"
+            app:faIcon="@string/humidityIcon"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/humidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/humidityPrev" />
-
-            <TextView
-                style="@style/icon"
-                android:text="@string/humidityIcon" />
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/secondaryInfoText"
+        <net.azarquiel.darksky.view.TextFA
+            app:textId="@+id/windSpeed"
+            app:text="@string/windSpeedPrev"
+            app:faIcon="@string/windSpeedIcon"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/windSpeed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/windSpeedPrev" />
-
-            <TextView
-                style="@style/icon"
-                android:text="@string/windSpeedIcon" />
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="TextFA">
+        <attr name="text" format="string" />
+        <attr name="textId" format="reference" />
+        <attr name="faIcon" format="string" />
+    </declare-styleable>
 
     <style name="secondaryInfoText">
         <item name="android:layout_width">wrap_content</item>

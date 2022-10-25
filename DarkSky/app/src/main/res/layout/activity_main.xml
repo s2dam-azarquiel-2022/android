@@ -72,56 +72,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentTemp">
 
-            <LinearLayout
+            <net.azarquiel.darksky.view.TextFA
+                app:textId="@+id/currentPrecipProbability"
+                app:text="@string/precipProbabilityPrev"
+                app:faIcon="@string/precipIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                style="@style/secondaryInfoText"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/currentPrecipProbability"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/precipProbabilityPrev" />
-
-                <TextView
-                    android:text="@string/precipIcon"
-                    style="@style/icon" />
-            </LinearLayout>
-
-            <LinearLayout
+            <net.azarquiel.darksky.view.TextFA
+                app:textId="@+id/currentHumidity"
+                app:text="@string/humidityPrev"
+                app:faIcon="@string/humidityIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                style="@style/secondaryInfoText"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/currentHumidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/humidityPrev" />
-
-                <TextView
-                    android:text="@string/humidityIcon"
-                    style="@style/icon" />
-            </LinearLayout>
-
-            <LinearLayout
+            <net.azarquiel.darksky.view.TextFA
+                app:textId="@+id/currentWindSpeed"
+                app:text="@string/windSpeedPrev"
+                app:faIcon="@string/windSpeedIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                style="@style/secondaryInfoText"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/currentWindSpeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/windSpeedPrev" />
-
-                <TextView
-                    android:text="@string/windSpeedIcon"
-                    style="@style/icon" />
-            </LinearLayout>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

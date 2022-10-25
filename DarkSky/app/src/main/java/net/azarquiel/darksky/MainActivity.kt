@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     // I don't know much yet about how to handle coroutines, but seems like this works
     // and does not make android yell at you for blocking the main thread.
+    // Note that I need to get the data so I can later get the color to use on the UI.
     private fun setup() = runBlocking {
         data = DarkSky.getForecast(this@MainActivity)
         mainView = findViewById(R.id.mainView)
