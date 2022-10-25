@@ -1,8 +1,13 @@
 package net.azarquiel.darksky
 
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
+import android.util.AttributeSet
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +19,17 @@ import kotlinx.coroutines.*
 import net.azarquiel.darksky.Utils.darken
 import net.azarquiel.darksky.Utils.toColor
 import net.azarquiel.darksky.adapter.DailyAdapter
+import net.azarquiel.darksky.adapter.HourlyAdapter
 import net.azarquiel.darksky.dao.DarkSky
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var data: DarkSky.Result
     private lateinit var mainView: ConstraintLayout
+    private lateinit var dailyRecycler: RecyclerView
     private lateinit var dailyAdapter: DailyAdapter
+    private lateinit var hourlyRecycler: RecyclerView
+    private lateinit var hourlyAdapter: HourlyAdapter
     private var uiMainColor: Int = 0
 
     // I don't know much yet about how to handle coroutines, but seems like this works
@@ -27,7 +37,17 @@ class MainActivity : AppCompatActivity() {
     private fun setup() = runBlocking {
         data = DarkSky.getForecast(this@MainActivity)
         mainView = findViewById(R.id.mainView)
+        dailyRecycler = findViewById(R.id.daily)
         dailyAdapter = DailyAdapter(this@MainActivity, R.layout.day)
+        hourlyRecycler = findViewById(R.id.hourly)
+        hourlyAdapter = HourlyAdapter(this@MainActivity, R.layout.hour)
+    }
+
+    private fun setupRecyclerViews() {
+        dailyRecycler.adapter = dailyAdapter
+        dailyRecycler.layoutManager = LinearLayoutManager(this)
+        hourlyRecycler.adapter = hourlyAdapter
+        hourlyRecycler.layoutManager = LinearLayoutManager(this)
     }
 
     private fun setUIColors() {
@@ -54,12 +74,37 @@ class MainActivity : AppCompatActivity() {
         Picasso.get().load(data.currently.getIcon()).into(findViewById<ImageView>(R.id.currentIcon))
     }
 
-    private fun setDailyTime() {
-        findViewById<RecyclerView>(R.id.daily).let {
-            it.adapter = dailyAdapter
-            it.layoutManager = LinearLayoutManager(this)
-        }
+    private fun showDailyTime() {
+        dailyRecycler.visibility = View.VISIBLE
+        hourlyRecycler.visibility = View.GONE
         dailyAdapter.setDays(data.daily.data)
+    }
+
+    private fun showHourlyTime() {
+        hourlyRecycler.visibility = View.VISIBLE
+        dailyRecycler.visibility = View.GONE
+        hourlyAdapter.setDays(data.hourly.data)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.showDaily -> {
+                showDailyTime()
+                item.isChecked = !item.isChecked
+                true
+            }
+            R.id.showHourly -> {
+                showHourlyTime()
+                item.isChecked = !item.isChecked
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,8 +112,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setup()
+        setupRecyclerViews()
         setUIColors()
         setCurrentTime()
-        setDailyTime()
+        showDailyTime()
     }
 }

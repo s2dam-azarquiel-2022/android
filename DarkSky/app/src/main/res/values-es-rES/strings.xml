@@ -12,6 +12,7 @@
         <item>S\nÁ\nB\nA\nD\nO</item>
     </string-array>
     <string name="summaryPrev">Soleado</string>
-    <string name="longSummaryPrev">Posible llovizna por la mañana.</string>
+    <string name="longSummaryPrev">Posible llovizna por la mañana</string>
+    <string name="shortSummaryPrev">Ventoso y mayorment nublado</string>
     <string name="dayPrev">M\nI\nÉ\nR\nC\nO\nL\nE\nS</string>
 </resources>
