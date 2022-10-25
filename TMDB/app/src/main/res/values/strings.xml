@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TMDB</string>
+
+    <string name="name">%s</string>
+    <string name="popularity">%.3f</string>
+    <string name="id">%s</string>
+
+    <string name="namePrev">Jackie Sandler</string>
+    <string name="popularityPrev">183.47</string>
+    <string name="idPrev">60959</string>
 </resources>
