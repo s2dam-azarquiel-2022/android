@@ -2,9 +2,9 @@ package net.azarquiel.tmdb
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var data: TMDB.Result
     private lateinit var personsAdapter: PersonsAdapter
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun setup() {
         personsAdapter = PersonsAdapter(this@MainActivity, R.layout.person)
         findViewById<RecyclerView>(R.id.persons).let {
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         }
         GlobalScope.launch {
             data = TMDB.getPeople()
-            Log.d("aru", data.toString())
             launch(Dispatchers.Main) { personsAdapter.setPersons(data.data) }
         }
     }

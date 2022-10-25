@@ -1,7 +1,5 @@
 package net.azarquiel.tmdb.dao
 
-import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import com.google.gson.Gson
@@ -27,7 +25,7 @@ object TMDB {
         private var pfp: String?,
         var id: Int
     ) {
-        fun getPfp(): String? = if (pfp == null) null else "https://image.tmdb.org/t/p/w500/$pfp"
+        fun getPfp(): String? = if (pfp == null) null else "https://image.tmdb.org/t/p/w500$pfp"
     }
 
     @OptIn(DelicateCoroutinesApi::class)
