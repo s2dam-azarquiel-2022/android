@@ -3,26 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30dp">
+    android:padding="20dp">
 
     <EditText
         android:id="@+id/newProductName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:hint="@string/addProductDialogName"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/newProductQuantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Quantity"
+        android:hint="@string/addProductDialogQuantity"
         android:inputType="numberSigned" />
 
     <EditText
         android:id="@+id/newProductPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Price"
+        android:hint="@string/addProductDialogPrice"
         android:inputType="numberDecimal" />
 </LinearLayout>

@@ -50,10 +50,15 @@ class MainActivity : AppCompatActivity() {
     private fun showNewProductDialog() {
         val dialogView = layoutInflater.inflate(R.layout.new_product_alert, null)
         AlertDialog.Builder(this)
-            .setTitle("Add product")
+            .setTitle(getString(R.string.addProductDialogTitle))
             .setView(dialogView)
-            .setPositiveButton("Save", ProductAddHandler(cart, dialogView))
-            .setNegativeButton("Cancel") { _, _ -> /* do nothing */ }
+            .setPositiveButton(
+                getString(R.string.addProductDialogSave),
+                ProductAddHandler(cart, dialogView)
+            )
+            .setNegativeButton(
+                getString(R.string.addProductDialogCancel)
+            ) { _, _ -> /* do nothing */ }
             .show()
     }
 
