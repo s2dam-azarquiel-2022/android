@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         cartAdapter = CartAdapter(this, R.layout.product)
 
-        findViewById<RecyclerView>(R.id.cartAdapter).let {
+        binding.contentMain.cartAdapter.let {
             it.adapter = cartAdapter
             it.layoutManager = LinearLayoutManager(this)
         }

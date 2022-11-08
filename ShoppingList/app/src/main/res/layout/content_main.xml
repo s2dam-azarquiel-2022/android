@@ -4,7 +4,7 @@
     android:id="@+id/cartAdapter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#48F44336"
+    android:background="#4200BCD4"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 </androidx.recyclerview.widget.RecyclerView>
