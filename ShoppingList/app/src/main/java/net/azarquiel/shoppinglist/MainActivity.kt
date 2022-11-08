@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
             ItemTouchHelper.RIGHT,
             cart,
             cartAdapter,
-            binding.contentMain.cartAdapter)
-        ).attachToRecyclerView(binding.contentMain.cartAdapter)
+            binding.contentMain.cartAdapter
+        )).attachToRecyclerView(binding.contentMain.cartAdapter)
 
         cartAdapter.setProducts(cart.products)
 
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showNewProductDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.alert, null)
+        val dialogView = layoutInflater.inflate(R.layout.new_product_alert, null)
         AlertDialog.Builder(this)
             .setTitle("Add product")
             .setView(dialogView)
@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
