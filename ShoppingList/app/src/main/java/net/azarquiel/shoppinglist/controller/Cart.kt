@@ -25,6 +25,16 @@ class Cart(
         products.add(product)
     }
 
+    fun saveProduct(product: Product, pos: Int) {
+        cartSharedPrefs.edit(true) { putString(product.id.toString(), Gson().toJson(product)) }
+        products.add(pos, product)
+    }
+
+    fun removeProduct(pos: Int) {
+        cartSharedPrefs.edit(true) { remove(products[pos].id.toString()) }
+        products.removeAt(pos)
+    }
+
     fun updateProduct(product: Product) {
         cartSharedPrefs.edit(true) { putString((product.id.toString()), Gson().toJson(product)) }
     }

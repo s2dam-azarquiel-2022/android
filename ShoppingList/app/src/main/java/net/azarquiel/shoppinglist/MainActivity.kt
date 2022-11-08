@@ -2,18 +2,21 @@ package net.azarquiel.shoppinglist
 
 import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputEditText
 import net.azarquiel.shoppinglist.adapter.CartAdapter
 import net.azarquiel.shoppinglist.controller.Cart
 import net.azarquiel.shoppinglist.databinding.ActivityMainBinding
 import net.azarquiel.shoppinglist.handler.ProductClickHandler
+import net.azarquiel.shoppinglist.handler.ProductSwipeHandler
 import net.azarquiel.shoppinglist.model.Product
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -32,10 +35,15 @@ class MainActivity : AppCompatActivity() {
 
         cartAdapter = CartAdapter(this, R.layout.product, productClickHandler)
 
-        binding.contentMain.cartAdapter.let {
-            it.adapter = cartAdapter
-            it.layoutManager = LinearLayoutManager(this)
-        }
+        binding.contentMain.cartAdapter.adapter = cartAdapter
+        binding.contentMain.cartAdapter.layoutManager = LinearLayoutManager(this)
+
+        ItemTouchHelper(ProductSwipeHandler(
+            ItemTouchHelper.RIGHT,
+            cart,
+            cartAdapter,
+            binding.contentMain.cartAdapter)
+        ).attachToRecyclerView(binding.contentMain.cartAdapter)
 
         cartAdapter.setProducts(cart.products)
 
