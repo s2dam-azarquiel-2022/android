@@ -5,4 +5,5 @@ data class Product(
     var name: String = "",
     var quantity: Int = 0,
     var price: Float = 0F,
+    var bought: Boolean = false,
 )
