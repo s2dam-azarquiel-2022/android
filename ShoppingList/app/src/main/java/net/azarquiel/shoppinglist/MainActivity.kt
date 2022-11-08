@@ -8,17 +8,18 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import net.azarquiel.shoppinglist.adapter.CartAdapter
 import net.azarquiel.shoppinglist.controller.Cart
 import net.azarquiel.shoppinglist.databinding.ActivityMainBinding
+import net.azarquiel.shoppinglist.handler.ProductClickHandler
 import net.azarquiel.shoppinglist.model.Product
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var cartAdapter: CartAdapter
     private lateinit var cart: Cart
+    private lateinit var productClickHandler: ProductClickHandler
 
     private fun setup() {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -27,7 +28,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         cart = Cart(getSharedPreferences("products", Context.MODE_PRIVATE))
 
-        cartAdapter = CartAdapter(this, R.layout.product)
+        productClickHandler = ProductClickHandler(this, cart)
+
+        cartAdapter = CartAdapter(this, R.layout.product, productClickHandler)
 
         binding.contentMain.cartAdapter.let {
             it.adapter = cartAdapter

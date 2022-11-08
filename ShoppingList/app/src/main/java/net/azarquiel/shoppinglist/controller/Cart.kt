@@ -24,4 +24,8 @@ class Cart(
         cartSharedPrefs.edit(true) { putString(product.id.toString(), Gson().toJson(product)) }
         products.add(product)
     }
+
+    fun updateProduct(product: Product) {
+        cartSharedPrefs.edit(true) { putString((product.id.toString()), Gson().toJson(product)) }
+    }
 }
