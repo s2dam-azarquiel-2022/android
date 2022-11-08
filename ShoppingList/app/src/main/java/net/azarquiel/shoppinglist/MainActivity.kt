@@ -4,19 +4,16 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.textfield.TextInputEditText
 import net.azarquiel.shoppinglist.adapter.CartAdapter
 import net.azarquiel.shoppinglist.controller.Cart
 import net.azarquiel.shoppinglist.databinding.ActivityMainBinding
+import net.azarquiel.shoppinglist.handler.ProductAddHandler
 import net.azarquiel.shoppinglist.handler.ProductClickHandler
 import net.azarquiel.shoppinglist.handler.ProductSwipeHandler
-import net.azarquiel.shoppinglist.model.Product
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -50,24 +47,12 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener { showNewProductDialog() }
     }
 
-    @Suppress("NOTHING_TO_INLINE")
-    private inline fun View.getText(id: Int): String {
-        return this.findViewById<TextInputEditText>(id).text.toString()
-    }
-
     private fun showNewProductDialog() {
-        val view = layoutInflater.inflate(R.layout.alert, null)
+        val dialogView = layoutInflater.inflate(R.layout.alert, null)
         AlertDialog.Builder(this)
             .setTitle("Add product")
-            .setView(view)
-            .setPositiveButton("Save") { _, _ ->
-                cart.saveProduct(Product(
-                    0,
-                    view.getText(R.id.newProductName),
-                    view.getText(R.id.newProductQuantity).toInt(),
-                    view.getText(R.id.newProductPrice).toFloat(),
-                ).also { it.id = it.hashCode() })
-            }
+            .setView(dialogView)
+            .setPositiveButton("Save", ProductAddHandler(cart, dialogView))
             .setNegativeButton("Cancel") { _, _ -> /* do nothing */ }
             .show()
     }
