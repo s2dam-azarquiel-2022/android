@@ -20,7 +20,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        cart = Cart(getSharedPreferences("products", Context.MODE_PRIVATE))
+        cart = Cart(
+            getSharedPreferences("products", Context.MODE_PRIVATE),
+            getSharedPreferences("idCount", Context.MODE_PRIVATE)
+        )
         cartAdapter = CartAdapter(this, binding.contentMain.cartAdapter, R.layout.product, cart)
 
         binding.addProductBtn.setOnClickListener(AddProducBtntHandler(this, cart))

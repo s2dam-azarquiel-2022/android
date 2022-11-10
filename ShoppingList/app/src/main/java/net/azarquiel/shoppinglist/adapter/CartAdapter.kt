@@ -164,29 +164,25 @@ class CartAdapter (
             }
 
             override fun onClick(p0: DialogInterface?, p1: Int) {
-                cart.removeProduct(pos)
-                this@CartAdapter.notifyItemRemoved(pos)
-                cart.saveProduct(
-                    Product(
-                        0,
-                        (R.id.newProductName).getText(),
-                        (R.id.newProductQuantity).getText().toInt(),
-                        (R.id.newProductPrice).getText().let {
-                            if (it.isBlank()) 0F
-                            else it.toFloat()
-                        },
-                    ).also { it.id = it.hashCode() },
-                    pos
-                )
-                this@CartAdapter.notifyItemInserted(pos)
+                cart.updateProduct(Product(
+                    product.id,
+                    (R.id.newProductName).getText(),
+                    (R.id.newProductQuantity).getText().toInt(),
+                    (R.id.newProductPrice).getText().let {
+                        if (it.isBlank()) 0F
+                        else it.toFloat()
+                    },
+                    product.bought
+                ), pos)
+                this@CartAdapter.notifyItemChanged(pos)
 
                 Snackbar.make(
                     thisView,
                     product.name,
                     Snackbar.LENGTH_LONG
                 ).setAction("Undo") {
-                    cart.saveProduct(product, pos)
-                    this@CartAdapter.notifyItemInserted(pos)
+                    cart.updateProduct(product, pos)
+                    this@CartAdapter.notifyItemChanged(pos)
                 }.show()
             }
         }

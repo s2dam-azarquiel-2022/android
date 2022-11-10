@@ -38,16 +38,15 @@ class AddProducBtntHandler(
         }
 
         override fun onClick(p0: DialogInterface?, p1: Int) {
-            cart.saveProduct(
-                Product(
-                    0,
-                    (R.id.newProductName).getText(),
-                    (R.id.newProductQuantity).getText().toInt(),
-                    (R.id.newProductPrice).getText().let {
-                        if (it.isBlank()) 0F
-                        else it.toFloat()
-                    },
-                ).also { it.id = it.hashCode() })
+            cart.saveProduct(Product(
+                cart.getId(),
+                (R.id.newProductName).getText(),
+                (R.id.newProductQuantity).getText().toInt(),
+                (R.id.newProductPrice).getText().let {
+                    if (it.isBlank()) 0F
+                    else it.toFloat()
+                },
+            ))
         }
     }
 }
