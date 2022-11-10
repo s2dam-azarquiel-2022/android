@@ -4,62 +4,26 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import net.azarquiel.shoppinglist.adapter.CartAdapter
 import net.azarquiel.shoppinglist.controller.Cart
 import net.azarquiel.shoppinglist.databinding.ActivityMainBinding
-import net.azarquiel.shoppinglist.handler.ProductAddHandler
-import net.azarquiel.shoppinglist.handler.ProductClickHandler
-import net.azarquiel.shoppinglist.handler.ProductSwipeHandler
+import net.azarquiel.shoppinglist.handler.AddProducBtntHandler
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var cartAdapter: CartAdapter
     private lateinit var cart: Cart
-    private lateinit var productClickHandler: ProductClickHandler
 
     private fun setup() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
+
         cart = Cart(getSharedPreferences("products", Context.MODE_PRIVATE))
+        cartAdapter = CartAdapter(this, binding.contentMain.cartAdapter, R.layout.product, cart)
 
-        productClickHandler = ProductClickHandler(this, cart)
-
-        cartAdapter = CartAdapter(this, R.layout.product, productClickHandler)
-
-        binding.contentMain.cartAdapter.adapter = cartAdapter
-        binding.contentMain.cartAdapter.layoutManager = LinearLayoutManager(this)
-
-        ItemTouchHelper(ProductSwipeHandler(
-            ItemTouchHelper.RIGHT,
-            cart,
-            cartAdapter,
-            binding.contentMain.cartAdapter
-        )).attachToRecyclerView(binding.contentMain.cartAdapter)
-
-        cartAdapter.setProducts(cart.products)
-
-        binding.fab.setOnClickListener { showNewProductDialog() }
-    }
-
-    private fun showNewProductDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.new_product_alert, null)
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.addProductDialogTitle))
-            .setView(dialogView)
-            .setPositiveButton(
-                getString(R.string.addProductDialogSave),
-                ProductAddHandler(cart, dialogView)
-            )
-            .setNegativeButton(
-                getString(R.string.addProductDialogCancel)
-            ) { _, _ -> /* do nothing */ }
-            .show()
+        binding.addProductBtn.setOnClickListener(AddProducBtntHandler(this, cart))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
