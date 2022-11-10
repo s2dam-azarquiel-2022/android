@@ -6,11 +6,7 @@ import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import net.azarquiel.shoppinglist.R
-import net.azarquiel.shoppinglist.adapter.CartAdapter
 import net.azarquiel.shoppinglist.controller.Cart
 import net.azarquiel.shoppinglist.model.Product
 
@@ -54,5 +50,4 @@ class AddProducBtntHandler(
                 ).also { it.id = it.hashCode() })
         }
     }
-
 }

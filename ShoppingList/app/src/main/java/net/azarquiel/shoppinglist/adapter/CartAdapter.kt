@@ -1,10 +1,13 @@
 package net.azarquiel.shoppinglist.adapter
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -27,7 +30,8 @@ class CartAdapter (
     private val productClickHandler = ProductClickHandler()
 
     init {
-        ItemTouchHelper(ProductSwipeHandler(ItemTouchHelper.RIGHT)).attachToRecyclerView(thisView)
+        ItemTouchHelper(ProductSwipeLeftHandler()).attachToRecyclerView(thisView)
+        ItemTouchHelper(ProductSwipeRightHandler()).attachToRecyclerView(thisView)
 
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
@@ -87,15 +91,23 @@ class CartAdapter (
         }
     }
 
-    inner class ProductSwipeHandler(
+    abstract inner class ProductSwipeHandler(
+        from: Int,
         direction: Int
-    ) : ItemTouchHelper.SimpleCallback(0, direction) {
+    ) : ItemTouchHelper.SimpleCallback(from, direction) {
         override fun onMove(
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder
         ): Boolean = false
 
+        abstract override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int)
+    }
+
+    inner class ProductSwipeLeftHandler : ProductSwipeHandler(
+        ItemTouchHelper.LEFT,
+        ItemTouchHelper.RIGHT
+    ) {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val pos = viewHolder.adapterPosition
             val product = cart.products[pos]
@@ -109,6 +121,74 @@ class CartAdapter (
                 cart.saveProduct(product, pos)
                 this@CartAdapter.notifyItemInserted(pos)
             }.show()
+        }
+    }
+
+    inner class ProductSwipeRightHandler : ProductSwipeHandler(
+        ItemTouchHelper.RIGHT,
+        ItemTouchHelper.LEFT
+    ) {
+        @Suppress("NOTHING_TO_INLINE")
+        private inline fun View.setText(id: Int, text: String) {
+            this.findViewById<EditText>(id).setText(text)
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val pos = viewHolder.adapterPosition
+            val product = cart.products[pos]
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.new_product_alert, null)
+            dialogView.setText(R.id.newProductName, product.name)
+            dialogView.setText(R.id.newProductQuantity, product.quantity.toString())
+            dialogView.setText(R.id.newProductPrice, product.price.toString())
+            AlertDialog.Builder(context)
+                .setTitle(context.getString(R.string.addProductDialogTitle))
+                .setView(dialogView)
+                .setPositiveButton(
+                    context.getString(R.string.addProductDialogSave),
+                    ProductEditHandler(dialogView, product, pos)
+                )
+                .setNegativeButton(
+                    context.getString(R.string.addProductDialogCancel)
+                ) { _, _ -> this@CartAdapter.notifyItemChanged(pos) }
+                .show()
+        }
+
+        inner class ProductEditHandler(
+            private val view: View,
+            private val product: Product,
+            private val pos: Int
+        ): DialogInterface.OnClickListener {
+            @Suppress("NOTHING_TO_INLINE")
+            private inline fun Int.getText(): String {
+                return view.findViewById<EditText>(this).text.toString()
+            }
+
+            override fun onClick(p0: DialogInterface?, p1: Int) {
+                cart.removeProduct(pos)
+                this@CartAdapter.notifyItemRemoved(pos)
+                cart.saveProduct(
+                    Product(
+                        0,
+                        (R.id.newProductName).getText(),
+                        (R.id.newProductQuantity).getText().toInt(),
+                        (R.id.newProductPrice).getText().let {
+                            if (it.isBlank()) 0F
+                            else it.toFloat()
+                        },
+                    ).also { it.id = it.hashCode() },
+                    pos
+                )
+                this@CartAdapter.notifyItemInserted(pos)
+
+                Snackbar.make(
+                    thisView,
+                    product.name,
+                    Snackbar.LENGTH_LONG
+                ).setAction("Undo") {
+                    cart.saveProduct(product, pos)
+                    this@CartAdapter.notifyItemInserted(pos)
+                }.show()
+            }
         }
     }
 }
