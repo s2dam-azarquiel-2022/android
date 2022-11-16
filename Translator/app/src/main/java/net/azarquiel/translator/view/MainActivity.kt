@@ -1,4 +1,4 @@
-package net.azarquiel.translator
+package net.azarquiel.translator.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
+import net.azarquiel.translator.R
 import net.azarquiel.translator.adapter.WordAdapter
 import net.azarquiel.translator.controller.DataFiles
 import net.azarquiel.translator.controller.Dictionary
@@ -24,11 +25,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        dictionary = Dictionary(this, "en", "es")
-        wordAdapter = WordAdapter(this, binding.contentMain.wordAdapter, R.layout.word_row, dictionary)
-
         DataFiles.inject(this, "en.xml")
         DataFiles.inject(this, "es.xml")
+
+        dictionary = Dictionary(this, "en", "es")
+        wordAdapter = WordAdapter(
+            this,
+            binding.contentMain.wordAdapter,
+            R.layout.word_row,
+            dictionary
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
