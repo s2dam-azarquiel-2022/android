@@ -13,7 +13,7 @@ import net.azarquiel.translator.controller.Dictionary
 import net.azarquiel.translator.controller.LangSwitch
 
 class WordAdapter(
-    private val context: Context,
+    context: Context,
     thisView: RecyclerView,
     private val itemLayout: Int,
     private val dictionary: Dictionary,
@@ -25,7 +25,7 @@ class WordAdapter(
     init {
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
-        setData(dictionary.langWords[langSwitch.currentLangFromPos].map { it!!.id })
+        setData(dictionary.langWords[langSwitch.currentLangFromPos].map { it.key })
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -33,8 +33,6 @@ class WordAdapter(
         this.data = data
         notifyDataSetChanged()
     }
-
-    fun getData(): List<Int> = this.data
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         LayoutInflater.from(parent.context).inflate(itemLayout, parent, false)
@@ -47,10 +45,10 @@ class WordAdapter(
     inner class ViewHolder(
         layout: View,
     ) : RecyclerView.ViewHolder(layout) {
-        @Suppress("NOTHING_TO_INLINE")
-        private inline fun Int.setText(stringId: Int, vararg: Any) {
-            itemView.findViewById<TextView>(this).text = context.getString(stringId, vararg)
-        }
+//        @Suppress("NOTHING_TO_INLINE")
+//        private inline fun Int.setText(stringId: Int, vararg: Any) {
+//            itemView.findViewById<TextView>(this).text = context.getString(stringId, vararg)
+//        }
 
         @Suppress("NOTHING_TO_INLINE")
         private inline fun Int.setText(text: String) {
@@ -58,8 +56,8 @@ class WordAdapter(
         }
 
         fun bind(item: Int) {
-            R.id.wordFrom.setText(dictionary.langWords[langSwitch.currentLangFromPos][item]!!.word)
-            R.id.wordTo.setText(dictionary.langWords[langSwitch.currentLangToPos][item]!!.word)
+            R.id.wordFrom.setText(dictionary.langWords[langSwitch.currentLangFromPos][item]!!)
+            R.id.wordTo.setText(dictionary.langWords[langSwitch.currentLangToPos][item]!!)
 
             itemView.tag = item
         }

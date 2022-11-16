@@ -1,13 +1,12 @@
 package net.azarquiel.translator.controller
 
 import android.content.Context
-import net.azarquiel.translator.model.Word
 
 class Dictionary(
     private val context: Context,
     private val langSwitch: LangSwitch,
 ) {
-    lateinit var langWords: Array<Array<Word?>>
+    lateinit var langWords: Array<HashMap<Int, String>>
 
     init {
         getWordsFromLangs()
@@ -15,19 +14,14 @@ class Dictionary(
 
     private fun getWordsFromLangs() {
         langWords = Array(langSwitch.langs.size) { lang ->
-            context.getSharedPreferences(langSwitch.langs[lang], Context.MODE_PRIVATE).all.let { w ->
-                arrayOfNulls<Word>(w.size).also { arr ->
-                    w.forEach { arr[it.key.toInt() - 1] = Word(it.key.toInt() - 1, it.value.toString()) }
-                }
+            context.getSharedPreferences(
+                langSwitch.langs[lang],
+                Context.MODE_PRIVATE
+            ).all.let { elems ->
+                val result = HashMap<Int, String>(elems.size)
+                elems.forEach { elem -> result[elem.key.toInt()] = elem.value.toString() }
+                result
             }
         }
     }
-
-//    private fun getWordsFromLangs() {
-//        langWords = Array(langSwitch.langs.size) {
-//            context.getSharedPreferences(langSwitch.langs[it], Context.MODE_PRIVATE).all.map { w ->
-//                Word(w.key.toInt(), w.value.toString())
-//            }
-//        }
-//    }
 }

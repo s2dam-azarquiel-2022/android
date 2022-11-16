@@ -13,10 +13,9 @@ class SearchWordHandler(
 ) : SearchView.OnQueryTextListener {
     @SuppressLint("NotifyDataSetChanged")
     override fun onQueryTextChange(query: String): Boolean {
-        val a = dictionary.langWords[langSwitch.currentLangFromPos].filter {
-            it!!.word.startsWith(query)
-        }.map { it!!.id }
-        wordAdapter.setData(a)
+        wordAdapter.setData(dictionary.langWords[langSwitch.currentLangFromPos].filter {
+            it.value.startsWith(query)
+        }.map { it.key })
         wordAdapter.notifyDataSetChanged()
         return false
     }
