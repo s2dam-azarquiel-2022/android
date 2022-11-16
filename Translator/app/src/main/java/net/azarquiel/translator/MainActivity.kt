@@ -2,7 +2,6 @@ package net.azarquiel.translator
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -30,8 +29,6 @@ class MainActivity : AppCompatActivity() {
         langSwitch = LangSwitch("en", "es")
         dictionary = Dictionary(this, langSwitch)
         wordAdapter = WordAdapter(this, binding.contentMain.wordAdapter, R.layout.word_row, dictionary, langSwitch)
-
-        dictionary.langWords[0].forEachIndexed { w, n -> Log.d("aru-arr", "${n!!.word} - ${n.id} - $w") }
 
         DataFiles.inject(this, "en.xml")
         DataFiles.inject(this, "es.xml")

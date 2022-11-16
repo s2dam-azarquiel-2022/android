@@ -2,7 +2,6 @@ package net.azarquiel.translator.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +58,6 @@ class WordAdapter(
         }
 
         fun bind(item: Int) {
-            Log.d("aru", "item: $item, word: ${dictionary.langWords[langSwitch.currentLangFromPos][item]!!.word}")
             R.id.wordFrom.setText(dictionary.langWords[langSwitch.currentLangFromPos][item]!!.word)
             R.id.wordTo.setText(dictionary.langWords[langSwitch.currentLangToPos][item]!!.word)
 
