@@ -4,16 +4,14 @@ import android.annotation.SuppressLint
 import androidx.appcompat.widget.SearchView
 import net.azarquiel.translator.adapter.WordAdapter
 import net.azarquiel.translator.controller.Dictionary
-import net.azarquiel.translator.controller.LangSwitch
 
 class SearchWordHandler(
-    private val langSwitch: LangSwitch,
     private val dictionary: Dictionary,
     private val wordAdapter: WordAdapter,
 ) : SearchView.OnQueryTextListener {
     @SuppressLint("NotifyDataSetChanged")
     override fun onQueryTextChange(query: String): Boolean {
-        wordAdapter.setData(dictionary.langWords[langSwitch.currentLangFromPos].filter {
+        wordAdapter.setData(dictionary.langWords[dictionary.currentLangFromPos].filter {
             it.value.startsWith(query)
         }.map { it.key })
         wordAdapter.notifyDataSetChanged()

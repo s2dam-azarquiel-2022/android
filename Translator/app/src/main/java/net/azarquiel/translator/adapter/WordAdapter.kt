@@ -10,14 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.translator.R
 import net.azarquiel.translator.controller.Dictionary
-import net.azarquiel.translator.controller.LangSwitch
 
 class WordAdapter(
     context: Context,
     thisView: RecyclerView,
     private val itemLayout: Int,
     private val dictionary: Dictionary,
-    private val langSwitch: LangSwitch
 ) : RecyclerView.Adapter<WordAdapter.ViewHolder>() {
 
     private var data: List<Int> = emptyList()
@@ -25,7 +23,7 @@ class WordAdapter(
     init {
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
-        setData(dictionary.langWords[langSwitch.currentLangFromPos].map { it.key })
+        setData(dictionary.langWords[dictionary.currentLangFromPos].map { it.key })
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -56,8 +54,8 @@ class WordAdapter(
         }
 
         fun bind(item: Int) {
-            R.id.wordFrom.setText(dictionary.langWords[langSwitch.currentLangFromPos][item]!!)
-            R.id.wordTo.setText(dictionary.langWords[langSwitch.currentLangToPos][item]!!)
+            R.id.wordFrom.setText(dictionary.langWords[dictionary.currentLangFromPos][item]!!)
+            R.id.wordTo.setText(dictionary.langWords[dictionary.currentLangToPos][item]!!)
 
             itemView.tag = item
         }

@@ -9,7 +9,6 @@ import androidx.appcompat.widget.SearchView
 import net.azarquiel.translator.adapter.WordAdapter
 import net.azarquiel.translator.controller.DataFiles
 import net.azarquiel.translator.controller.Dictionary
-import net.azarquiel.translator.controller.LangSwitch
 import net.azarquiel.translator.databinding.ActivityMainBinding
 import net.azarquiel.translator.handler.SearchWordHandler
 import net.azarquiel.translator.utils.Utils.toID
@@ -17,7 +16,6 @@ import net.azarquiel.translator.utils.Utils.toID
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var searchView: SearchView
-    private lateinit var langSwitch: LangSwitch
     private lateinit var dictionary: Dictionary
     private lateinit var wordAdapter: WordAdapter
 
@@ -26,9 +24,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        langSwitch = LangSwitch("en", "es")
-        dictionary = Dictionary(this, langSwitch)
-        wordAdapter = WordAdapter(this, binding.contentMain.wordAdapter, R.layout.word_row, dictionary, langSwitch)
+        dictionary = Dictionary(this, "en", "es")
+        wordAdapter = WordAdapter(this, binding.contentMain.wordAdapter, R.layout.word_row, dictionary)
 
         DataFiles.inject(this, "en.xml")
         DataFiles.inject(this, "es.xml")
@@ -44,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         searchView = (menu.findItem(R.id.searchWord).actionView) as SearchView
         searchView.queryHint = "Search..."
-        searchView.setOnQueryTextListener(SearchWordHandler(langSwitch, dictionary, wordAdapter))
+        searchView.setOnQueryTextListener(SearchWordHandler(dictionary, wordAdapter))
         return true
     }
 
@@ -55,14 +52,14 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.langSwitchFrom -> {
-                langSwitch.nextLangFrom()
-                item.setIcon(this.toID("flag_${langSwitch.currentLangFrom}"))
+                dictionary.nextLangFrom()
+                item.setIcon(this.toID("flag_${dictionary.currentLangFrom}"))
                 wordAdapter.notifyDataSetChanged()
                 true
             }
             R.id.langSwitchTo -> {
-                langSwitch.nextLangTo()
-                item.setIcon(this.toID("flag_${langSwitch.currentLangTo}"))
+                dictionary.nextLangTo()
+                item.setIcon(this.toID("flag_${dictionary.currentLangTo}"))
                 wordAdapter.notifyDataSetChanged()
                 true
             }
