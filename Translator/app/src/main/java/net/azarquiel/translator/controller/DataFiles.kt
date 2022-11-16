@@ -1,11 +1,13 @@
 package net.azarquiel.translator.controller
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import java.io.*
 
 object DataFiles {
+    @SuppressLint("SdCardPath")
     fun inject(context: Context, xmlFile: String) {
         val sharedPrefsPath = "/data/data/${context.packageName}/shared_prefs"
         val xmlFilePath = "$sharedPrefsPath/$xmlFile"
