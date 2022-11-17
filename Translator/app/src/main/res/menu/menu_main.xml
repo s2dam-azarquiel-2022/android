@@ -7,16 +7,16 @@
         android:title="search"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="collapseActionView|ifRoom" />
     <item
         android:id="@+id/langSwitchFrom"
         android:title="langFrom"
         android:icon="@drawable/flag_en"
-        app:showAsAction="always" />
+        app:showAsAction="collapseActionView|ifRoom" />
 
     <item
         android:id="@+id/langSwitchTo"
         android:title="langTo"
         android:icon="@drawable/flag_es"
-        app:showAsAction="always" />
+        app:showAsAction="collapseActionView|ifRoom" />
 </menu>
