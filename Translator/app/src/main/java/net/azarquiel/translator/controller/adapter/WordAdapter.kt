@@ -23,7 +23,7 @@ class WordAdapter(
     init {
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
-        setData(dictionary.langWords[dictionary.currentLangFromPos].map { it.key })
+        setData(dictionary.langWords[dictionary.currentLangFrom]!!.map { it.key })
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -54,8 +54,8 @@ class WordAdapter(
         }
 
         fun bind(item: Int) {
-            R.id.wordFrom.setText(dictionary.langWords[dictionary.currentLangFromPos][item]!!)
-            R.id.wordTo.setText(dictionary.langWords[dictionary.currentLangToPos][item]!!)
+            R.id.wordFrom.setText(dictionary.getWordFrom(item))
+            R.id.wordTo.setText(dictionary.getWordTo(item))
 
             itemView.tag = item
         }

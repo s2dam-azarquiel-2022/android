@@ -25,10 +25,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        DataFiles.inject(this, "en.xml")
-        DataFiles.inject(this, "es.xml")
+        val langs = resources.getStringArray(R.array.langs)
+        langs.forEach { DataFiles.inject(this, "${it}.xml") }
 
-        dictionary = Dictionary(this, "en", "es")
+        dictionary = Dictionary(
+            this,
+            langs,
+            getString(R.string.defaultLangFrom),
+            getString(R.string.defaultLangTo)
+        )
+
         wordAdapter = WordAdapter(
             this,
             binding.contentMain.wordAdapter,

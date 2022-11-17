@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Translator</string>
+
+    <string-array name="langs">
+        <item>en</item>
+        <item>es</item>
+    </string-array>
+
+    <string name="defaultLangFrom">en</string>
+    <string name="defaultLangTo">es</string>
 </resources>
