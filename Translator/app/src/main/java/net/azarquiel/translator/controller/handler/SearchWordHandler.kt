@@ -1,8 +1,8 @@
-package net.azarquiel.translator.handler
+package net.azarquiel.translator.controller.handler
 
 import android.annotation.SuppressLint
 import androidx.appcompat.widget.SearchView
-import net.azarquiel.translator.adapter.WordAdapter
+import net.azarquiel.translator.controller.adapter.WordAdapter
 import net.azarquiel.translator.controller.Dictionary
 
 class SearchWordHandler(

@@ -1,4 +1,4 @@
-package net.azarquiel.translator.adapter
+package net.azarquiel.translator.controller.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

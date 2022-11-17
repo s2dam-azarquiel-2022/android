@@ -1,4 +1,4 @@
-package net.azarquiel.translator.utils
+package net.azarquiel.translator.controller.utils
 
 import android.content.Context
 

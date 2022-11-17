@@ -7,12 +7,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import net.azarquiel.translator.R
-import net.azarquiel.translator.adapter.WordAdapter
+import net.azarquiel.translator.controller.adapter.WordAdapter
 import net.azarquiel.translator.controller.DataFiles
 import net.azarquiel.translator.controller.Dictionary
 import net.azarquiel.translator.databinding.ActivityMainBinding
-import net.azarquiel.translator.handler.SearchWordHandler
-import net.azarquiel.translator.utils.Utils.toID
+import net.azarquiel.translator.controller.handler.SearchWordHandler
+import net.azarquiel.translator.controller.utils.Utils.toID
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
