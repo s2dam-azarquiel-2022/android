@@ -3,7 +3,7 @@ package net.azarquiel.friendroom.model
 import android.app.Application
 import androidx.lifecycle.LiveData
 
-class ProductRepository(application: Application) {
+class FriendsRepository(application: Application) {
     val friendDAO = FriendsDB.getDB(application).friendDAO()
     val familyDAO = FriendsDB.getDB(application).familyDAO()
 
