@@ -2,9 +2,6 @@ package net.azarquiel.friendroom.model
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
 
 class ProductRepository(application: Application) {
     val friendDAO = FriendsDB.getDB(application).friendDAO()
