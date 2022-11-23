@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.friendroom.R
 import net.azarquiel.friendroom.databinding.ActivityMainBinding
+import net.azarquiel.friendroom.model.AddFriendBtnHandler
 import net.azarquiel.friendroom.view.adapter.FriendAdapter
 import net.azarquiel.friendroom.viewModel.FriendViewModel
 
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         friendViewModel.getAll().observe(this) { friends ->
             friends.let { friendAdapter.setData(it) }
         }
+
+        binding.addFriendBtn.setOnClickListener(AddFriendBtnHandler(this, friendViewModel))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

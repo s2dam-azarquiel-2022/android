@@ -43,7 +43,7 @@ class FriendAdapter(
 
         fun bind(item: Friend) {
             R.id.friendName.setText(item.name)
-            R.id.friendName.setText(item.email)
+            R.id.friendEmail.setText(item.email)
 
             itemView.tag = item
         }
