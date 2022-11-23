@@ -16,6 +16,7 @@ class FriendViewModel(
     private var repository = FriendsRepository(application)
 
     fun getAll(): LiveData<List<Friend>> = repository.getAllFriends()
+    fun getById(id: Int): LiveData<List<Friend>> = repository.getFriendById(id)
     fun add(friend: Friend) = GlobalScope.launch { repository.addFriend(friend) }
     fun remove(id: Int) = GlobalScope.launch { repository.removeFriend(id) }
     fun update(friend: Friend) = GlobalScope.launch { repository.updateFriend(friend) }
