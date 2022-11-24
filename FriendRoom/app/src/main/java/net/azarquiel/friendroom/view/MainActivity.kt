@@ -8,11 +8,16 @@ import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.friendroom.R
 import net.azarquiel.friendroom.databinding.ActivityMainBinding
 import net.azarquiel.friendroom.model.AddFriendBtnHandler
+import net.azarquiel.friendroom.model.AddGroupBtnHandler
 import net.azarquiel.friendroom.view.adapter.FriendAdapter
+import net.azarquiel.friendroom.view.adapter.GroupAdapter
 import net.azarquiel.friendroom.viewModel.FriendViewModel
+import net.azarquiel.friendroom.viewModel.GroupViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var groupAdapter: GroupAdapter
+    private lateinit var groupViewModel: GroupViewModel
     private lateinit var friendAdapter: FriendAdapter
     private lateinit var friendViewModel: FriendViewModel
 
@@ -21,14 +26,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        friendAdapter = FriendAdapter(this, binding.contentMain.friendRecycler, R.layout.friend_row)
+        groupAdapter = GroupAdapter(this, binding.contentMain.friendRecycler, R.layout.group_row)
 
-        friendViewModel = ViewModelProvider(this)[FriendViewModel::class.java]
-        friendViewModel.getAll().observe(this) { friends ->
-            friends.let { friendAdapter.setData(it) }
+        groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
+        groupViewModel.getAll().observe(this) { groups ->
+            groups.let { groupAdapter.setData(it) }
         }
 
-        binding.addFriendBtn.setOnClickListener(AddFriendBtnHandler(this, friendViewModel))
+        binding.addGroupBtn.setOnClickListener(AddGroupBtnHandler(this, groupViewModel))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
