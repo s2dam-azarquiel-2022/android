@@ -3,9 +3,10 @@ package net.azarquiel.friendroom.model
 import android.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.io.Serializable
 
 @Entity(tableName = "Groups")
-data class Group(
+data class Group (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0,
@@ -18,7 +19,7 @@ data class Group(
 
     @ColumnInfo(name = "color")
     var color: Int = Color.CYAN,
-)
+) : Serializable
 
 @Dao
 interface GroupDAO {

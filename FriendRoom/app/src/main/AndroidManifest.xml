@@ -14,14 +14,13 @@
         android:theme="@style/Theme.FriendRoom"
         tools:targetApi="31">
         <activity
-            android:name=".FriendActivity"
+            android:name=".view.FriendActivity"
             android:exported="false"
             android:label="@string/title_activity_friend"
             android:theme="@style/Theme.FriendRoom.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.FriendRoom.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
