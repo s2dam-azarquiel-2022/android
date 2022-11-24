@@ -9,6 +9,7 @@ class FriendsRepository(application: Application) {
 
     fun getAllFriends(): LiveData<List<Friend>> = friendDAO.getAll()
     fun getFriendById(id: Int): LiveData<List<Friend>> = friendDAO.getById(id)
+    fun getFriendsByGroupId(groupId: Int): LiveData<List<Friend>> = friendDAO.getByGroupId(groupId)
     fun addFriend(friend: Friend) = friendDAO.add(friend)
     fun removeFriend(id: Int) = friendDAO.remove(id)
     fun updateFriend(friend: Friend) = friendDAO.update(friend)

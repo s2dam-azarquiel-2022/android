@@ -15,9 +15,10 @@ import kotlin.random.Random
 class AddFriendBtnHandler(
     private val context: Context,
     private val friendViewModel: FriendViewModel,
+    private val groupID: Int,
 ) : View.OnClickListener {
     override fun onClick(view: View?) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.new_friend_alert, null)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.new_friend_from_group_alert, null)
         AlertDialog.Builder(context)
             .setTitle("Nuevo amigo")
             .setView(dialogView)
@@ -36,6 +37,7 @@ class AddFriendBtnHandler(
             friendViewModel.add(Friend(
                 name = R.id.newFriendName.getText(),
                 email = R.id.newFriendEmail.getText(),
+                groupID = groupID,
             ))
         }
     }

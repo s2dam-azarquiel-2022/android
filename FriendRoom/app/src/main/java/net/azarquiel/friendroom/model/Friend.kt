@@ -15,8 +15,8 @@ data class Friend(
     @ColumnInfo(name = "email")
     var email: String = "",
 
-    @ColumnInfo(name = "familyID")
-    //@ForeignKey(entity = Family::class, childColumns = ["familyID"], parentColumns = ["id"])
+    @ColumnInfo(name = "groupID")
+    @ForeignKey(entity = Group::class, childColumns = ["groupID"], parentColumns = ["id"])
     var groupID: Int = 0,
 )
 
@@ -27,6 +27,9 @@ interface FriendDAO {
 
     @Query("SELECT * FROM Friends WHERE id = :id")
     fun getById(id: Int): LiveData<List<Friend>>
+
+    @Query("SELECT * FROM Friends WHERE groupID = :groupID")
+    fun getByGroupId(groupID: Int): LiveData<List<Friend>>
 
     @Insert
     fun add(friend: Friend)
