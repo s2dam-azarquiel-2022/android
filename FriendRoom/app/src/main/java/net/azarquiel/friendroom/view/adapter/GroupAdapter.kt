@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.friendroom.R
@@ -42,6 +43,7 @@ class GroupAdapter(
         }
 
         fun bind(item: Group) {
+            (itemView as CardView).setCardBackgroundColor(item.color)
             R.id.groupName.setText(item.name)
             R.id.groupEmail.setText(item.email)
 

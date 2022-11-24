@@ -1,5 +1,6 @@
 package net.azarquiel.friendroom.model
 
+import android.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
@@ -14,6 +15,9 @@ data class Group(
 
     @ColumnInfo(name = "email")
     var email: String = "",
+
+    @ColumnInfo(name = "color")
+    var color: Int = Color.CYAN,
 )
 
 @Dao
