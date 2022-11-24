@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Friend::class, Family::class], version = 1)
+@Database(entities = [Friend::class, Group::class], version = 1)
 abstract class FriendsDB: RoomDatabase() {
     abstract fun friendDAO(): FriendDAO
-    abstract fun familyDAO(): FamilyDAO
+    abstract fun groupDAO(): GroupDAO
 
     companion object {
         @Volatile

@@ -17,7 +17,7 @@ data class Friend(
 
     @ColumnInfo(name = "familyID")
     //@ForeignKey(entity = Family::class, childColumns = ["familyID"], parentColumns = ["id"])
-    var familyID: Int = 0,
+    var groupID: Int = 0,
 )
 
 @Dao
