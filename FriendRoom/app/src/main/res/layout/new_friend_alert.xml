@@ -19,6 +19,11 @@
         android:hint="Email (opcional)"
         android:inputType="textEmailAddress" />
 
+    <Spinner
+        android:id="@+id/newFriendsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <!--
     <EditText
         android:id="@+id/newProductPrice"

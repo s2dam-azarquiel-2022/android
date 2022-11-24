@@ -7,26 +7,21 @@ import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.friendroom.R
 import net.azarquiel.friendroom.databinding.ActivityMainBinding
-import net.azarquiel.friendroom.model.AddFriendBtnHandler
 import net.azarquiel.friendroom.model.AddGroupBtnHandler
-import net.azarquiel.friendroom.view.adapter.FriendAdapter
 import net.azarquiel.friendroom.view.adapter.GroupAdapter
-import net.azarquiel.friendroom.viewModel.FriendViewModel
 import net.azarquiel.friendroom.viewModel.GroupViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var groupAdapter: GroupAdapter
     private lateinit var groupViewModel: GroupViewModel
-    private lateinit var friendAdapter: FriendAdapter
-    private lateinit var friendViewModel: FriendViewModel
 
     private fun setup() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        groupAdapter = GroupAdapter(this, binding.contentMain.friendRecycler, R.layout.group_row)
+        groupAdapter = GroupAdapter(this, binding.contentMain.groupRecycler, R.layout.group_row)
 
         groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
         groupViewModel.getAll().observe(this) { groups ->

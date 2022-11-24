@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 
 class FriendsRepository(application: Application) {
-    val friendDAO = FriendsDB.getDB(application).friendDAO()
-    val groupDAO = FriendsDB.getDB(application).groupDAO()
+    private val friendDAO = FriendsDB.getDB(application).friendDAO()
+    private val groupDAO = FriendsDB.getDB(application).groupDAO()
 
     fun getAllFriends(): LiveData<List<Friend>> = friendDAO.getAll()
     fun getFriendById(id: Int): LiveData<List<Friend>> = friendDAO.getById(id)

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FriendRoom</string>
+    <string name="title_activity_friend">Amigos del grupo</string>
 </resources>
