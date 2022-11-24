@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import net.azarquiel.friendroom.R
 import net.azarquiel.friendroom.viewModel.FriendViewModel
+import net.azarquiel.friendroom.viewModel.GroupViewModel
 
 class AddFriendBtnHandler(
     private val context: Context,
@@ -33,6 +34,34 @@ class AddFriendBtnHandler(
             friendViewModel.add(Friend(
                 name = R.id.newFriendName.getText(),
                 email = R.id.newFriendEmail.getText(),
+            ))
+        }
+    }
+}
+class AddGroupBtnHandler(
+    private val context: Context,
+    private val groupViewModel: GroupViewModel,
+) : View.OnClickListener {
+    override fun onClick(view: View?) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.new_group_alert, null)
+        AlertDialog.Builder(context)
+            .setTitle("Nuevo grupo")
+            .setView(dialogView)
+            .setPositiveButton("Añadir", GroupAddHandler(dialogView))
+            .setNegativeButton("Cancelar") { _, _ -> /* do nothing */ }
+            .show()
+    }
+
+    inner class GroupAddHandler(private val view: View) : DialogInterface.OnClickListener {
+        @Suppress("NOTHING_TO_INLINE")
+        private inline fun Int.getText(): String {
+            return view.findViewById<EditText>(this).text.toString()
+        }
+
+        override fun onClick(p0: DialogInterface?, p1: Int) {
+            groupViewModel.add(Group(
+                name = R.id.newGroupName.getText(),
+                email = R.id.newGroupEmail.getText(),
             ))
         }
     }

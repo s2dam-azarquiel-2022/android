@@ -11,6 +11,9 @@ data class Group(
 
     @ColumnInfo(name = "name")
     var name: String = "",
+
+    @ColumnInfo(name = "email")
+    var email: String = "",
 )
 
 @Dao
