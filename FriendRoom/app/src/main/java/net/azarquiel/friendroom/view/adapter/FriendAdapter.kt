@@ -1,26 +1,37 @@
 package net.azarquiel.friendroom.view.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import net.azarquiel.friendroom.R
 import net.azarquiel.friendroom.model.Friend
+import net.azarquiel.friendroom.model.Group
+import net.azarquiel.friendroom.model.ProductSwipeHandler
+import net.azarquiel.friendroom.view.FriendActivity
+import net.azarquiel.friendroom.viewModel.FriendViewModel
 
 class FriendAdapter(
-    context: Context,
-    thisView: RecyclerView,
+    context: FriendActivity,
+    private val thisView: RecyclerView,
     private val itemLayout: Int,
+    private val friendViewModel: FriendViewModel,
+    private val group: Group,
 ) : RecyclerView.Adapter<FriendAdapter.ViewHolder>() {
     private var data: List<Friend> = emptyList()
 
     init {
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
+        friendViewModel.getByGroupId(group.id).observe(context) { groups ->
+            groups.let { this.setData(it) }
+        }
+        ItemTouchHelper(FriendSwipeRightHandler()).attachToRecyclerView(thisView)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -46,6 +57,23 @@ class FriendAdapter(
             R.id.friendEmail.setText(item.email)
 
             itemView.tag = item
+        }
+    }
+
+    inner class FriendSwipeRightHandler : ProductSwipeHandler(
+        ItemTouchHelper.LEFT,
+        ItemTouchHelper.RIGHT
+    ) {
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val friend = data[viewHolder.adapterPosition]
+            friendViewModel.remove(friend.id)
+            Snackbar.make(
+                thisView,
+                friend.name,
+                Snackbar.LENGTH_LONG
+            ).setAction("Undo") {
+                friendViewModel.add(friend)
+            }.show()
         }
     }
 }

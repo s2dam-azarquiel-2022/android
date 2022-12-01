@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.friendroom.R
 import net.azarquiel.friendroom.viewModel.FriendViewModel
 import net.azarquiel.friendroom.viewModel.GroupViewModel
@@ -74,4 +76,17 @@ class AddGroupBtnHandler(
             ))
         }
     }
+}
+
+abstract class ProductSwipeHandler(
+    from: Int,
+    direction: Int
+) : ItemTouchHelper.SimpleCallback(from, direction) {
+    override fun onMove(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        target: RecyclerView.ViewHolder
+    ): Boolean = false
+
+    abstract override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int)
 }

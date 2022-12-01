@@ -23,9 +23,16 @@ class FriendActivity : AppCompatActivity() {
 
         group = intent.getSerializableExtra("group") as Group
 
-        friendAdapter = FriendAdapter(this, binding.contentMain.friendRecycler, R.layout.friend_row)
-
         friendViewModel = ViewModelProvider(this)[FriendViewModel::class.java]
+
+        friendAdapter = FriendAdapter(
+            this,
+            binding.contentMain.friendRecycler,
+            R.layout.friend_row,
+            friendViewModel,
+            group
+        )
+
         friendViewModel.getByGroupId(group.id).observe(this) { groups ->
             groups.let { friendAdapter.setData(it) }
         }
