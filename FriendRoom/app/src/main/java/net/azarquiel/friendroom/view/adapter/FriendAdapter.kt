@@ -1,9 +1,12 @@
 package net.azarquiel.friendroom.view.adapter
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,11 +20,11 @@ import net.azarquiel.friendroom.view.FriendActivity
 import net.azarquiel.friendroom.viewModel.FriendViewModel
 
 class FriendAdapter(
-    context: FriendActivity,
+    private val context: FriendActivity,
     private val thisView: RecyclerView,
     private val itemLayout: Int,
     private val friendViewModel: FriendViewModel,
-    private val group: Group,
+    group: Group,
 ) : RecyclerView.Adapter<FriendAdapter.ViewHolder>() {
     private var data: List<Friend> = emptyList()
 
@@ -32,6 +35,7 @@ class FriendAdapter(
             groups.let { this.setData(it) }
         }
         ItemTouchHelper(FriendSwipeRightHandler()).attachToRecyclerView(thisView)
+        ItemTouchHelper(FriendSwipeLeftHandler()).attachToRecyclerView(thisView)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -74,6 +78,62 @@ class FriendAdapter(
             ).setAction("Undo") {
                 friendViewModel.add(friend)
             }.show()
+        }
+    }
+
+    inner class FriendSwipeLeftHandler : ProductSwipeHandler(
+        ItemTouchHelper.RIGHT,
+        ItemTouchHelper.LEFT
+    ) {
+        @Suppress("NOTHING_TO_INLINE")
+        private inline fun View.setText(id: Int, text: String) {
+            this.findViewById<EditText>(id).setText(text)
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val pos = viewHolder.adapterPosition
+            val friend = data[pos]
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.new_friend_from_group_alert, null)
+            dialogView.setText(R.id.newFriendName, friend.name)
+            dialogView.setText(R.id.newFriendEmail, friend.email)
+            AlertDialog.Builder(context)
+                .setTitle("Editar amigo")
+                .setView(dialogView)
+                .setPositiveButton(
+                    "Guardar",
+                    FriendEditHandler(dialogView, friend)
+                )
+                .setNegativeButton(
+                    "Cancelar"
+                ) { _, _ -> this@FriendAdapter.notifyItemChanged(pos) }
+                .show()
+        }
+
+        inner class FriendEditHandler(
+            private val view: View,
+            private val friend: Friend,
+        ): DialogInterface.OnClickListener {
+            @Suppress("NOTHING_TO_INLINE")
+            private inline fun Int.getText(): String {
+                return view.findViewById<EditText>(this).text.toString()
+            }
+
+            override fun onClick(p0: DialogInterface?, p1: Int) {
+                friendViewModel.update(Friend(
+                    friend.id,
+                    (R.id.newFriendName).getText(),
+                    (R.id.newFriendEmail).getText(),
+                    friend.groupID
+                ))
+
+                Snackbar.make(
+                    thisView,
+                    friend.name,
+                    Snackbar.LENGTH_LONG
+                ).setAction("Undo") {
+                    friendViewModel.update(friend)
+                }.show()
+            }
         }
     }
 }
