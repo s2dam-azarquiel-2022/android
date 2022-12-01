@@ -21,12 +21,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        groupAdapter = GroupAdapter(this, binding.contentMain.groupRecycler, R.layout.group_row)
-
         groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
-        groupViewModel.getAll().observe(this) { groups ->
-            groups.let { groupAdapter.setData(it) }
-        }
+        groupAdapter = GroupAdapter(
+            this,
+            binding.contentMain.groupRecycler,
+            R.layout.group_row,
+            groupViewModel
+        )
 
         binding.addGroupBtn.setOnClickListener(AddGroupBtnHandler(this, groupViewModel))
     }

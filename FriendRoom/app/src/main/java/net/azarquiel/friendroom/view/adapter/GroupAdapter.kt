@@ -1,24 +1,25 @@
 package net.azarquiel.friendroom.view.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.friendroom.R
 import net.azarquiel.friendroom.model.Group
 import net.azarquiel.friendroom.view.FriendActivity
+import net.azarquiel.friendroom.view.MainActivity
+import net.azarquiel.friendroom.viewModel.GroupViewModel
 
 class GroupAdapter(
-    private val context: Context,
+    private val context: MainActivity,
     thisView: RecyclerView,
     private val itemLayout: Int,
+    groupViewModel: GroupViewModel,
 ) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
     private var data: List<Group> = emptyList()
     private val groupClickHandler = GroupClickHandler()
@@ -26,6 +27,9 @@ class GroupAdapter(
     init {
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
+        groupViewModel.getAll().observe(context) { groups ->
+            groups.let { this.setData(it) }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
