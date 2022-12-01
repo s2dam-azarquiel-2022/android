@@ -24,7 +24,6 @@ class FriendActivity : AppCompatActivity() {
         group = intent.getSerializableExtra("group") as Group
 
         friendViewModel = ViewModelProvider(this)[FriendViewModel::class.java]
-
         friendAdapter = FriendAdapter(
             this,
             binding.contentMain.friendRecycler,
@@ -32,10 +31,6 @@ class FriendActivity : AppCompatActivity() {
             friendViewModel,
             group
         )
-
-        friendViewModel.getByGroupId(group.id).observe(this) { groups ->
-            groups.let { friendAdapter.setData(it) }
-        }
 
         binding.addFriendBtn.setOnClickListener(AddFriendBtnHandler(this, friendViewModel, group.id))
     }
