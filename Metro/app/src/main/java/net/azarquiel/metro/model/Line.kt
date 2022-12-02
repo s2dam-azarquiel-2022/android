@@ -17,16 +17,15 @@ data class Line (
 )
 
 data class LineView(
-    var id: Int = 0,
-    var name: String = "",
-    var color: String = "",
-    var startEnd: String = "",
+    var id: Int,
+    var name: String,
+    var color: String,
+    var startEnd: String,
 )
 
 @Dao
 interface LineDAO {
-    @Query(
-        """
+    @Query("""
       SELECT
         linea.id,
         linea.nombre name,
@@ -34,29 +33,23 @@ interface LineDAO {
         lineas.startEnd
       FROM
         ( SELECT
-            lineas.linea,
-            lineas.mini,
-            lineas.maxi,
-            'Estacion inicio: ' || e1.nombre || ' Estacion final:' || e2.nombre startEnd,
-            linea.color,
-            linea.nombre
+            l.linea,
+            e1.nombre || ' - ' || e2.nombre startEnd
           FROM
             ( SELECT
-                linea,
-          	    MIN(id) mini,
-          	    MAX(id) maxi
+                e.linea linea,
+          	    MIN(e.id) mini,
+          	    MAX(e.id) maxi
                 FROM estacion e
-                GROUP BY linea
-            ) lineas,
+                GROUP BY e.linea
+            ) l,
             estacion e1,
-            estacion e2,
-            linea linea
-          WHERE lineas.mini = e1.id
-            AND lineas.maxi = e2.id
+            estacion e2
+          WHERE l.mini = e1.id
+            AND l.maxi = e2.id
         ) lineas,
         linea linea
       WHERE lineas.linea = linea.id
-    """
-    )
+    """)
     fun getAll(): LiveData<List<LineView>>
 }
