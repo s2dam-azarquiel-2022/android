@@ -17,12 +17,7 @@ class MainActivity : AppCompatActivity() {
         DBFiles.inject(this, "MetroDB.db")
         lineViewModel = ViewModelProvider(this)[LineViewModel::class.java]
 
-        LineAdapter(
-            this,
-            findViewById(R.id.linesRecycler),
-            R.layout.line_row,
-            lineViewModel
-        )
+        LineAdapter(this, findViewById(R.id.linesRecycler), R.layout.line_row, lineViewModel)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

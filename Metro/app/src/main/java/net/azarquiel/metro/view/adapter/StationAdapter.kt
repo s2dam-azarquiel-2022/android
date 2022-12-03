@@ -57,8 +57,9 @@ class StationAdapter(
         }
 
         fun bind(item: StationView) {
-            val images: LinearLayout = itemView.findViewById(R.id.lineImages)
             R.id.stationName.setText(item.name)
+            val images: LinearLayout = itemView.findViewById(R.id.lineImages)
+            images.removeAllViews()
             item.lines.forEach { line -> images.addView(ImageView(context).also { image ->
                 image.setImage("icon_${line}")
             }) }
