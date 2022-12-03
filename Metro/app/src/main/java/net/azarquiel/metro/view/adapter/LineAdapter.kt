@@ -1,7 +1,6 @@
 package net.azarquiel.metro.view.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +17,9 @@ import net.azarquiel.metro.viewModel.LineViewModel
 
 class LineAdapter(
     private val context: MainActivity,
-    private val thisView: RecyclerView,
+    thisView: RecyclerView,
     private val itemLayout: Int,
-    private val lineViewModel: LineViewModel
+    lineViewModel: LineViewModel
 ) : RecyclerView.Adapter<LineAdapter.ViewHolder>() {
     private var data: List<LineView> = emptyList()
     private val groupClickHandler = GroupClickHandler()

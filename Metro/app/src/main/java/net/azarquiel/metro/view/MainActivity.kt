@@ -3,7 +3,6 @@ package net.azarquiel.metro.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.metro.R
 import net.azarquiel.metro.model.DBFiles
 import net.azarquiel.metro.view.adapter.LineAdapter
