@@ -2,6 +2,7 @@ package net.azarquiel.metro.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.io.Serializable
 
 @Entity(tableName = "linea")
 data class Line (
@@ -21,7 +22,7 @@ data class LineView(
     var name: String,
     var color: String,
     var startEnd: String,
-)
+) : Serializable
 
 @Dao
 interface LineDAO {

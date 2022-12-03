@@ -1,7 +1,9 @@
 package net.azarquiel.metro.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +14,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.metro.R
 import net.azarquiel.metro.model.LineView
+import net.azarquiel.metro.view.LineActivity
 import net.azarquiel.metro.view.MainActivity
 import net.azarquiel.metro.viewModel.LineViewModel
+import net.azarquiel.metro.viewModel.StationViewModel
 
 class LineAdapter(
     private val context: MainActivity,
     thisView: RecyclerView,
     private val itemLayout: Int,
-    lineViewModel: LineViewModel
+    lineViewModel: LineViewModel,
 ) : RecyclerView.Adapter<LineAdapter.ViewHolder>() {
     private var data: List<LineView> = emptyList()
     private val groupClickHandler = GroupClickHandler()
@@ -28,7 +32,7 @@ class LineAdapter(
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
         lineViewModel.getAll().observe(context) { lines ->
-            lines.let { this.setData(it) }
+            this.setData(lines)
         }
     }
 
@@ -70,11 +74,11 @@ class LineAdapter(
 
     inner class GroupClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
-            (view?.tag as LineView).let { line ->
-//                Intent(context, FriendActivity::class.java).let {
-//                    it.putExtra("lineView", line)
-//                    context.startActivity(it)
-//                }
+            (view?.tag as LineView).let { lineView ->
+                Intent(context, LineActivity::class.java).let {
+                    it.putExtra("lineView", lineView)
+                    context.startActivity(it)
+                }
             }
         }
     }

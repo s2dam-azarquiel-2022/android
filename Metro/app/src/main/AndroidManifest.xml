@@ -14,6 +14,11 @@
         android:theme="@style/Theme.Metro"
         tools:targetApi="31">
         <activity
+            android:name=".view.LineActivity"
+            android:exported="false"
+            android:label="@string/title_activity_line"
+            android:theme="@style/Theme.Metro.NoActionBar" />
+        <activity
             android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>

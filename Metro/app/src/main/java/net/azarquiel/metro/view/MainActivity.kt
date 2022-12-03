@@ -7,6 +7,7 @@ import net.azarquiel.metro.R
 import net.azarquiel.metro.model.DBFiles
 import net.azarquiel.metro.view.adapter.LineAdapter
 import net.azarquiel.metro.viewModel.LineViewModel
+import net.azarquiel.metro.viewModel.StationViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var lineViewModel: LineViewModel

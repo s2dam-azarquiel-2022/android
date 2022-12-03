@@ -12,5 +12,5 @@ class LineRepository(application: Application) {
 class StationRepository(application: Application) {
     private val stationDAO = MetroDB.getDB(application).stationDAO()
 
-    fun getById(id: Int): LiveData<List<Station>> = stationDAO.getById(id)
+    fun getByLine(line: Int): LiveData<Map<String, List<Int>>> = stationDAO.getByLine(line)
 }
