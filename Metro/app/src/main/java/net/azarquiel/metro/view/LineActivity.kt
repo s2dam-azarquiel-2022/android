@@ -1,5 +1,6 @@
 package net.azarquiel.metro.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,8 @@ class LineActivity : AppCompatActivity() {
 
         binding.contentMain.lineName.text = lineView.name
         binding.contentMain.lineStartEnd.text = lineView.startEnd
+
+        binding.contentMain.lineMainView.setBackgroundColor(Color.parseColor(lineView.color))
 
         StationAdapter(
             this,
