@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,11 +22,12 @@ class BikeAdapter(
     private val context: BikeListActivity,
     thisView: RecyclerView,
     private val itemLayout: Int,
-    bikeViewModel: BikeViewModel,
+    private val bikeViewModel: BikeViewModel,
     brand: Brand
 ) : RecyclerView.Adapter<BikeAdapter.ViewHolder>() {
     private var data: List<BikeListView> = emptyList()
     private val bikeClickHandler = BikeClickHandler()
+    private val favoriteClickHandler = FavoriteClickHandler()
 
     init {
         thisView.adapter = this
@@ -68,6 +70,10 @@ class BikeAdapter(
 
             itemView.tag = item
             itemView.setOnClickListener(bikeClickHandler)
+            itemView.findViewById<ImageView>(R.id.bikeStar).let {
+                it.tag = item.id
+                it.setOnClickListener(favoriteClickHandler)
+            }
         }
     }
 
@@ -78,6 +84,14 @@ class BikeAdapter(
                     it.putExtra("bikeID", bike.id)
                     context.startActivity(it)
                 }
+            }
+        }
+    }
+
+    inner class FavoriteClickHandler : View.OnClickListener {
+        override fun onClick(view: View?) {
+            (view?.tag as Int).let {
+                bikeViewModel.toggleFavorite(it)
             }
         }
     }

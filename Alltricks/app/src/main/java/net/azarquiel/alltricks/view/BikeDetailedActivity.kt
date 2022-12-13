@@ -34,6 +34,9 @@ class BikeDetailedActivity : AppCompatActivity() {
             1 -> android.R.drawable.star_on
             else -> android.R.drawable.star_off
         })
+        binding.contentMain.bikeStar.setOnClickListener {
+             bikeViewModel.toggleFavorite(bike.id)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
