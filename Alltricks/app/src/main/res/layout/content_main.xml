@@ -4,5 +4,5 @@
     android:id="@+id/brandRecycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-</androidx.recyclerview.widget.RecyclerView>
+    android:background="#d7dcf6"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"></androidx.recyclerview.widget.RecyclerView>
