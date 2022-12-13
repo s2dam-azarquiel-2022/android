@@ -77,6 +77,17 @@ interface BikeDAO {
     """)
     fun getById(id: Int): LiveData<List<BikeDetailedView>>
 
-    @Update
-    fun update(bike: Bike)
+    @Query("""
+      UPDATE bici
+      SET fav = (
+        SELECT
+          CASE WHEN fav = 1
+          THEN 0
+          ELSE 1
+          END AS toggledFav
+        FROM bici
+        WHERE id = :id
+      ) WHERE id = :id
+    """)
+    fun toggleFavorite(id: Int)
 }

@@ -8,7 +8,7 @@ class BikeRepository(application: Application) {
 
     fun getByBrandId(brandID: Int): LiveData<List<BikeListView>> = bikeDAO.getByBrandId(brandID)
     fun getById(id: Int): LiveData<List<BikeDetailedView>> = bikeDAO.getById(id)
-    fun update(bike: Bike) = bikeDAO.update(bike)
+    fun toggleFavorite(id: Int) = bikeDAO.toggleFavorite(id)
 }
 
 class BrandRepository(application: Application) {
