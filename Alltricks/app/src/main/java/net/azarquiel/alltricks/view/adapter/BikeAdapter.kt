@@ -1,6 +1,7 @@
 package net.azarquiel.alltricks.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +13,12 @@ import com.squareup.picasso.Picasso
 import net.azarquiel.alltricks.R
 import net.azarquiel.alltricks.model.BikeListView
 import net.azarquiel.alltricks.model.Brand
+import net.azarquiel.alltricks.view.BikeDetailedActivity
 import net.azarquiel.alltricks.view.BikeListActivity
 import net.azarquiel.alltricks.viewModel.BikeViewModel
 
 class BikeAdapter(
-    context: BikeListActivity,
+    private val context: BikeListActivity,
     thisView: RecyclerView,
     private val itemLayout: Int,
     bikeViewModel: BikeViewModel,
@@ -71,11 +73,11 @@ class BikeAdapter(
 
     inner class BikeClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
-            (view?.tag as Brand).let { brand ->
-//                Intent(context, LineActivity::class.java).let {
-//                    it.putExtra("lineView", brand)
-//                    context.startActivity(it)
-//                }
+            (view?.tag as BikeListView).let { bike ->
+                Intent(context, BikeDetailedActivity::class.java).let {
+                    it.putExtra("bikeID", bike.id)
+                    context.startActivity(it)
+                }
             }
         }
     }
