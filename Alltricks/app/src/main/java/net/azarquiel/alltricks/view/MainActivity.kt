@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.alltricks.R
 import net.azarquiel.alltricks.databinding.ActivityMainBinding
+import net.azarquiel.alltricks.view.adapter.BrandAdapter
+import net.azarquiel.alltricks.viewModel.BrandViewModel
 import net.azarquiel.metro.model.DBFiles
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +21,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         DBFiles.inject(this, "db.sqlite")
+
+        BrandAdapter(
+            this,
+            binding.contentMain.brandRecycler,
+            R.layout.brand_row,
+            ViewModelProvider(this)[BrandViewModel::class.java]
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
