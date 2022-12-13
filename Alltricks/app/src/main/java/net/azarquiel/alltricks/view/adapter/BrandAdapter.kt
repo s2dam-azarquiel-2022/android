@@ -1,6 +1,7 @@
 package net.azarquiel.alltricks.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.alltricks.R
 import net.azarquiel.alltricks.model.Brand
+import net.azarquiel.alltricks.view.BikeListActivity
 import net.azarquiel.alltricks.view.MainActivity
 import net.azarquiel.alltricks.viewModel.BrandViewModel
 
@@ -47,13 +49,6 @@ class BrandAdapter(
             itemView.findViewById<TextView>(this).text = text
         }
 
-//        @Suppress("NOTHING_TO_INLINE")
-//        private inline fun Int.setImage(name: String) {
-//            itemView.findViewById<ImageView>(this).setImageResource(
-//                context.resources.getIdentifier(name, "drawable", context.packageName)
-//            )
-//        }
-
         fun bind(item: Brand) {
             R.id.brandName.setText(item.name)
 
@@ -65,10 +60,10 @@ class BrandAdapter(
     inner class GroupClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
             (view?.tag as Brand).let { brand ->
-//                Intent(context, LineActivity::class.java).let {
-//                    it.putExtra("lineView", brand)
-//                    context.startActivity(it)
-//                }
+                Intent(context, BikeListActivity::class.java).let {
+                    it.putExtra("brand", brand)
+                    context.startActivity(it)
+                }
             }
         }
     }
