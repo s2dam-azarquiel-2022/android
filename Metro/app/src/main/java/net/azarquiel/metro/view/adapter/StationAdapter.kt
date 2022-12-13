@@ -1,15 +1,19 @@
 package net.azarquiel.metro.view.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.metro.R
+import net.azarquiel.metro.model.LineView
 import net.azarquiel.metro.model.StationView
 import net.azarquiel.metro.view.LineActivity
 import net.azarquiel.metro.viewModel.StationViewModel
@@ -19,16 +23,18 @@ class StationAdapter(
     thisView: RecyclerView,
     private val itemLayout: Int,
     stationViewModel: StationViewModel,
-    line: Int
+    lineView: LineView
 ) : RecyclerView.Adapter<StationAdapter.ViewHolder>() {
     private var data: List<StationView> = emptyList()
+    private var color: Int = Color.WHITE
 
     init {
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
-        stationViewModel.getByLine(line).observe(context) { station ->
+        stationViewModel.getByLine(lineView.id).observe(context) { station ->
             this.setData(station)
         }
+        color = Color.parseColor(lineView.color)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -57,6 +63,7 @@ class StationAdapter(
         }
 
         fun bind(item: StationView) {
+            (itemView as CardView).setCardBackgroundColor(color)
             R.id.stationName.setText(item.name)
             val images: LinearLayout = itemView.findViewById(R.id.lineImages)
             images.removeAllViews()

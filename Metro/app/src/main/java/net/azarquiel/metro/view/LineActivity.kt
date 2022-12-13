@@ -27,14 +27,12 @@ class LineActivity : AppCompatActivity() {
         binding.contentMain.lineName.text = lineView.name
         binding.contentMain.lineStartEnd.text = lineView.startEnd
 
-        binding.contentMain.lineMainView.setBackgroundColor(Color.parseColor(lineView.color))
-
         StationAdapter(
             this,
             binding.contentMain.stationsRecycler,
             R.layout.station_row,
             stationViewModel,
-            lineView.id
+            lineView
         )
     }
 
