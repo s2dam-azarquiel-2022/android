@@ -23,7 +23,7 @@ class BikeAdapter(
     brand: Brand
 ) : RecyclerView.Adapter<BikeAdapter.ViewHolder>() {
     private var data: List<BikeListView> = emptyList()
-    private val groupClickHandler = GroupClickHandler()
+    private val bikeClickHandler = BikeClickHandler()
 
     init {
         thisView.adapter = this
@@ -65,11 +65,11 @@ class BikeAdapter(
             Picasso.get().load(item.photo).into(itemView.findViewById<ImageView>(R.id.bikePhoto))
 
             itemView.tag = item
-            itemView.setOnClickListener(groupClickHandler)
+            itemView.setOnClickListener(bikeClickHandler)
         }
     }
 
-    inner class GroupClickHandler : View.OnClickListener {
+    inner class BikeClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
             (view?.tag as Brand).let { brand ->
 //                Intent(context, LineActivity::class.java).let {

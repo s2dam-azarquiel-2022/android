@@ -21,7 +21,7 @@ class BrandAdapter(
     brandViewModel: BrandViewModel
 ) : RecyclerView.Adapter<BrandAdapter.ViewHolder>() {
     private var data: List<Brand> = emptyList()
-    private val groupClickHandler = GroupClickHandler()
+    private val brandClickHandler = BrandClickHandler()
 
     init {
         thisView.adapter = this
@@ -53,11 +53,11 @@ class BrandAdapter(
             R.id.brandName.setText(item.name)
 
             itemView.tag = item
-            itemView.setOnClickListener(groupClickHandler)
+            itemView.setOnClickListener(brandClickHandler)
         }
     }
 
-    inner class GroupClickHandler : View.OnClickListener {
+    inner class BrandClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
             (view?.tag as Brand).let { brand ->
                 Intent(context, BikeListActivity::class.java).let {
