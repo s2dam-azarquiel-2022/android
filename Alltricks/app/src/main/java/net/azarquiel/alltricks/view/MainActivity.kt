@@ -9,7 +9,7 @@ import net.azarquiel.alltricks.R
 import net.azarquiel.alltricks.databinding.ActivityMainBinding
 import net.azarquiel.alltricks.view.adapter.BrandAdapter
 import net.azarquiel.alltricks.viewModel.BrandViewModel
-import net.azarquiel.metro.model.DBFiles
+import net.azarquiel.alltricks.model.DBFiles
 
 class MainActivity : AppCompatActivity() {
 
