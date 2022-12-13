@@ -1,4 +1,4 @@
-package net.azarquiel.metro.model
+package net.azarquiel.alltricks.model
 
 import android.annotation.SuppressLint
 import android.content.Context
