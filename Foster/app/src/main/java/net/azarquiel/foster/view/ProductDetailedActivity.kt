@@ -6,6 +6,7 @@ import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import net.azarquiel.foster.databinding.ActivityProductDetailedBinding
+import net.azarquiel.foster.model.Favorites
 import net.azarquiel.foster.model.ProductDetailedView
 import net.azarquiel.foster.viemModel.ProductViewModel
 
@@ -14,6 +15,7 @@ class ProductDetailedActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailedBinding
     private lateinit var productViewModel: ProductViewModel
     private lateinit var product: ProductDetailedView
+    private var favorite: Boolean = false
 
     @Suppress("NOTHING_TO_INLINE")
     private inline fun String?.checkNull(): String {
@@ -30,6 +32,12 @@ class ProductDetailedActivity : AppCompatActivity() {
             product = it[0]
             drawProduct()
         }
+
+        binding.fab.setOnClickListener {
+            favorite = !favorite
+            setFavoriteImage()
+            Favorites.setById(product.id!!, favorite)
+        }
     }
 
     private fun drawProduct() {
@@ -40,7 +48,15 @@ class ProductDetailedActivity : AppCompatActivity() {
             else Picasso.get().load(product.image).into(it)
         }
         binding.content.productSummary.text = HtmlCompat.fromHtml(product.summary.checkNull(), 0)
+        favorite = Favorites.getById(product.id!!)
+        setFavoriteImage()
     }
+
+    private fun setFavoriteImage() =
+        binding.fab.setImageResource(
+            if (favorite) android.R.drawable.star_on
+            else android.R.drawable.star_off
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
