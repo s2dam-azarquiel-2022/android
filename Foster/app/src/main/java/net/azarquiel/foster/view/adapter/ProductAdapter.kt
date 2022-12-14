@@ -1,6 +1,7 @@
 package net.azarquiel.foster.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +15,10 @@ import com.squareup.picasso.Picasso
 import net.azarquiel.foster.R
 import net.azarquiel.foster.model.ProductListView
 import net.azarquiel.foster.viemModel.ProductViewModel
+import net.azarquiel.foster.view.ProductDetailedActivity
 
 class ProductAdapter(
-    context: AppCompatActivity,
+    private val context: AppCompatActivity,
     thisView: RecyclerView,
     private val itemLayout: Int,
     productViewModel: ProductViewModel,
@@ -72,10 +74,10 @@ class ProductAdapter(
     inner class BrandClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
             (view?.tag as Int?).let { productID ->
-//                Intent(context, ProductDetailedActivity::class.java).let {
-//                    it.putExtra("productID", productID ?: -1)
-//                    context.startActivity(it)
-//                }
+                Intent(context, ProductDetailedActivity::class.java).let {
+                    it.putExtra("productID", productID ?: -1)
+                    context.startActivity(it)
+                }
             }
         }
     }
