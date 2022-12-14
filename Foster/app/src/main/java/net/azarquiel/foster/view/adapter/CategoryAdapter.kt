@@ -59,7 +59,7 @@ class CategoryAdapter(
         }
 
         fun bind(item: Category) {
-            R.id.categoryName.setText(item.name.orEmpty())
+            R.id.categoryName.setText(item.name.checkNull())
             R.id.categoryDescription.setText(HtmlCompat.fromHtml(item.description.checkNull(), 0))
             R.id.categoryGarrison.setText(HtmlCompat.fromHtml(item.garrison.checkNull(), 0))
 
