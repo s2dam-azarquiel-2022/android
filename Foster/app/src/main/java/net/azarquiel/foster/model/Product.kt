@@ -53,7 +53,7 @@ interface ProductDAO {
 	    p.titulo as title,
 	    p.imagen as image
       FROM producto p
-      WHERE p.categoriaid = 23
+      WHERE p.categoriaid = :categoryID
     """)
     fun getByCategoryID(categoryID: Int): LiveData<List<ProductListView>>
 
@@ -65,7 +65,7 @@ interface ProductDAO {
 	    p.imagen as image,
 	    p.sumario as summary
       FROM producto p
-      WHERE p.id = 558
+      WHERE p.id = :id
     """)
     fun getByID(id: Int): LiveData<List<ProductDetailedView>>
 }

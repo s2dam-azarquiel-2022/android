@@ -23,10 +23,10 @@ data class Category (
 interface CategoryDAO {
     @Query("""
       SELECT
-	    c.id as id,
-	    c.nombre as name,
-	    c.descripcion as description,
-	    c.guarnicion as garrison
+	    c.id,
+	    c.nombre,
+	    c.descripcion,
+	    c.guarnicion
       FROM categoria c
       ORDER BY id
     """)
