@@ -2,9 +2,6 @@ package net.azarquiel.foster.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.text.Spannable
-import android.text.Spanned
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,9 +67,9 @@ class CategoryAdapter(
 
     inner class BrandClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
-            (view?.tag as Int).let { categoryID ->
+            (view?.tag as Int?).let { categoryID ->
                 Intent(context, ProductListActivity::class.java).let {
-                    it.putExtra("brand", categoryID)
+                    it.putExtra("categoryID", categoryID ?: -1)
                     context.startActivity(it)
                 }
             }
