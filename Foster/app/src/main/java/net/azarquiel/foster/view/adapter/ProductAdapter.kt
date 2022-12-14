@@ -2,12 +2,12 @@ package net.azarquiel.foster.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +27,11 @@ class ProductAdapter(
 ) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
     private var data: List<ProductListView> = emptyList()
     private val categoryClickHandler = BrandClickHandler()
+    private val activityLaunchHandler = context.registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        notifyDataSetChanged()
+    }
 
     init {
         thisView.adapter = this
@@ -85,7 +90,7 @@ class ProductAdapter(
             (view?.tag as Int?).let { productID ->
                 Intent(context, ProductDetailedActivity::class.java).let {
                     it.putExtra("productID", productID ?: -1)
-                    context.startActivity(it)
+                    activityLaunchHandler.launch(it)
                 }
             }
         }
