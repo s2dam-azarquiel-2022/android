@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import net.azarquiel.foster.R
+import net.azarquiel.foster.model.Favorites
 import net.azarquiel.foster.model.ProductListView
 import net.azarquiel.foster.viemModel.ProductViewModel
 import net.azarquiel.foster.view.ProductDetailedActivity
@@ -58,13 +59,21 @@ class ProductAdapter(
             return this.let { if (it == "null") "" else it } ?: ""
         }
 
+        @Suppress("NOTHING_TO_INLINE")
+        private inline fun Int.setImage(img: Int) {
+            itemView.findViewById<ImageView>(this).setImageResource(img)
+        }
+
         fun bind(item: ProductListView) {
             R.id.productTitle.setText(item.title.checkNull())
             itemView.findViewById<ImageView>(R.id.productImage).let {
                 if (item.image.checkNull().isEmpty()) it.setImageResource(android.R.color.transparent)
                 else Picasso.get().load(item.image).into(it)
             }
-            Log.d("aru", item.image.checkNull())
+            R.id.productFavorite.setImage(
+                if (Favorites.getById(item.id!!)) android.R.drawable.star_on
+                else android.R.drawable.star_off
+            )
 
             itemView.tag = item.id
             itemView.setOnClickListener(categoryClickHandler)
