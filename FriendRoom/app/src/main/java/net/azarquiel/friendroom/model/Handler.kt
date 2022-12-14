@@ -6,7 +6,8 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.friendroom.R
@@ -44,6 +45,78 @@ class AddFriendBtnHandler(
         }
     }
 }
+
+class AddFriendMenuHandler(
+    private val context: AppCompatActivity,
+    private val friendViewModel: FriendViewModel,
+    groupViewModel: GroupViewModel
+) {
+    private var groups: List<Group>? = null
+    private var selectedGroup: Int? = null
+    private var dialogView: View? = null
+
+    init {
+        groupViewModel.getAll().let {
+            it.observe(context)  { data ->
+                groups = data
+                dialogView = LayoutInflater.from(context).inflate(R.layout.new_friend_alert, null)
+                setupSpinner()
+                setupAlert()
+            }
+        }
+    }
+
+    private fun setupSpinner() {
+        dialogView!!.findViewById<Spinner>(R.id.newFriendsGroup).let {
+            it.adapter = ArrayAdapter(
+                context,
+                android.R.layout.simple_spinner_item,
+                groups!!.map { group -> group.name }
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+            it.onItemSelectedListener = GroupSelectedHandler()
+        }
+    }
+
+    private fun setupAlert() {
+        AlertDialog.Builder(context)
+            .setTitle("Nuevo amigo")
+            .setView(dialogView)
+            .setPositiveButton("Añadir", FriendAddHandler())
+            .setNegativeButton("Cancelar") { _, _ -> /* do nothing */ }
+            .show()
+    }
+
+    inner class GroupSelectedHandler : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+            selectedGroup = pos
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+    }
+
+    inner class FriendAddHandler : DialogInterface.OnClickListener {
+        @Suppress("NOTHING_TO_INLINE")
+        private inline fun Int.getText(): String {
+            return dialogView!!.findViewById<EditText>(this).text.toString()
+        }
+
+        override fun onClick(p0: DialogInterface?, p1: Int) {
+            selectedGroup?.let {
+                friendViewModel.add(Friend(
+                    name = R.id.newFriendName.getText(),
+                    email = R.id.newFriendEmail.getText(),
+                    groupID = groups!![it].id,
+                ))
+            } ?: run {
+                Toast.makeText(context, "No has seleccionado un grupo", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+}
+
 class AddGroupBtnHandler(
     private val context: Context,
     private val groupViewModel: GroupViewModel,

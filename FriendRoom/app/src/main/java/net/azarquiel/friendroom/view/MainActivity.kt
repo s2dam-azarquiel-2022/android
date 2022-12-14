@@ -7,13 +7,16 @@ import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.friendroom.R
 import net.azarquiel.friendroom.databinding.ActivityMainBinding
+import net.azarquiel.friendroom.model.AddFriendMenuHandler
 import net.azarquiel.friendroom.model.AddGroupBtnHandler
 import net.azarquiel.friendroom.view.adapter.GroupAdapter
+import net.azarquiel.friendroom.viewModel.FriendViewModel
 import net.azarquiel.friendroom.viewModel.GroupViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var groupAdapter: GroupAdapter
+    private lateinit var friendViewModel: FriendViewModel
     private lateinit var groupViewModel: GroupViewModel
 
     private fun setup() {
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        friendViewModel = ViewModelProvider(this)[FriendViewModel::class.java]
         groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
         groupAdapter = GroupAdapter(
             this,
@@ -48,6 +52,10 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
+            R.id.addFriendMenu -> {
+                AddFriendMenuHandler(this, friendViewModel, groupViewModel)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

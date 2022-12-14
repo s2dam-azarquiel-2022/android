@@ -2,4 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="net.azarquiel.friendroom.view.MainActivity">
+    <item
+        android:id="@+id/addFriendMenu"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Nuevo amigo"
+        app:showAsAction="always" />
 </menu>
