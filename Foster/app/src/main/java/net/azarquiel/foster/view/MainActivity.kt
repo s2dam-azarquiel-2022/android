@@ -4,9 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.foster.R
 import net.azarquiel.foster.databinding.ActivityMainBinding
 import net.azarquiel.foster.model.DBFiles
+import net.azarquiel.foster.viemModel.CategoryViewModel
+import net.azarquiel.foster.view.adapter.CategoryAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +21,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         DBFiles.inject(this, "db.sqlite")
+
+        CategoryAdapter(
+            this,
+            binding.content.categoryRecycler,
+            R.layout.category_row,
+            ViewModelProvider(this)[CategoryViewModel::class.java]
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
