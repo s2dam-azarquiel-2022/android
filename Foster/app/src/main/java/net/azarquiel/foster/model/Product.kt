@@ -2,6 +2,7 @@ package net.azarquiel.foster.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.io.Serializable
 
 @Entity(
     tableName = "producto",
@@ -33,19 +34,14 @@ data class Product (
     val summary: String?,
 )
 
-data class ProductListView (
-    val id: Int?,
-    val title: String?,
-    val image: String?,
-)
-
 data class ProductDetailedView (
     val id: Int?,
     val title: String?,
     val body: String?,
     val image: String?,
     val summary: String?,
-)
+    var favorite: Boolean,
+) : Serializable
 
 @Dao
 interface ProductDAO {
@@ -53,21 +49,12 @@ interface ProductDAO {
       SELECT
 	    p.id as id,
 	    p.titulo as title,
-	    p.imagen as image
+	    p.body as body,
+	    p.imagen as image,
+	    p.sumario as summary,
+        'false' as favorite
       FROM producto p
       WHERE p.categoriaid = :categoryID
     """)
-    fun getByCategoryID(categoryID: Int): LiveData<List<ProductListView>>
-
-    @Query("""
-      SELECT
-	    p.id as id,
-	    p.titulo as title,
-	    p.body as body,
-	    p.imagen as image,
-	    p.sumario as summary
-      FROM producto p
-      WHERE p.id = :id
-    """)
-    fun getByID(id: Int): LiveData<List<ProductDetailedView>>
+    fun getByCategoryID(categoryID: Int): LiveData<List<ProductDetailedView>>
 }

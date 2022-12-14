@@ -11,6 +11,6 @@ class CategoryRepository(application: Application) {
 class ProductRepository(application: Application) {
     private val productDAO = FosterDB.getDB(application).productDAO()
 
-    fun getByCategoryID(categoryID: Int): LiveData<List<ProductListView>> = productDAO.getByCategoryID(categoryID)
-    fun getByID(id: Int): LiveData<List<ProductDetailedView>> = productDAO.getByID(id)
+    fun getByCategoryID(categoryID: Int): LiveData<List<ProductDetailedView>> =
+        productDAO.getByCategoryID(categoryID)
 }

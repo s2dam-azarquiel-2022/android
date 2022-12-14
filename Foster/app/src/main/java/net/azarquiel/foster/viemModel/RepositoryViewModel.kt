@@ -14,6 +14,6 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = ProductRepository(application)
 
-    fun getByCategoryID(categoryID: Int): LiveData<List<ProductListView>> = repository.getByCategoryID(categoryID)
-    fun getByID(id: Int): LiveData<List<ProductDetailedView>> = repository.getByID(id)
+    fun getByCategoryID(categoryID: Int): LiveData<List<ProductDetailedView>> =
+        repository.getByCategoryID(categoryID)
 }
