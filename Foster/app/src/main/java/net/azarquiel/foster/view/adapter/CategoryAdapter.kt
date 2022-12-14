@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.foster.R
 import net.azarquiel.foster.model.Category
 import net.azarquiel.foster.viemModel.CategoryViewModel
+import net.azarquiel.foster.view.ProductListActivity
 
 class CategoryAdapter(
     private val context: AppCompatActivity,
@@ -70,10 +71,10 @@ class CategoryAdapter(
     inner class BrandClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
             (view?.tag as Int).let { categoryID ->
-//                Intent(context, BikeListActivity::class.java).let {
-//                    it.putExtra("brand", category)
-//                    context.startActivity(it)
-//                }
+                Intent(context, ProductListActivity::class.java).let {
+                    it.putExtra("brand", categoryID)
+                    context.startActivity(it)
+                }
             }
         }
     }
