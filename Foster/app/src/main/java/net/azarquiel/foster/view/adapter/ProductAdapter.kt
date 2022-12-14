@@ -47,6 +47,8 @@ class ProductAdapter(
         notifyDataSetChanged()
     }
 
+    fun getData(): List<ProductListView> = data
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(LayoutInflater.from(parent.context).inflate(itemLayout, parent, false))
 
