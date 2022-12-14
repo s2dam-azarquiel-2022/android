@@ -34,11 +34,13 @@ data class Product (
 )
 
 data class ProductListView (
+    val id: Int?,
     val title: String?,
     val image: String?,
 )
 
 data class ProductDetailedView (
+    val id: Int?,
     val title: String?,
     val body: String?,
     val image: String?,
