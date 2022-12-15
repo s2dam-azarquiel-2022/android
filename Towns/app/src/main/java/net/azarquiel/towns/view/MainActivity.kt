@@ -1,9 +1,10 @@
-package net.azarquiel.towns
+package net.azarquiel.towns.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import net.azarquiel.towns.R
 import net.azarquiel.towns.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
