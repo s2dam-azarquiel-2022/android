@@ -20,6 +20,7 @@ class TownListActivity : AppCompatActivity() {
     private lateinit var townAdapter: TownAdapter
     private var towns: List<TownView>? = null
     private var query: String? = null
+    private var showingFavorites: Boolean = false
 
     private fun setup() {
         binding = ActivityTownListBinding.inflate(layoutInflater)
@@ -36,9 +37,13 @@ class TownListActivity : AppCompatActivity() {
             .getByCommunityID(community.id)
             .observe(this) {
                 towns = it
-                if (query == null) townAdapter.setData(towns!!)
-                else applyQuery()
+                applyQuery()
             }
+
+        binding.fab.setOnClickListener {
+            showingFavorites = !showingFavorites
+            applyQuery()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +71,10 @@ class TownListActivity : AppCompatActivity() {
     }
 
     private fun applyQuery() {
-        townAdapter.setData(towns!!.filter { it.province.contains(query!!) })
+        townAdapter.setData(towns!!.filter {
+            (query?.let { q -> it.province.contains(q) } ?: true) &&
+                    (if (showingFavorites) it.favorite == 1 else true)
+        })
     }
 
     inner class SearchHandler : SearchView.OnQueryTextListener {
