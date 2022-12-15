@@ -4,9 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.towns.R
 import net.azarquiel.towns.databinding.ActivityMainBinding
 import net.azarquiel.towns.model.DBFiles
+import net.azarquiel.towns.view.adapter.CommunityAdapter
+import net.azarquiel.towns.viewModel.CommunityViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +21,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         DBFiles.inject(this, "db.sqlite")
+
+        CommunityAdapter(
+            this,
+            binding.content.comunityRecycler,
+            R.layout.community_row,
+            ViewModelProvider(this)[CommunityViewModel::class.java]
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
