@@ -2,4 +2,5 @@
     <string name="app_name">Comunidades</string>
     <string name="title_activity_town_list">Comunidad</string>
     <string name="title_activity_town_detailed">Pueblo</string>
+    <string name="title_activity_town_web">TownWebActivity</string>
 </resources>
