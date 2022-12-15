@@ -72,7 +72,7 @@ class TownListActivity : AppCompatActivity() {
 
     private fun applyQuery() {
         townAdapter.setData(towns.filter {
-            (query?.let { q -> it.province.contains(q) } ?: true) &&
+            (query?.let { q -> it.province.contains(q, true) } ?: true) &&
                     (if (showingFavorites) it.favorite == 1 else true)
         })
     }
