@@ -34,6 +34,21 @@ data class Town (
     val favorite: Int,
 )
 
+data class TownView (
+    @ColumnInfo(name = "id")
+    val id: Int,
+    @ColumnInfo(name = "nombre")
+    val name: String,
+    @ColumnInfo(name = "imagen")
+    val image: String,
+    @ColumnInfo(name = "provincia")
+    val province: String,
+    @ColumnInfo(name = "link")
+    val link: String,
+    @ColumnInfo(name = "fav")
+    val favorite: Int,
+)
+
 @Dao
 interface TownDAO {
     @Query("""
@@ -41,7 +56,10 @@ interface TownDAO {
 	    p.id,
 	    p.nombre,
 	    p.imagen,
-	    p.provincia,
+	    ( SELECT pr.nombre
+          FROM provincia pr
+          WHERE pr.id = p.provincia
+        ) as provincia,
 	    p.link,
 	    p.fav
       FROM pueblo p
@@ -51,5 +69,5 @@ interface TownDAO {
 	    WHERE pr.comunidad = :communityID
       )
     """)
-    fun getByCommunityID(communityID: Int): LiveData<List<Town>>
+    fun getByCommunityID(communityID: Int): LiveData<List<TownView>>
 }

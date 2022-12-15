@@ -18,6 +18,6 @@ class ProvinceViewModel(application: Application) : AndroidViewModel(application
 class TownViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TownRepository(application)
 
-    fun getByCommunityID(communityID: Int): LiveData<List<Town>> =
+    fun getByCommunityID(communityID: Int): LiveData<List<TownView>> =
         repository.getByCommunityID(communityID)
 }

@@ -16,6 +16,6 @@ class ProvinceRepository(application: Application) {
 class TownRepository(application: Application) {
     private val townDAO = TownsDB.getDB(application).townDAO()
 
-    fun getByCommunityID(communityID: Int): LiveData<List<Town>> =
+    fun getByCommunityID(communityID: Int): LiveData<List<TownView>> =
         townDAO.getByCommunityID(communityID)
 }
