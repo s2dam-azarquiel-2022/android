@@ -2,6 +2,7 @@ package net.azarquiel.towns.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.io.Serializable
 
 @Entity(
     tableName = "pueblo",
@@ -47,7 +48,7 @@ data class TownView (
     val link: String,
     @ColumnInfo(name = "fav")
     val favorite: Int,
-)
+) : Serializable
 
 @Dao
 interface TownDAO {

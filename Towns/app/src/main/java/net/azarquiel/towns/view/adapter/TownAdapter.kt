@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import net.azarquiel.towns.R
 import net.azarquiel.towns.model.TownView
+import net.azarquiel.towns.view.TownDetailedActivity
 
 class TownAdapter(
     private val context: AppCompatActivity,
@@ -66,12 +67,12 @@ class TownAdapter(
 
     inner class TownClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
-//            (view?.tag as TownView).let { town ->
-//                Intent(context, TownListActivity::class.java).let {
-//                    it.putExtra("town", town)
-//                    context.startActivity(it)
-//                }
-//            }
+            (view?.tag as TownView).let { town ->
+                Intent(context, TownDetailedActivity::class.java).let {
+                    it.putExtra("town", town)
+                    context.startActivity(it)
+                }
+            }
         }
     }
 }
