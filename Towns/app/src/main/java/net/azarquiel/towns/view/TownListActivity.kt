@@ -19,6 +19,7 @@ class TownListActivity : AppCompatActivity() {
     private lateinit var community: Community
     private lateinit var townAdapter: TownAdapter
     private var towns: List<TownView>? = null
+    private var query: String? = null
 
     private fun setup() {
         binding = ActivityTownListBinding.inflate(layoutInflater)
@@ -35,7 +36,8 @@ class TownListActivity : AppCompatActivity() {
             .getByCommunityID(community.id)
             .observe(this) {
                 towns = it
-                townAdapter.setData(towns!!)
+                if (query == null) townAdapter.setData(towns!!)
+                else applyQuery()
             }
     }
 
@@ -63,8 +65,14 @@ class TownListActivity : AppCompatActivity() {
         }
     }
 
+    private fun applyQuery() {
+        townAdapter.setData(towns!!.filter { it.province.contains(query!!) })
+    }
+
     inner class SearchHandler : SearchView.OnQueryTextListener {
-        override fun onQueryTextChange(p0: String?): Boolean {
+        override fun onQueryTextChange(q: String): Boolean {
+            query = q
+            applyQuery()
             return false
         }
 
