@@ -48,7 +48,7 @@ interface TownDAO {
       WHERE p.provincia IN (
 	    SELECT pr.id
 	    FROM provincia pr
-	    WHERE pr.comunidad = 1
+	    WHERE pr.comunidad = :communityID
       )
     """)
     fun getByCommunityID(communityID: Int): LiveData<List<Town>>
