@@ -16,6 +16,11 @@
         android:theme="@style/Theme.Towns"
         tools:targetApi="31">
         <activity
+            android:name=".view.TownDetailedActivity"
+            android:exported="false"
+            android:label="@string/title_activity_town_detailed"
+            android:theme="@style/Theme.Towns.NoActionBar" />
+        <activity
             android:name=".view.TownListActivity"
             android:exported="false"
             android:label="@string/title_activity_town_list"
