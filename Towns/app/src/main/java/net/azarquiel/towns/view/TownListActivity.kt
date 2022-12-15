@@ -5,14 +5,20 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.towns.R
 import net.azarquiel.towns.databinding.ActivityTownListBinding
 import net.azarquiel.towns.model.Community
+import net.azarquiel.towns.model.TownView
+import net.azarquiel.towns.view.adapter.TownAdapter
+import net.azarquiel.towns.viewModel.TownViewModel
 
 class TownListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTownListBinding
     private lateinit var community: Community
+    private lateinit var townAdapter: TownAdapter
+    private var towns: List<TownView>? = null
 
     private fun setup() {
         binding = ActivityTownListBinding.inflate(layoutInflater)
@@ -22,6 +28,15 @@ class TownListActivity : AppCompatActivity() {
         community = intent.getSerializableExtra("community") as Community
 
         title = community.name
+
+        townAdapter = TownAdapter(this, binding.content.townListRecycler, R.layout.town_row)
+
+        ViewModelProvider(this)[TownViewModel::class.java]
+            .getByCommunityID(community.id)
+            .observe(this) {
+                towns = it
+                townAdapter.setData(towns!!)
+            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
