@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.azarquiel.towns.view.TownListActivity">
+    <item
+        android:id="@+id/searchMenu"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="search"
+        app:showAsAction="ifRoom|collapseActionView" />
+</menu>
