@@ -1,6 +1,7 @@
 package net.azarquiel.towns.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.azarquiel.towns.R
 import net.azarquiel.towns.model.Community
+import net.azarquiel.towns.view.TownListActivity
 import net.azarquiel.towns.viewModel.CommunityViewModel
 
 class CommunityAdapter(
@@ -57,12 +59,12 @@ class CommunityAdapter(
 
     inner class CommunityClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
-//            (view?.tag as Community).let { community ->
-//                Intent(context, ProductListActivity::class.java).let {
-//                    it.putExtra("categoryID", community)
-//                    context.startActivity(it)
-//                }
-//            }
+            (view?.tag as Community).let { community ->
+                Intent(context, TownListActivity::class.java).let {
+                    it.putExtra("community", community)
+                    context.startActivity(it)
+                }
+            }
         }
     }
 }
