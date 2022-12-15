@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import net.azarquiel.towns.R
 import net.azarquiel.towns.databinding.ActivityMainBinding
+import net.azarquiel.towns.model.DBFiles
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        DBFiles.inject(this, "db.sqlite")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
