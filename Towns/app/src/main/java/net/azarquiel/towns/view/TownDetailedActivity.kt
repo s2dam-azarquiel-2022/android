@@ -44,6 +44,7 @@ class TownDetailedActivity : AppCompatActivity() {
             1 -> android.R.drawable.star_on
             else -> android.R.drawable.star_off
         })
+        title = town.name
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
