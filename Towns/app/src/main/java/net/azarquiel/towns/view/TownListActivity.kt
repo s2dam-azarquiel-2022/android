@@ -18,7 +18,7 @@ class TownListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTownListBinding
     private lateinit var community: Community
     private lateinit var townAdapter: TownAdapter
-    private var towns: List<TownView>? = null
+    private var towns: List<TownView> = emptyList()
     private var query: String? = null
     private var showingFavorites: Boolean = false
 
@@ -71,7 +71,7 @@ class TownListActivity : AppCompatActivity() {
     }
 
     private fun applyQuery() {
-        townAdapter.setData(towns!!.filter {
+        townAdapter.setData(towns.filter {
             (query?.let { q -> it.province.contains(q) } ?: true) &&
                     (if (showingFavorites) it.favorite == 1 else true)
         })
