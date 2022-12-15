@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         CommunityAdapter(
             this,
-            binding.content.comunityRecycler,
+            binding.content.communityRecycler,
             R.layout.community_row,
             ViewModelProvider(this)[CommunityViewModel::class.java]
         )
