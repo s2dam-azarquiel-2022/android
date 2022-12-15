@@ -60,16 +60,16 @@ class TownAdapter(
             })
             Picasso.get().load(item.image).into(itemView.findViewById<ImageView>(R.id.townImage))
 
-            itemView.tag = item
+            itemView.tag = item.id
             itemView.setOnClickListener(townClickHandler)
         }
     }
 
     inner class TownClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
-            (view?.tag as TownView).let { town ->
+            (view?.tag as Int).let { townID ->
                 Intent(context, TownDetailedActivity::class.java).let {
-                    it.putExtra("town", town)
+                    it.putExtra("townID", townID)
                     context.startActivity(it)
                 }
             }

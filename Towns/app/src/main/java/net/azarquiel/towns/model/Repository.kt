@@ -18,4 +18,6 @@ class TownRepository(application: Application) {
 
     fun getByCommunityID(communityID: Int): LiveData<List<TownView>> =
         townDAO.getByCommunityID(communityID)
+    fun getById(id: Int): LiveData<List<TownView>> = townDAO.getById(id)
+    fun toggleFav(id: Int) = townDAO.toggleFav(id)
 }
