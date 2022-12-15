@@ -3,6 +3,7 @@ package net.azarquiel.towns.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import net.azarquiel.towns.R
 import net.azarquiel.towns.databinding.ActivityTownListBinding
@@ -31,6 +32,10 @@ class TownListActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_town_list, menu)
+        (menu.findItem(R.id.searchMenu).actionView as SearchView).let {
+            it.queryHint = "Search ..."
+            it.setOnQueryTextListener(SearchHandler())
+        }
         return true
     }
 
@@ -39,10 +44,17 @@ class TownListActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.searchMenu ->  {
-                return  true
-            }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    inner class SearchHandler : SearchView.OnQueryTextListener {
+        override fun onQueryTextChange(p0: String?): Boolean {
+            return false
+        }
+
+        override fun onQueryTextSubmit(p0: String?): Boolean {
+            return false
         }
     }
 }
