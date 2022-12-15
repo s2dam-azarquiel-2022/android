@@ -12,6 +12,8 @@ class TownWebActivity : AppCompatActivity() {
         binding = ActivityTownWebBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        binding.content.townWeb.loadUrl(intent.getSerializableExtra("url") as String)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

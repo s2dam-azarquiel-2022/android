@@ -1,13 +1,12 @@
 package net.azarquiel.towns.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
-import net.azarquiel.towns.R
 import net.azarquiel.towns.databinding.ActivityTownDetailedBinding
 import net.azarquiel.towns.model.TownView
-import net.azarquiel.towns.view.adapter.TownAdapter
 import net.azarquiel.towns.viewModel.TownViewModel
 
 class TownDetailedActivity : AppCompatActivity() {
@@ -15,6 +14,7 @@ class TownDetailedActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTownDetailedBinding
     private lateinit var townViewModel: TownViewModel
     private var townID: Int = -1
+    private var url: String = ""
 
     private fun setup() {
         binding = ActivityTownDetailedBinding.inflate(layoutInflater)
@@ -29,6 +29,10 @@ class TownDetailedActivity : AppCompatActivity() {
         }
 
         binding.content.moar.setOnClickListener {
+            Intent(this, TownWebActivity::class.java).let {
+                it.putExtra("url", url)
+                this.startActivity(it)
+            }
         }
 
         binding.fab.setOnClickListener {
@@ -45,6 +49,7 @@ class TownDetailedActivity : AppCompatActivity() {
             else -> android.R.drawable.star_off
         })
         title = town.name
+        url = town.link
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
