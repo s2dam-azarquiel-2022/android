@@ -4,9 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.tapitas.R
 import net.azarquiel.tapitas.databinding.ActivityMainBinding
 import net.azarquiel.tapitas.model.DBFiles
+import net.azarquiel.tapitas.view.adapter.TapaAdapter
+import net.azarquiel.tapitas.viewModel.TapaViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +21,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         DBFiles.inject(this, "db.db")
+
+        TapaAdapter(
+            this,
+            binding.content.recyclerTapitas,
+            R.layout.tapa_row,
+            ViewModelProvider(this)[TapaViewModel::class.java]
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
