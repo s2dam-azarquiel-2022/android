@@ -6,10 +6,7 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import net.azarquiel.tapitas.model.StablishmentRepository
-import net.azarquiel.tapitas.model.TapaDetailedView
-import net.azarquiel.tapitas.model.TapaRepository
-import net.azarquiel.tapitas.model.TapaView
+import net.azarquiel.tapitas.model.*
 
 class TapaViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TapaRepository(application)
@@ -23,4 +20,7 @@ class TapaViewModel(application: Application) : AndroidViewModel(application) {
 
 class StablishmentViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = StablishmentRepository(application)
+
+    fun getById(id: Int): LiveData<List<StablishmentView>> = repository.getById(id)
+    fun getRecipesById(id: Int): LiveData<List<String>> = repository.getRecipesById(id)
 }

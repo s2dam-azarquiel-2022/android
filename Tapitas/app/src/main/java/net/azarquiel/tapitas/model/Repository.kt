@@ -13,4 +13,7 @@ class TapaRepository(application: Application) {
 
 class StablishmentRepository(application: Application) {
     private val stablishmentDAO = TapasDB.getDB(application).stablishmentDAO()
+
+    fun getById(id: Int): LiveData<List<StablishmentView>> = stablishmentDAO.getById(id)
+    fun getRecipesById(id: Int): LiveData<List<String>> = stablishmentDAO.getRecipesById(id)
 }
