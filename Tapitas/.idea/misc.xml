@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3296875" />
+        <entry key="app/src/main/res/layout/activity_tapa_detailed.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.3296875" />
+        <entry key="app/src/main/res/layout/content_tapa_detailed.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/tapa_row.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.3296875" />
       </map>
