@@ -2,7 +2,6 @@ package net.azarquiel.tapitas.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +14,11 @@ import com.squareup.picasso.Picasso
 import net.azarquiel.tapitas.R
 import net.azarquiel.tapitas.model.TapaView
 import net.azarquiel.tapitas.view.TapaDetailedActivity
-import net.azarquiel.tapitas.viewModel.TapaViewModel
 
 class TapaAdapter(
     private val context: AppCompatActivity,
     thisView: RecyclerView,
     private val itemLayout: Int,
-    tapaViewModel: TapaViewModel
 ) : RecyclerView.Adapter<TapaAdapter.ViewHolder>() {
     private var data: List<TapaView> = emptyList()
     private val communityClickHandler = CommunityClickHandler()
@@ -29,14 +26,10 @@ class TapaAdapter(
     init {
         thisView.adapter = this
         thisView.layoutManager = LinearLayoutManager(context)
-        tapaViewModel.getAll().observe(context) { tapas ->
-            this.setData(tapas)
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<TapaView>) {
-        Log.d("aru", "reached")
         this.data = data
         notifyDataSetChanged()
     }
