@@ -7,6 +7,8 @@ class TapaRepository(application: Application) {
     private val tapaDAO = TapasDB.getDB(application).tapaDAO()
 
     fun getAll(): LiveData<List<TapaView>> = tapaDAO.getAll()
+    fun getById(id: Int): LiveData<List<TapaDetailedView>> = tapaDAO.getById(id)
+    fun toggleFav(id: Int) = tapaDAO.toggleFav(id)
 }
 
 class StablishmentRepository(application: Application) {
