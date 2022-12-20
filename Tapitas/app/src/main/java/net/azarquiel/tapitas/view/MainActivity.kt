@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import net.azarquiel.tapitas.R
 import net.azarquiel.tapitas.databinding.ActivityMainBinding
+import net.azarquiel.tapitas.model.DBFiles
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        DBFiles.inject(this, "db.db")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
