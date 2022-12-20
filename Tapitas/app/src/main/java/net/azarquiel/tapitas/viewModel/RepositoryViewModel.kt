@@ -21,6 +21,6 @@ class TapaViewModel(application: Application) : AndroidViewModel(application) {
     fun toggleFav(id: Int) = GlobalScope.launch { repository.toggleFav(id) }
 }
 
-class StablishmentViewModel(application: Application) {
+class StablishmentViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = StablishmentRepository(application)
 }
