@@ -1,5 +1,6 @@
 package net.azarquiel.tapitas.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,7 @@ class TapaDetailedActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTapaDetailedBinding
     private var tapaID: Int = -1
+    private var stablishmentID: Int = -1
     private lateinit var tapaViewModel: TapaViewModel
 
     private fun setup() {
@@ -23,10 +25,18 @@ class TapaDetailedActivity : AppCompatActivity() {
         tapaViewModel = ViewModelProvider(this)[TapaViewModel::class.java]
 
         tapaViewModel.getById(tapaID).observe(this) { tapas ->
+
             drawTapa(tapas[0])
         }
 
         binding.fab.setOnClickListener { tapaViewModel.toggleFav(tapaID) }
+
+        binding.content.stablishmentButton.setOnClickListener {
+            Intent(this, StablishmentActivity::class.java).let {
+                it.putExtra("stablishmentID", stablishmentID)
+                this.startActivity(it)
+            }
+        }
     }
 
     private fun drawTapa(tapa: TapaDetailedView) {
@@ -44,6 +54,8 @@ class TapaDetailedActivity : AppCompatActivity() {
             1 -> android.R.drawable.star_on
             else -> android.R.drawable.star_off
         })
+
+        stablishmentID = tapa.stablishmentID
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
