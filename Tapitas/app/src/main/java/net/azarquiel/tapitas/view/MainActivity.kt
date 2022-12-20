@@ -1,9 +1,10 @@
-package net.azarquiel.tapitas
+package net.azarquiel.tapitas.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import net.azarquiel.tapitas.R
 import net.azarquiel.tapitas.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
