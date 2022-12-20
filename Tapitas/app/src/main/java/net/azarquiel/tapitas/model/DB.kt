@@ -12,22 +12,22 @@ import androidx.room.RoomDatabase
     ],
     version = 1
 )
-abstract class TownsDB : RoomDatabase() {
+abstract class TapasDB : RoomDatabase() {
     abstract fun tapaDAO(): TapaDAO
     abstract fun stablishmentDAO(): StablishmentDAO
 
     companion object {
         @Volatile
-        private var INSTANCE: TownsDB? = null
+        private var INSTANCE: TapasDB? = null
 
-        fun getDB(context: Context): TownsDB {
+        fun getDB(context: Context): TapasDB {
             INSTANCE?.let { return it }
 
             synchronized(this) {
                 Room.databaseBuilder(
                     context.applicationContext,
-                    TownsDB::class.java,
-                    "db.sqlite"
+                    TapasDB::class.java,
+                    "db.db"
                 ).build().let {
                     INSTANCE = it
                     return it
