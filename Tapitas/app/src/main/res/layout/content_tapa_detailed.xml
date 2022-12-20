@@ -109,7 +109,7 @@
 
                 <ImageView
                     android:id="@+id/stablishmentImage"
-                    android:layout_width="50dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
