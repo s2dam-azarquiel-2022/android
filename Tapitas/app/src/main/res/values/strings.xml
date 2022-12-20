@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Tapitas</string>
     <string name="title_activity_tapa_detailed">TapaDetailedActivity</string>
+    <string name="title_activity_stablishment">StablishmentActivity</string>
 </resources>

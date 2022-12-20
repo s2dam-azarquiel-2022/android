@@ -16,6 +16,11 @@
         android:theme="@style/Theme.Tapitas"
         tools:targetApi="31">
         <activity
+            android:name=".view.StablishmentActivity"
+            android:exported="false"
+            android:label="@string/title_activity_stablishment"
+            android:theme="@style/Theme.Tapitas.NoActionBar" />
+        <activity
             android:name=".view.TapaDetailedActivity"
             android:exported="false"
             android:label="@string/title_activity_tapa_detailed"
