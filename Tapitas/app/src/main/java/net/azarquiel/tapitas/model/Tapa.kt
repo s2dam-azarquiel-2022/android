@@ -2,6 +2,7 @@ package net.azarquiel.tapitas.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.io.Serializable
 
 @Entity(
     tableName = "tapa",
@@ -43,7 +44,7 @@ data class TapaView (
     val imageURL: String,
     @ColumnInfo(name = "fav")
     val favorite: Int,
-)
+) : Serializable
 
 @Dao
 interface TapaDAO {

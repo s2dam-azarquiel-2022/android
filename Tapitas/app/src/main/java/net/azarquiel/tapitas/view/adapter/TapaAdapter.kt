@@ -1,6 +1,7 @@
 package net.azarquiel.tapitas.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import net.azarquiel.tapitas.R
 import net.azarquiel.tapitas.model.TapaView
+import net.azarquiel.tapitas.view.TapaDetailedActivity
 import net.azarquiel.tapitas.viewModel.TapaViewModel
 
 class TapaAdapter(
@@ -59,19 +61,19 @@ class TapaAdapter(
                 itemView.findViewById<ImageView>(R.id.tapaImage)
             )
 
-            itemView.tag = item
+            itemView.tag = item.id
             itemView.setOnClickListener(communityClickHandler)
         }
     }
 
     inner class CommunityClickHandler : View.OnClickListener {
         override fun onClick(view: View?) {
-//            (view?.tag as TapaView).let { tapa ->
-//                Intent(context, TownListActivity::class.java).let {
-//                    it.putExtra("tapa", tapa)
-//                    context.startActivity(it)
-//                }
-//            }
+            (view?.tag as Int).let { tapaID ->
+                Intent(context, TapaDetailedActivity::class.java).let {
+                    it.putExtra("tapaID", tapaID)
+                    context.startActivity(it)
+                }
+            }
         }
     }
 }
