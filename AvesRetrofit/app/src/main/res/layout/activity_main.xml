@@ -20,5 +20,5 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" android:id="@+id/contentMain" />
+    <include layout="@layout/content_main" android:id="@+id/content" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
