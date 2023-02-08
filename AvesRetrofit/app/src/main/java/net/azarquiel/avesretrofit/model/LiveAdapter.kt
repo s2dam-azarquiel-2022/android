@@ -6,17 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
 @SuppressLint("NotifyDataSetChanged")
-class LiveAdapter <B : ViewBinding, I : Any>  (
-    data: LiveData<List<I>>,
+class LiveAdapter <B : ViewBinding, D: Any, I : Any>  (
+    data: D,
     context: AppCompatActivity,
     recycler: RecyclerView,
     private val bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> B,
-    private val bind: (B, View, I) -> Unit
+    private val bind: (B, View, I) -> Unit,
 ) : RecyclerView.Adapter<LiveAdapter.ViewHolder<B>>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(recycler.context)
@@ -25,9 +26,20 @@ class LiveAdapter <B : ViewBinding, I : Any>  (
     init {
         recycler.adapter = this
         recycler.layoutManager = LinearLayoutManager(context)
-        data.observe(context) {
-            this.data = it
-            notifyDataSetChanged()
+
+        when (data) {
+            is List<*> -> {
+                this.data = data as List<I>
+                notifyDataSetChanged()
+            }
+            is LiveData<*> -> (data as LiveData<List<I>>).observe(context) {
+                this.data = it
+                notifyDataSetChanged()
+            }
+            is MutableLiveData<*> -> (data as MutableLiveData<List<I>>).observe(context) {
+                this.data = it
+                notifyDataSetChanged()
+            }
         }
     }
 

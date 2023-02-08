@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider(this)[MainViewModel::class.java].getZones(),
             this,
             binding.content.recyclerZones,
-            ZoneRowBinding::inflate
-        ) { binding, view, item ->
+            ZoneRowBinding::inflate,
+        ) { binding, view, item: Zone ->
             binding.name.text = item.name
             binding.localization.text = item.localization
             view.tag = item
