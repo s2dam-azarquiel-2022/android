@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AvesRetrofit</string>
     <string name="title_activity_zone">ZoneActivity</string>
+    <string name="title_activity_resources">ResourcesActivity</string>
 </resources>
