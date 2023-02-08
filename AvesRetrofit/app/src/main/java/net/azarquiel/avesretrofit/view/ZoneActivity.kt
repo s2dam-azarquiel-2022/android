@@ -1,5 +1,6 @@
 package net.azarquiel.avesretrofit.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import net.azarquiel.avesretrofit.databinding.ActivityZoneBinding
@@ -20,6 +21,13 @@ class ZoneActivity : AppCompatActivity() {
         binding.content.zoneLocalization.text = zone.localization
         binding.content.zoneFormations.text = zone.formations
         binding.content.zonePresentation.text = zone.presentation
+
+        binding.fab.setOnClickListener {
+            Intent(this, ResourcesActivity::class.java).let {
+                it.putExtra("zoneID", zone.id)
+                this.startActivity(it)
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
