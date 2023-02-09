@@ -13,4 +13,9 @@ interface BirdsService {
     fun getZoneResources(
         @Path("id") id: String
     ): Deferred<Response<Resources>>
+
+    @GET("recurso/{id}/comentarios")
+    fun getResourceComments(
+        @Path("id") id: String
+    ): Deferred<Response<Comments>>
 }

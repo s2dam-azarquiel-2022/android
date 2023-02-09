@@ -27,3 +27,15 @@ data class Resource (
     @SerializedName("titulo") @JvmField val name: String,
     @SerializedName("url") @JvmField val image: String,
 ) : Serializable
+
+data class Comments (
+    @SerializedName("comentarios") @JvmField val comments: List<CommentData>,
+)
+
+data class CommentData (
+    @SerializedName("id") @JvmField val id: String,
+    @SerializedName("recurso") @JvmField val resource: String,
+    @SerializedName("nick") @JvmField val author: String,
+    @SerializedName("fecha") @JvmField val date: String,
+    @SerializedName("comentario") @JvmField val comment: String,
+)

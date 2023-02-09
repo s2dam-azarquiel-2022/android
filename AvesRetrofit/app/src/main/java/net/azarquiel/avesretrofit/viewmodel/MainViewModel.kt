@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import net.azarquiel.avesretrofit.model.Resource
 import net.azarquiel.avesretrofit.model.Zone
 import net.azarquiel.avesretrofit.api.MainRepository
+import net.azarquiel.avesretrofit.model.CommentData
 
 class MainViewModel : ViewModel() {
     private var repository = MainRepository()
@@ -26,6 +27,16 @@ class MainViewModel : ViewModel() {
         MutableLiveData<List<Resource>>().let {
             id?.let { id -> GlobalScope.launch(Dispatchers.Main) {
                 repository.getZoneResources(id)?.let { res -> it.value = res } }
+            }
+            return it
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getResourceComments(id: String?): MutableLiveData<List<CommentData>> {
+        MutableLiveData<List<CommentData>>().let {
+            id?.let { id -> GlobalScope.launch(Dispatchers.Main) {
+                repository.getResourceComments(id)?.let { res -> it.value = res } }
             }
             return it
         }
