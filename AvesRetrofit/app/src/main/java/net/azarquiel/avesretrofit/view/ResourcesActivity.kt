@@ -21,6 +21,15 @@ class ResourcesActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        val clickHandler = View.OnClickListener {
+            (it?.tag as Resource).let { resource ->
+                Intent(this, ResourceActivity::class.java).let { intent ->
+                    intent.putExtra("resource", resource)
+                    this.startActivity(intent)
+                }
+            }
+        }
+
         LiveAdapter(
             ViewModelProvider(this)[MainViewModel::class.java].getZoneResources(intent.getStringExtra("zoneID")),
             this,
@@ -30,6 +39,7 @@ class ResourcesActivity : AppCompatActivity() {
             binding.resourceName.text = item.name
             Picasso.get().load(item.image).into(binding.resourceImg)
             view.tag = item
+            view.setOnClickListener(clickHandler)
         }
     }
 
