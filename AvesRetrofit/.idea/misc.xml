@@ -5,9 +5,11 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.18854916067146282" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5987025023169601" />
+        <entry key="app/src/main/res/layout/activity_resource.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/activity_resources.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/activity_zone.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.3296875" />
+        <entry key="app/src/main/res/layout/content_resource.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_resources.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/content_zone.xml" value="0.33" />
         <entry key="app/src/main/res/layout/resource_row.xml" value="0.33" />
