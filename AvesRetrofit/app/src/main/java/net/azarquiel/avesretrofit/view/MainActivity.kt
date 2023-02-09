@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             (it?.tag as Zone).let { zone ->
                 Intent(this, ZoneActivity::class.java).let { intent ->
                     intent.putExtra("zone", zone)
+                    intent.putExtra("userID", userID)
                     this.startActivity(intent)
                 }
             }

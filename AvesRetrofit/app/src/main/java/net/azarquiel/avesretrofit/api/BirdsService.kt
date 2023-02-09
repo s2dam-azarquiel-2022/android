@@ -30,4 +30,12 @@ interface BirdsService {
     fun getResourceComments(
         @Path("id") id: String
     ): Deferred<Response<Comments>>
+
+    @POST("recurso/{id}/comentario")
+    fun addResourceComment(
+        @Path("id") id: String,
+        @Query("usuario") userID: String,
+        @Query("comentario") comment: String,
+        @Query("fecha") date: String,
+    ): Deferred<Response<Comment>>
 }

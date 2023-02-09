@@ -28,4 +28,13 @@ class MainRepository() {
     suspend fun register(nick: String, pass: String): UserData {
         service.register(nick, pass).await().let { return it.body()!!.data!! }
     }
+
+    suspend fun addResourceComment(
+        id: String,
+        userID: String,
+        comment: String,
+        date: String,
+    ): CommentData {
+        service.addResourceComment(id, userID, comment, date).await().let { return it.body()!!.comment }
+    }
 }

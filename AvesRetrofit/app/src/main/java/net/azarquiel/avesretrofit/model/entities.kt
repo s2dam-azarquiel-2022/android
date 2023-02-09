@@ -32,6 +32,10 @@ data class Comments (
     @SerializedName("comentarios") @JvmField val comments: List<CommentData>,
 )
 
+data class Comment (
+    @SerializedName("comentario") @JvmField val comment: CommentData,
+)
+
 data class CommentData (
     @SerializedName("id") @JvmField val id: String,
     @SerializedName("recurso") @JvmField val resource: String,

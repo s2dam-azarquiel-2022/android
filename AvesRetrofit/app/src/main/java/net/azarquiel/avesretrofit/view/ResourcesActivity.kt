@@ -13,18 +13,21 @@ import net.azarquiel.avesretrofit.model.Resource
 import net.azarquiel.avesretrofit.viewmodel.MainViewModel
 
 class ResourcesActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityResourcesBinding
+    private var userID: String? = null
 
     private fun setup() {
         binding = ActivityResourcesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        userID = intent.getStringExtra("userID")
+
         val clickHandler = View.OnClickListener {
             (it?.tag as Resource).let { resource ->
                 Intent(this, ResourceActivity::class.java).let { intent ->
                     intent.putExtra("resource", resource)
+                    intent.putExtra("userID", userID)
                     this.startActivity(intent)
                 }
             }

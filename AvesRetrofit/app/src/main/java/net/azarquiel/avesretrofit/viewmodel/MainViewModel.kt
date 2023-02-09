@@ -11,6 +11,8 @@ import net.azarquiel.avesretrofit.model.Zone
 import net.azarquiel.avesretrofit.api.MainRepository
 import net.azarquiel.avesretrofit.model.CommentData
 import net.azarquiel.avesretrofit.model.UserData
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainViewModel : ViewModel() {
     private var repository = MainRepository()
@@ -55,6 +57,25 @@ class MainViewModel : ViewModel() {
     fun register(nick: String, pass: String): MutableLiveData<UserData> {
         MutableLiveData<UserData>().let {
             GlobalScope.launch(Dispatchers.Main) { it.value = repository.register(nick, pass) }
+            return it
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun addResourceComment(
+        id: String,
+        userID: String,
+        comment: String,
+    ): MutableLiveData<CommentData> {
+        MutableLiveData<CommentData>().let {
+            GlobalScope.launch(Dispatchers.Main) {
+                it.value = repository.addResourceComment(
+                    id,
+                    userID,
+                    comment,
+                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()),
+                )
+            }
             return it
         }
     }

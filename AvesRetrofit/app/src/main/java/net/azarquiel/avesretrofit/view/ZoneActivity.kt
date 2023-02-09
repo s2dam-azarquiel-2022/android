@@ -9,6 +9,7 @@ import net.azarquiel.avesretrofit.model.Zone
 class ZoneActivity : AppCompatActivity() {
     private lateinit var binding: ActivityZoneBinding
     private lateinit var zone: Zone
+    private var userID: String? = null
 
     private fun setup() {
         binding = ActivityZoneBinding.inflate(layoutInflater)
@@ -16,6 +17,7 @@ class ZoneActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         zone = intent.extras?.get("zone")!! as Zone
+        userID = intent.getStringExtra("userID")
 
         binding.content.zoneName.text = zone.name
         binding.content.zoneLocalization.text = zone.localization
@@ -25,6 +27,7 @@ class ZoneActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             Intent(this, ResourcesActivity::class.java).let {
                 it.putExtra("zoneID", zone.id)
+                it.putExtra("userID", userID)
                 this.startActivity(it)
             }
         }
