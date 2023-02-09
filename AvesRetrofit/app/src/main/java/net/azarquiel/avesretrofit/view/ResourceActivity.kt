@@ -52,7 +52,7 @@ class ResourceActivity : AppCompatActivity() {
             val binding = CommentDialogBinding.inflate(LayoutInflater.from(this))
             AlertDialog.Builder(this)
                 .setView(binding.root)
-                .setTitle("Login | Register")
+                .setTitle("Comment")
                 .setPositiveButton("Accept") { _, _ ->
                     val comment = binding.commentText.text.toString()
                     viewModel.addResourceComment(resource.id, userID!!, comment).observe(this) { comment ->
