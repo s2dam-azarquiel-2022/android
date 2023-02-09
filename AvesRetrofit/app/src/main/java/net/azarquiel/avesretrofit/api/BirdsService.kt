@@ -8,4 +8,9 @@ import retrofit2.http.*
 interface BirdsService {
     @GET("zonas")
     fun getZones(): Deferred<Response<Zones>>
+
+    @GET("zona/{id}/recursos")
+    fun getZoneResources(
+        @Path("id") id: String
+    ): Deferred<Response<Resources>>
 }

@@ -20,4 +20,14 @@ class MainViewModel : ViewModel() {
             return it
         }
     }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getZoneResources(id: String?): MutableLiveData<List<Resource>> {
+        MutableLiveData<List<Resource>>().let {
+            id?.let { id -> GlobalScope.launch(Dispatchers.Main) {
+                repository.getZoneResources(id)?.let { res -> it.value = res } }
+            }
+            return it
+        }
+    }
 }
