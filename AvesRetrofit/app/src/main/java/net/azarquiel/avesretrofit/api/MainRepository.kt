@@ -1,9 +1,6 @@
 package net.azarquiel.avesretrofit.api
 
-import net.azarquiel.avesretrofit.model.CommentData
-import net.azarquiel.avesretrofit.model.Comments
-import net.azarquiel.avesretrofit.model.Resource
-import net.azarquiel.avesretrofit.model.Zone
+import net.azarquiel.avesretrofit.model.*
 
 class MainRepository() {
     val service = WebAccess.birdsService
@@ -21,5 +18,14 @@ class MainRepository() {
     suspend fun getResourceComments(id: String): List<CommentData>? {
         service.getResourceComments(id).await().let { if (it.isSuccessful) return it.body()!!.comments }
         return null
+    }
+
+    suspend fun login(nick: String, pass: String): UserData? {
+        service.login(nick, pass).await().let { if (it.isSuccessful) return it.body()!!.data }
+        return null
+    }
+
+    suspend fun register(nick: String, pass: String): UserData {
+        service.register(nick, pass).await().let { return it.body()!!.data!! }
     }
 }

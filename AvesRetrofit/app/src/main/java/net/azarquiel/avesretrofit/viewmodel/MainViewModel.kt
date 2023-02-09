@@ -10,6 +10,7 @@ import net.azarquiel.avesretrofit.model.Resource
 import net.azarquiel.avesretrofit.model.Zone
 import net.azarquiel.avesretrofit.api.MainRepository
 import net.azarquiel.avesretrofit.model.CommentData
+import net.azarquiel.avesretrofit.model.UserData
 
 class MainViewModel : ViewModel() {
     private var repository = MainRepository()
@@ -38,6 +39,22 @@ class MainViewModel : ViewModel() {
             id?.let { id -> GlobalScope.launch(Dispatchers.Main) {
                 repository.getResourceComments(id)?.let { res -> it.value = res } }
             }
+            return it
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun login(nick: String, pass: String): MutableLiveData<UserData?> {
+        MutableLiveData<UserData?>().let {
+            GlobalScope.launch(Dispatchers.Main) { it.value = repository.login(nick, pass) }
+            return it
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun register(nick: String, pass: String): MutableLiveData<UserData> {
+        MutableLiveData<UserData>().let {
+            GlobalScope.launch(Dispatchers.Main) { it.value = repository.register(nick, pass) }
             return it
         }
     }

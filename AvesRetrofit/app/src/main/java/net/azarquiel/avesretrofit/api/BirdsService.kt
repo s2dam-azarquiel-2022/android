@@ -14,6 +14,18 @@ interface BirdsService {
         @Path("id") id: String
     ): Deferred<Response<Resources>>
 
+    @GET("usuario")
+    fun login(
+        @Query("nick") nick: String,
+        @Query("pass") pass: String
+    ): Deferred<Response<User>>
+
+    @POST("usuario")
+    fun register(
+        @Query("nick") nick: String,
+        @Query("pass") pass: String
+    ): Deferred<Response<User>>
+
     @GET("recurso/{id}/comentarios")
     fun getResourceComments(
         @Path("id") id: String

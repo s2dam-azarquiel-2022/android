@@ -39,3 +39,13 @@ data class CommentData (
     @SerializedName("fecha") @JvmField val date: String,
     @SerializedName("comentario") @JvmField val comment: String,
 )
+
+data class User (
+    @SerializedName("usuario") @JvmField val data: UserData?
+)
+
+data class UserData (
+    @SerializedName("id") @JvmField val id: String,
+    @SerializedName("nick") @JvmField val nick: String,
+    @SerializedName("pass") @JvmField val pass: String,
+)
