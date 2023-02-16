@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        title = "Comunidades"
+
         val clickHandler = View.OnClickListener {
             (it?.tag as Community).let { community ->
                 Intent(this, ProvincesActivity::class.java).let { intent ->
