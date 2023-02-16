@@ -1,6 +1,8 @@
 package net.azarquiel.caravanas.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -18,14 +20,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        val clickHandler = View.OnClickListener {
+            (it?.tag as Community).let { community ->
+                Intent(this, ProvincesActivity::class.java).let { intent ->
+                    intent.putExtra("community", community)
+                    this.startActivity(intent)
+                }
+            }
+        }
+
         LiveAdapter(
             ViewModelProvider(this)[MainViewModel::class.java].getCommunities(),
             this,
             binding.content.recyclerCommunities,
             CommunityRowBinding::inflate,
-        ) { binding, _, item: Community ->
+        ) { binding, view, item: Community ->
             binding.communityName.text = item.name
             binding.communityImage.setDrawable("ccaa${item.id}")
+            view.tag = item
+            view.setOnClickListener(clickHandler)
         }
     }
 
