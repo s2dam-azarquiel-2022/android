@@ -1,6 +1,8 @@
 package net.azarquiel.caravanas.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.caravanas.databinding.ActivityParkingsBinding
@@ -22,14 +24,25 @@ class ParkingsActivity : AppCompatActivity() {
         town = intent.extras?.get("town")!! as Town
         title = "Parkings (${town.name})"
 
+        val clickHandler = View.OnClickListener {
+            (it?.tag as Parking).let { parking ->
+                Intent(this, PhotosActivity::class.java).let { intent ->
+                    intent.putExtra("parking", parking)
+                    this.startActivity(intent)
+                }
+            }
+        }
+
         LiveAdapter(
             ViewModelProvider(this)[MainViewModel::class.java].getParkings(town.lat, town.lon),
             this,
             binding.content.recyclerParkings,
             ParkingRowBinding::inflate
-        ) { binding, _, item: Parking ->
+        ) { binding, view, item: Parking ->
             binding.parkingName.text = item.name
             binding.parkingDesc.text = item.desc
+            view.tag = item
+            view.setOnClickListener(clickHandler)
         }
     }
 

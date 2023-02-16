@@ -40,4 +40,4 @@ data class Parking (
     @SerializedName("id") @JvmField val id: String,
     @SerializedName("titre") @JvmField val name: String,
     @SerializedName("description_es") @JvmField val desc: String,
-)
+) : Serializable
