@@ -30,4 +30,4 @@ data class Town (
     @SerializedName("nombre") @JvmField val name: String,
     @SerializedName("latitud") @JvmField val lat: String,
     @SerializedName("longitud") @JvmField val lon: String,
-)
+) : Serializable
