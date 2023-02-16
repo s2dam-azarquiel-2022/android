@@ -18,4 +18,10 @@ interface Service {
     fun getTowns(
         @Path("id") id: String
     ): Deferred<Response<Towns>>
+
+    @GET("lugar")
+    fun getParkings(
+        @Query("latitud") lat: String,
+        @Query("longitud") lon: String,
+    ): Deferred<Response<Parkings>>
 }

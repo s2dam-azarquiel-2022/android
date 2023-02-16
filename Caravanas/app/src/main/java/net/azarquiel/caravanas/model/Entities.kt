@@ -31,3 +31,13 @@ data class Town (
     @SerializedName("latitud") @JvmField val lat: String,
     @SerializedName("longitud") @JvmField val lon: String,
 ) : Serializable
+
+data class Parkings (
+    @SerializedName("lieux") @JvmField val data: List<Parking>,
+)
+
+data class Parking (
+    @SerializedName("id") @JvmField val id: String,
+    @SerializedName("titre") @JvmField val name: String,
+    @SerializedName("description_es") @JvmField val desc: String,
+)

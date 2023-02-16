@@ -1,6 +1,7 @@
 package net.azarquiel.caravanas.api
 
 import net.azarquiel.caravanas.model.Community
+import net.azarquiel.caravanas.model.Parking
 import net.azarquiel.caravanas.model.Province
 import net.azarquiel.caravanas.model.Town
 
@@ -19,6 +20,11 @@ class MainRepository() {
 
     suspend fun getTowns(id: String): List<Town>? {
         service.getTowns(id).await().let { if (it.isSuccessful) return it.body()!!.data }
+        return null
+    }
+
+    suspend fun getParkings(lat: String, lon: String): List<Parking>? {
+        service.getParkings(lat, lon).await().let { if (it.isSuccessful) return it.body()!!.data }
         return null
     }
 }

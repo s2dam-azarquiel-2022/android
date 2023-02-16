@@ -7,10 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.azarquiel.caravanas.api.MainRepository
-import net.azarquiel.caravanas.model.Community
-import net.azarquiel.caravanas.model.Province
-import net.azarquiel.caravanas.model.Provinces
-import net.azarquiel.caravanas.model.Town
+import net.azarquiel.caravanas.model.*
 
 class MainViewModel : ViewModel() {
     private var repository = MainRepository()
@@ -38,6 +35,16 @@ class MainViewModel : ViewModel() {
         MutableLiveData<List<Town>>().let {
             GlobalScope.launch(Dispatchers.Main) {
                 repository.getTowns(id)?.let { res -> it.value = res }
+            }
+            return it
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getParkings(lat: String, lon: String): MutableLiveData<List<Parking>> {
+        MutableLiveData<List<Parking>>().let {
+            GlobalScope.launch(Dispatchers.Main) {
+                repository.getParkings(lat, lon)?.let { res -> it.value = res }
             }
             return it
         }
