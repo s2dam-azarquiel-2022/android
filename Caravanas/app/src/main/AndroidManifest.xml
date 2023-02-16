@@ -4,6 +4,7 @@
     package="net.azarquiel.caravanas">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,6 +16,11 @@
         android:theme="@style/Theme.Caravanas"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".view.ProvincesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_provinces"
+            android:theme="@style/Theme.Caravanas.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
             android:exported="true"
