@@ -11,4 +11,12 @@ data class Community (
     @SerializedName("id") @JvmField val id: String,
     @SerializedName("nombre") @JvmField val name: String,
 ) : Serializable
+
+data class Provinces (
+    @SerializedName("provincias") @JvmField val data: List<Province>,
+)
+
+data class Province (
+    @SerializedName("id") @JvmField val id: String,
+    @SerializedName("nombre") @JvmField val name: String,
 )
