@@ -10,6 +10,7 @@ import net.azarquiel.caravanas.api.MainRepository
 import net.azarquiel.caravanas.model.Community
 import net.azarquiel.caravanas.model.Province
 import net.azarquiel.caravanas.model.Provinces
+import net.azarquiel.caravanas.model.Town
 
 class MainViewModel : ViewModel() {
     private var repository = MainRepository()
@@ -27,6 +28,16 @@ class MainViewModel : ViewModel() {
         MutableLiveData<List<Province>>().let {
             GlobalScope.launch(Dispatchers.Main) {
                 repository.getProvinces(id)?.let { res -> it.value = res }
+            }
+            return it
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getTowns(id: String): MutableLiveData<List<Town>> {
+        MutableLiveData<List<Town>>().let {
+            GlobalScope.launch(Dispatchers.Main) {
+                repository.getTowns(id)?.let { res -> it.value = res }
             }
             return it
         }

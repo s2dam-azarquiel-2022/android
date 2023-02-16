@@ -13,4 +13,9 @@ interface Service {
     fun getProvinces(
         @Path("id") id: String
     ): Deferred<Response<Provinces>>
+
+    @GET("provincia/{id}/municipio")
+    fun getTowns(
+        @Path("id") id: String
+    ): Deferred<Response<Towns>>
 }

@@ -2,6 +2,7 @@ package net.azarquiel.caravanas.api
 
 import net.azarquiel.caravanas.model.Community
 import net.azarquiel.caravanas.model.Province
+import net.azarquiel.caravanas.model.Town
 
 class MainRepository() {
     val service = WebAccess.birdsService
@@ -13,6 +14,11 @@ class MainRepository() {
 
     suspend fun getProvinces(id: String): List<Province>? {
         service.getProvinces(id).await().let { if (it.isSuccessful) return it.body()!!.data }
+        return null
+    }
+
+    suspend fun getTowns(id: String): List<Town>? {
+        service.getTowns(id).await().let { if (it.isSuccessful) return it.body()!!.data }
         return null
     }
 }

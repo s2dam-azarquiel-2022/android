@@ -20,3 +20,14 @@ data class Province (
     @SerializedName("id") @JvmField val id: String,
     @SerializedName("nombre") @JvmField val name: String,
 ) : Serializable
+
+data class Towns (
+    @SerializedName("municipios") @JvmField val data: List<Town>,
+)
+
+data class Town (
+    @SerializedName("id") @JvmField val id: String,
+    @SerializedName("nombre") @JvmField val name: String,
+    @SerializedName("latitud") @JvmField val lat: String,
+    @SerializedName("longitud") @JvmField val lon: String,
+)
