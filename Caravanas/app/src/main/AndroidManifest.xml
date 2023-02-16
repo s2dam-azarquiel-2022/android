@@ -17,6 +17,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.TownsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_towns"
+            android:theme="@style/Theme.Caravanas.NoActionBar" />
+        <activity
             android:name=".view.ProvincesActivity"
             android:exported="false"
             android:label="@string/title_activity_provinces"
