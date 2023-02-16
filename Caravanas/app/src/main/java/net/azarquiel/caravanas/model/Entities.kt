@@ -19,4 +19,4 @@ data class Provinces (
 data class Province (
     @SerializedName("id") @JvmField val id: String,
     @SerializedName("nombre") @JvmField val name: String,
-)
+) : Serializable

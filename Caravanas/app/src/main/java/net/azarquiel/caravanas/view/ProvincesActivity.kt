@@ -1,6 +1,8 @@
 package net.azarquiel.caravanas.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import net.azarquiel.caravanas.databinding.ActivityProvincesBinding
@@ -22,13 +24,24 @@ class ProvincesActivity : AppCompatActivity() {
         community = intent.extras?.get("community")!! as Community
         title = "Provincias (${community.name})"
 
+        val clickHandler = View.OnClickListener {
+            (it?.tag as Province).let { province ->
+                Intent(this, TownsActivity::class.java).let { intent ->
+                    intent.putExtra("province", province)
+                    this.startActivity(intent)
+                }
+            }
+        }
+
         LiveAdapter(
             ViewModelProvider(this)[MainViewModel::class.java].getProvinces(community.id),
             this,
             binding.content.recyclerProvinces,
             ProvinceRowBinding::inflate
-        ) { binding, _, item: Province ->
+        ) { binding, view, item: Province ->
             binding.provinceName.text = item.name
+            view.tag = item
+            view.setOnClickListener(clickHandler)
         }
     }
 
