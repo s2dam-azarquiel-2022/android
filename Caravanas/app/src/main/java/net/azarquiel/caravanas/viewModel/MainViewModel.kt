@@ -49,4 +49,14 @@ class MainViewModel : ViewModel() {
             return it
         }
     }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getPhotos(id: String): MutableLiveData<List<Photo>> {
+        MutableLiveData<List<Photo>>().let {
+            GlobalScope.launch(Dispatchers.Main) {
+                repository.getPhotos(id)?.let { res -> it.value = res }
+            }
+            return it
+        }
+    }
 }

@@ -41,3 +41,12 @@ data class Parking (
     @SerializedName("titre") @JvmField val name: String,
     @SerializedName("description_es") @JvmField val desc: String,
 ) : Serializable
+
+data class Photos (
+    @SerializedName("p4n_photos") @JvmField val data: List<Photo>,
+)
+
+data class Photo (
+    @SerializedName("id") @JvmField val id: String,
+    @SerializedName("link_large") @JvmField val photo: String,
+)

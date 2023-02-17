@@ -1,9 +1,6 @@
 package net.azarquiel.caravanas.api
 
-import net.azarquiel.caravanas.model.Community
-import net.azarquiel.caravanas.model.Parking
-import net.azarquiel.caravanas.model.Province
-import net.azarquiel.caravanas.model.Town
+import net.azarquiel.caravanas.model.*
 
 class MainRepository() {
     val service = WebAccess.birdsService
@@ -25,6 +22,11 @@ class MainRepository() {
 
     suspend fun getParkings(lat: String, lon: String): List<Parking>? {
         service.getParkings(lat, lon).await().let { if (it.isSuccessful) return it.body()!!.data }
+        return null
+    }
+
+    suspend fun getPhotos(id: String): List<Photo>? {
+        service.getPhotos(id).await().let { if (it.isSuccessful) return it.body()!!.data }
         return null
     }
 }

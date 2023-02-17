@@ -24,4 +24,10 @@ interface Service {
         @Query("latitud") lat: String,
         @Query("longitud") lon: String,
     ): Deferred<Response<Parkings>>
+
+
+    @GET("lugar/{id}/fotos")
+    fun getPhotos(
+        @Path("id") id: String,
+    ): Deferred<Response<Photos>>
 }
