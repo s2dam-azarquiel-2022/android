@@ -16,6 +16,7 @@ import net.azarquiel.caravanas.R
 import net.azarquiel.caravanas.databinding.ActivityPhotosBinding
 import net.azarquiel.caravanas.databinding.PhotoRowBinding
 import net.azarquiel.caravanas.model.LiveAdapter
+import net.azarquiel.caravanas.model.Login
 import net.azarquiel.caravanas.model.Parking
 import net.azarquiel.caravanas.model.Photo
 import net.azarquiel.caravanas.viewModel.MainViewModel
@@ -54,6 +55,10 @@ class PhotosActivity : AppCompatActivity() {
             }
         }
 
+        val notLoggedInClickHandler = View.OnClickListener {
+            Toast.makeText(this, "You need to login first", Toast.LENGTH_LONG).show()
+        }
+
         binding.content.parkingName.text = parking.name
         binding.content.parkingDesc.text = parking.desc
         avgRate.observe(this) {
@@ -67,7 +72,10 @@ class PhotosActivity : AppCompatActivity() {
             ImageView(this, null, 0, R.style.rateImage).also {
                 it.setDrawable("ic_${i}")
                 it.tag = i
-                it.setOnClickListener(rateClickHandler)
+                if (Login.userID == null) {
+                    it.alpha = 0.25F
+                    it.setOnClickListener(notLoggedInClickHandler)
+                } else it.setOnClickListener(rateClickHandler)
             }
         ) }
 

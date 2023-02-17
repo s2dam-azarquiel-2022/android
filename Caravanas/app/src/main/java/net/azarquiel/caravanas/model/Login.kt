@@ -7,6 +7,10 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import net.azarquiel.caravanas.databinding.LoginDialogBinding
 import net.azarquiel.caravanas.viewModel.MainViewModel
 
@@ -37,6 +41,7 @@ class Login(
         "${if (registered) "Registered" else "Logged in"} successfully".toast()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun login() {
         if (userID != null) {
             "Already logged in".toast()
@@ -49,13 +54,24 @@ class Login(
             .setPositiveButton("Accept") { _, _ ->
                 val nick = binding.userNick.text.toString()
                 val pass = binding.userPassword.text.toString()
-                viewModel.login(nick, pass).observe(context) {
-                    if (it == null) viewModel.register(nick, pass).observe(context) { saveUser(it.id, true) }
-                    else saveUser(it.id)
+                GlobalScope.launch {
+                    val res = viewModel.login(nick, pass)
+                    launch(Dispatchers.Main) {
+                        if (res == null) register(nick, pass)
+                        else saveUser(res.id)
+                    }
                 }
             }
             .setNegativeButton("Cancel") { _, _ -> }
             .show()
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun register(nick: String, pass: String) {
+        GlobalScope.launch {
+            val res = viewModel.register(nick, pass)
+            launch(Dispatchers.Main) { saveUser(res.id, true) }
+        }
     }
 
     fun logout() {
