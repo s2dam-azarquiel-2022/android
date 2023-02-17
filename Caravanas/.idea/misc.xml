@@ -16,11 +16,13 @@
         <entry key="app/src/main/res/layout/content_photos.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_provinces.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/content_towns.xml" value="0.3302083333333333" />
+        <entry key="app/src/main/res/layout/login_dialog.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/layout/parking_row.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/photo_row.xml" value="0.33" />
         <entry key="app/src/main/res/layout/province_row.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/town_row.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_main_activity.xml" value="0.3302083333333333" />
       </map>
     </option>
   </component>

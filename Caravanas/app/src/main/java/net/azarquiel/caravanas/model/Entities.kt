@@ -54,3 +54,13 @@ data class Photo (
 data class AvgRate (
     @SerializedName("avg") @JvmField val data: Float,
 )
+
+data class User (
+    @SerializedName("usuario") @JvmField val data: UserData?
+)
+
+data class UserData (
+    @SerializedName("id") @JvmField val id: String,
+    @SerializedName("nick") @JvmField val nick: String,
+    @SerializedName("pass") @JvmField val pass: String,
+)

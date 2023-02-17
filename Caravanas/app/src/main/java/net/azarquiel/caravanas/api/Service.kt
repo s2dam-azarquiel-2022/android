@@ -35,4 +35,23 @@ interface Service {
     fun getAvgRate(
         @Path("id") id: String,
     ): Deferred<Response<AvgRate>>
+
+    @GET("usuario")
+    fun login(
+        @Query("nick") nick: String,
+        @Query("pass") pass: String
+    ): Deferred<Response<User>>
+
+    @POST("usuario")
+    fun register(
+        @Query("nick") nick: String,
+        @Query("pass") pass: String
+    ): Deferred<Response<User>>
+
+    @POST("lugar/{id}/puntos")
+    fun rate(
+        @Path("id") id: String,
+        @Query("usuario") user: String,
+        @Query("puntos") rate: String,
+    ): Deferred<Response<Any>>
 }

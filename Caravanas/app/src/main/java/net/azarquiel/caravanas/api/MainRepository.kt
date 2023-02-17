@@ -34,4 +34,19 @@ class MainRepository() {
         service.getAvgRate(id).await().let { if (it.isSuccessful) return it.body()!!.data }
         return null
     }
+
+    suspend fun login(nick: String, pass: String): UserData? {
+        service.login(nick, pass).await().let { if (it.isSuccessful) return it.body()!!.data }
+        return null
+    }
+
+    suspend fun register(nick: String, pass: String): UserData {
+        service.register(nick, pass).await().let { return it.body()!!.data!! }
+    }
+
+    suspend fun rate(
+        id: String,
+        user: String,
+        rate: String,
+    ): Boolean = service.rate(id, user, rate).await().isSuccessful
 }

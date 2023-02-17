@@ -67,4 +67,27 @@ class MainViewModel : ViewModel() {
             return it
         }
     }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun refreshAvgRate(data: MutableLiveData<Float?>, id: String) =
+        GlobalScope.launch(Dispatchers.Main) { data.value = repository.getAvgRate(id) }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun login(nick: String, pass: String): MutableLiveData<UserData?> {
+        MutableLiveData<UserData?>().let {
+            GlobalScope.launch(Dispatchers.Main) { it.value = repository.login(nick, pass) }
+            return it
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun register(nick: String, pass: String): MutableLiveData<UserData> {
+        MutableLiveData<UserData>().let {
+            GlobalScope.launch(Dispatchers.Main) { it.value = repository.register(nick, pass) }
+            return it
+        }
+    }
+
+    suspend fun rate(id: String, rate: String): Boolean =
+        repository.rate(id, "${Login.userID}", rate)
 }
