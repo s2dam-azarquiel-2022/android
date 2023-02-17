@@ -50,3 +50,7 @@ data class Photo (
     @SerializedName("id") @JvmField val id: String,
     @SerializedName("link_large") @JvmField val photo: String,
 )
+
+data class AvgRate (
+    @SerializedName("avg") @JvmField val data: Float,
+)

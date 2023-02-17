@@ -30,4 +30,9 @@ interface Service {
     fun getPhotos(
         @Path("id") id: String,
     ): Deferred<Response<Photos>>
+
+    @GET("lugar/{id}/avgpuntos")
+    fun getAvgRate(
+        @Path("id") id: String,
+    ): Deferred<Response<AvgRate>>
 }

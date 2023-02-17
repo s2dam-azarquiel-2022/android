@@ -59,4 +59,12 @@ class MainViewModel : ViewModel() {
             return it
         }
     }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getAvgRate(id: String): MutableLiveData<Float?> {
+        MutableLiveData<Float?>().let {
+            GlobalScope.launch(Dispatchers.Main) { it.value = repository.getAvgRate(id) }
+            return it
+        }
+    }
 }

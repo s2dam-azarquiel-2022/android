@@ -29,4 +29,9 @@ class MainRepository() {
         service.getPhotos(id).await().let { if (it.isSuccessful) return it.body()!!.data }
         return null
     }
+
+    suspend fun getAvgRate(id: String): Float? {
+        service.getAvgRate(id).await().let { if (it.isSuccessful) return it.body()!!.data }
+        return null
+    }
 }
