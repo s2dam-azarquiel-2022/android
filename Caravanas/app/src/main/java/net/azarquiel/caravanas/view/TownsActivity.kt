@@ -35,9 +35,9 @@ class TownsActivity : AppCompatActivity() {
         }
 
         LiveAdapter(
-            ViewModelProvider(this)[MainViewModel::class.java].getTowns(province.id),
             this,
             binding.content.recyclerTowns,
+            ViewModelProvider(this)[MainViewModel::class.java].getTowns(province.id),
             TownRowBinding::inflate
         ) { binding, view, item: Town ->
             binding.townName.text = item.name

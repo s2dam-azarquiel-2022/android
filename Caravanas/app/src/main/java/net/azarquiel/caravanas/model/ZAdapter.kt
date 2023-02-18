@@ -6,41 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
-@SuppressLint("NotifyDataSetChanged")
-class LiveAdapter <B : ViewBinding, D: Any, I : Any>  (
-    data: D,
-    context: AppCompatActivity,
-    recycler: RecyclerView,
+open class ListAdapter <B : ViewBinding, I : Any>  (
+    private val context: AppCompatActivity,
+    private val recycler: RecyclerView,
+    open var data: List<I>,
     private val bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> B,
     private val bind: (B, View, I) -> Unit,
-) : RecyclerView.Adapter<LiveAdapter.ViewHolder<B>>() {
-
+) : RecyclerView.Adapter<ListAdapter.ViewHolder<B>>() {
     private val inflater: LayoutInflater = LayoutInflater.from(recycler.context)
-    private var data: List<I> = emptyList()
 
-    init {
+    fun init(): ListAdapter<B, I> {
         recycler.adapter = this
         recycler.layoutManager = LinearLayoutManager(context)
-
-        when (data) {
-            is List<*> -> {
-                this.data = data as List<I>
-                notifyDataSetChanged()
-            }
-            is LiveData<*> -> (data as LiveData<List<I>>).observe(context) {
-                this.data = it
-                notifyDataSetChanged()
-            }
-            is MutableLiveData<*> -> (data as MutableLiveData<List<I>>).observe(context) {
-                this.data = it
-                notifyDataSetChanged()
-            }
-        }
+        return this
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<B> =
@@ -51,7 +33,28 @@ class LiveAdapter <B : ViewBinding, D: Any, I : Any>  (
 
     override fun getItemCount(): Int = data.size
 
-    class ViewHolder <B : ViewBinding> (
-        val binding: B,
-    ) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder <B : ViewBinding> (val binding: B ) : RecyclerView.ViewHolder(binding.root)
+}
+
+@SuppressLint("NotifyDataSetChanged")
+class LiveAdapter <B : ViewBinding, I : Any> (
+    context: AppCompatActivity,
+    recycler: RecyclerView,
+    data: LiveData<List<I>>,
+    bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> B,
+    bind: (B, View, I) -> Unit,
+) : ListAdapter<B, I>(
+    context,
+    recycler,
+    emptyList(),
+    bindingInflater,
+    bind,
+) {
+    init {
+        super.init()
+        data.observe(context) {
+            this.data = it
+            notifyDataSetChanged()
+        }
+    }
 }

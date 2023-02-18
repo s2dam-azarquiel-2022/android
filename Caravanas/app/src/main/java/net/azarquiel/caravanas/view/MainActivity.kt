@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         LiveAdapter(
-            viewModel.getCommunities(),
             this,
             binding.content.recyclerCommunities,
+            viewModel.getCommunities(),
             CommunityRowBinding::inflate,
         ) { binding, view, item: Community ->
             binding.communityName.text = item.name

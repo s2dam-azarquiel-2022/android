@@ -34,9 +34,9 @@ class ProvincesActivity : AppCompatActivity() {
         }
 
         LiveAdapter(
-            ViewModelProvider(this)[MainViewModel::class.java].getProvinces(community.id),
             this,
             binding.content.recyclerProvinces,
+            ViewModelProvider(this)[MainViewModel::class.java].getProvinces(community.id),
             ProvinceRowBinding::inflate
         ) { binding, view, item: Province ->
             binding.provinceName.text = item.name

@@ -34,9 +34,9 @@ class ParkingsActivity : AppCompatActivity() {
         }
 
         LiveAdapter(
-            ViewModelProvider(this)[MainViewModel::class.java].getParkings(town.lat, town.lon),
             this,
             binding.content.recyclerParkings,
+            ViewModelProvider(this)[MainViewModel::class.java].getParkings(town.lat, town.lon),
             ParkingRowBinding::inflate
         ) { binding, view, item: Parking ->
             binding.parkingName.text = item.name

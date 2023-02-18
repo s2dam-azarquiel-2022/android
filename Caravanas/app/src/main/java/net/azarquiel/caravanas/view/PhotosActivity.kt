@@ -80,9 +80,9 @@ class PhotosActivity : AppCompatActivity() {
         ) }
 
         LiveAdapter(
-            viewModel.getPhotos(parking.id),
             this,
             binding.content.recyclerPhotos,
+            viewModel.getPhotos(parking.id),
             PhotoRowBinding::inflate
         ) { binding, _, item: Photo ->
             Picasso.get().load(item.photo).into(binding.photo)
