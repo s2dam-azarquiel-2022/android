@@ -63,7 +63,7 @@ class MainViewModel : ViewModel() {
     suspend fun login(nick: String, pass: String): UserData? =
         repository.login(nick, pass)
 
-    suspend fun register(nick: String, pass: String): UserData =
+    suspend fun register(nick: String, pass: String): UserData? =
         repository.register(nick, pass)
 
     suspend fun rate(id: String, rate: String): Boolean =

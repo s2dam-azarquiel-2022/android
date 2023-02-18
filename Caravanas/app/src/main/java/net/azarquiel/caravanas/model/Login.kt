@@ -70,7 +70,10 @@ class Login(
     private fun register(nick: String, pass: String) {
         GlobalScope.launch {
             val res = viewModel.register(nick, pass)
-            launch(Dispatchers.Main) { saveUser(res.id, true) }
+            launch(Dispatchers.Main) {
+                if (res == null) "There was an error registering you".toast()
+                else saveUser(res.id, true)
+            }
         }
     }
 
