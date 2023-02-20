@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -56,5 +57,36 @@ class LiveAdapter <B : ViewBinding, I : Any> (
             this.data = it
             notifyDataSetChanged()
         }
+    }
+}
+
+@SuppressLint("NotifyDataSetChanged")
+class FilteredLiveAdapter <B : ViewBinding, I : Any> (
+    context: AppCompatActivity,
+    recycler: RecyclerView,
+    data: LiveData<List<I>>,
+    bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> B,
+    filter: (List<I>, String) -> List<I>,
+    bind: (B, View, I) -> Unit,
+) : ListAdapter<B, I>(
+    context,
+    recycler,
+    emptyList(),
+    bindingInflater,
+    bind,
+) {
+    val query = MutableLiveData("")
+
+    init {
+        super.init()
+        data.observe(context) {
+            if (query.value!!.isEmpty()) this.data = it
+            else this.data = filter(it, query.value!!)
+            notifyDataSetChanged()
+        }
+        query.observe(context) { query -> data.value?.let {
+            this.data = filter(it, query)
+            notifyDataSetChanged()
+        } }
     }
 }
