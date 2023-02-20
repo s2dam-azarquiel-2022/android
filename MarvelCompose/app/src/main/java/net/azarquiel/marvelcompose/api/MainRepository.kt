@@ -1,8 +1,7 @@
 package net.azarquiel.marvelcompose.api
 
 import kotlinx.coroutines.Deferred
-import net.azarquiel.marvelcompose.model.UserData
-import net.azarquiel.marvelcompose.model.ZResponse
+import net.azarquiel.marvelcompose.model.*
 import retrofit2.Response
 
 class MainRepository {
@@ -10,6 +9,9 @@ class MainRepository {
         f: () -> Deferred<Response<D>>,
         default: () -> T,
     ): T = f().await().let { if (it.isSuccessful) it.body()?.data ?: default() else default() }
+
+    suspend fun getHeroes(): List<Hero>? =
+        get(WebAccess.service::getHeroes) { Heroes(null) }.data
 
     suspend fun login(nick: String, pass: String): UserData? =
         get({ WebAccess.service.login(nick, pass) }) { null }

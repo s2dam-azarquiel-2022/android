@@ -3,6 +3,8 @@ package net.azarquiel.marvelcompose.api
 import net.azarquiel.marvelcompose.model.User
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
+import net.azarquiel.marvelcompose.model.Heroes
+import net.azarquiel.marvelcompose.model.MarvelResults
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,6 +13,9 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface Service {
+    @GET("hero")
+    fun getHeroes(): Deferred<Response<MarvelResults>>
+
     @GET("usuario")
     fun login(
         @Query("nick") nick: String,
