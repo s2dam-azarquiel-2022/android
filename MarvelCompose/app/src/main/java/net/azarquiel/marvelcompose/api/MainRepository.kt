@@ -11,11 +11,14 @@ class MainRepository {
     ): T = f().await().let { if (it.isSuccessful) it.body()?.data ?: default() else default() }
 
     suspend fun getHeroes(): List<Hero>? =
-        get(WebAccess.service::getHeroes) { Heroes(null) }.data
+        get(MarvelAPI.service::getHeroes) { Heroes(null) }.data
+
+    suspend fun getAvgRate(id: Long): Int =
+        get({ MarvelAPI.service.getAvgRate(id) }) { 0 }
 
     suspend fun login(nick: String, pass: String): UserData? =
-        get({ WebAccess.service.login(nick, pass) }) { null }
+        get({ MarvelAPI.service.login(nick, pass) }) { null }
 
     suspend fun register(nick: String, pass: String): UserData? =
-        get({ WebAccess.service.register(nick, pass) }) { null }
+        get({ MarvelAPI.service.register(nick, pass) }) { null }
 }

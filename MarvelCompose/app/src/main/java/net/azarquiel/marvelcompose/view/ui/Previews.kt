@@ -1,5 +1,8 @@
-package net.azarquiel.marvelcompose.view.ui.items
+package net.azarquiel.marvelcompose.view.ui
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import net.azarquiel.marvelcompose.model.Hero
 import net.azarquiel.marvelcompose.model.MarvelImg
 
@@ -14,3 +17,7 @@ object Previews {
         )
     )
 }
+
+class HeroProvider(
+    override val values: Sequence<Hero> = sequenceOf(Previews.hero)
+) : PreviewParameterProvider<Hero>

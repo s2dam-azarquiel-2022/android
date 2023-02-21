@@ -1,4 +1,4 @@
-package net.azarquiel.marvelcompose.view.ui.items
+package net.azarquiel.marvelcompose.view.ui
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
