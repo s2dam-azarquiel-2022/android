@@ -1,10 +1,8 @@
 package net.azarquiel.marvelcompose.api
 
-import net.azarquiel.marvelcompose.model.User
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
-import net.azarquiel.marvelcompose.model.AvgRate
-import net.azarquiel.marvelcompose.model.MarvelResults
+import net.azarquiel.marvelcompose.model.*
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -44,4 +42,23 @@ interface MarvelAPI {
                 .create(MarvelAPI::class.java)
         }
     }
+}
+
+object MarvelRepository {
+    private suspend inline fun <T, D: ZResponse<out T>> get(
+        f: () -> Deferred<Response<D>>,
+        default: () -> T,
+    ): T = f().await().let { if (it.isSuccessful) it.body()?.data ?: default() else default() }
+
+    suspend fun getHeroes(): List<Hero>? =
+        get(MarvelAPI.service::getHeroes) { Heroes(null) }.data
+
+    suspend fun getAvgRate(id: Long): Int =
+        get({ MarvelAPI.service.getAvgRate(id) }) { 0 }
+
+    suspend fun login(nick: String, pass: String): UserData? =
+        get({ MarvelAPI.service.login(nick, pass) }) { null }
+
+    suspend fun register(nick: String, pass: String): UserData? =
+        get({ MarvelAPI.service.register(nick, pass) }) { null }
 }

@@ -1,4 +1,4 @@
-package net.azarquiel.marvelcompose.view.ui.theme
+package net.azarquiel.marvelcompose.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
