@@ -21,8 +21,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.flow.MutableStateFlow
 import net.azarquiel.marvelcompose.di.ViewModels
+import net.azarquiel.marvelcompose.ui.Destination
 import net.azarquiel.marvelcompose.ui.Previews
-import net.azarquiel.marvelcompose.ui.navigation.Destination
 import net.azarquiel.marvelcompose.ui.topappbar.TopAppBar
 import net.azarquiel.marvelcompose.viewModel.ILoginViewModel
 
@@ -31,8 +31,8 @@ fun NavGraphBuilder.LoginScreen(
     navController: NavHostController,
 ) = screen(
     destination = Destination.Login,
-    topAppBar = { LoginScreenTopAppBar() },
-    content = { viewModel, padding -> LoginFields(Modifier.padding(padding), viewModel) },
+    topAppBar = { _, _ -> LoginScreenTopAppBar() },
+    content = { viewModel, _, padding -> LoginFields(Modifier.padding(padding), viewModel) },
     viewModelFn = {
         val context = LocalContext.current
         ViewModels.loginViewModel(

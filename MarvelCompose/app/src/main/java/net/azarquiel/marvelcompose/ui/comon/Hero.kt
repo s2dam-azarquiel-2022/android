@@ -12,14 +12,12 @@ import net.azarquiel.marvelcompose.ui.Previews
 import net.azarquiel.marvelcompose.ui.debugPlaceholder
 
 @Composable
-fun HeroImage(hero: Hero, modifier: Modifier) {
-    AsyncImage(
-        model = "${hero.img.url}/standard_fantastic.${hero.img.extension}",
-        placeholder = debugPlaceholder(debugPreview = R.drawable.a_bomb),
-        contentDescription = null,
-        modifier = modifier,
-    )
-}
+fun HeroImage(hero: Hero, modifier: Modifier) = AsyncImage(
+    model = "${hero.img.url}/standard_fantastic.${hero.img.extension}",
+    placeholder = debugPlaceholder(debugPreview = R.drawable.a_bomb),
+    contentDescription = null,
+    modifier = modifier,
+)
 
 @Composable
 @Preview(showBackground = true)

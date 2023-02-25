@@ -9,12 +9,12 @@ import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import net.azarquiel.marvelcompose.api.MarvelRepository
 import net.azarquiel.marvelcompose.di.LoginDS
+import net.azarquiel.marvelcompose.di.LoginDSProvider
 import net.azarquiel.marvelcompose.model.UserData
 
 interface ILoginViewModel {
@@ -28,7 +28,7 @@ interface ILoginViewModel {
 }
 
 class LoginViewModel @AssistedInject constructor(
-    private val loginDS: DataStore<Preferences>,
+    @LoginDSProvider private val loginDS: DataStore<Preferences>,
     @Assisted private val successfulLoginFn: () -> Unit,
     @Assisted private val unsuccessfulLoginFn: (String) -> Unit,
 ) : ViewModel(), ILoginViewModel {
@@ -90,20 +90,11 @@ class LoginViewModel @AssistedInject constructor(
             successfulLoginFn: () -> Unit,
             unsuccessfulLoginFn: (String) -> Unit,
         ) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                assistedFactory.create(
                     successfulLoginFn = successfulLoginFn,
                     unsuccessfulLoginFn = unsuccessfulLoginFn
                 ) as T
-            }
         }
     }
-}
-
-// Used by view models which need to check login state and support the action to login and logout
-// In this case the login action is to navigate to the LoginScreen while logout does so in-place
-interface ILoginCheck {
-    val isLoggedIn: Flow<Boolean>
-    fun login()
-    fun logout()
 }

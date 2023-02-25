@@ -12,13 +12,19 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Qualifier
 import javax.inject.Singleton
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class LoginDSProvider
 
 @Module
 @InstallIn(SingletonComponent::class)
 object LoginDS {
     private val Context.loginDS by preferencesDataStore(name = "login")
 
+    @LoginDSProvider
     @Singleton
     @Provides
     fun provideLoginDS(@ApplicationContext context: Context) =

@@ -8,7 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
-import net.azarquiel.marvelcompose.ui.navigation.Destination
+import net.azarquiel.marvelcompose.ui.Destination
+import net.azarquiel.marvelcompose.ui.screen.HeroDetailsScreen
 import net.azarquiel.marvelcompose.ui.screen.HeroesScreen
 import net.azarquiel.marvelcompose.ui.screen.LoginScreen
 import net.azarquiel.marvelcompose.ui.theme.AppTheme
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
             ) {
                 HeroesScreen(navController = navController)
                 LoginScreen(navController = navController)
+                HeroDetailsScreen(navController = navController)
             }
         } }
     }

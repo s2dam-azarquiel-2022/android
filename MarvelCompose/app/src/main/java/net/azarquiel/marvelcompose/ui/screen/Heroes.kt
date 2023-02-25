@@ -20,9 +20,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import net.azarquiel.marvelcompose.di.ViewModels
 import net.azarquiel.marvelcompose.model.Hero
+import net.azarquiel.marvelcompose.ui.Destination
 import net.azarquiel.marvelcompose.ui.Previews
 import net.azarquiel.marvelcompose.ui.comon.HeroImage
-import net.azarquiel.marvelcompose.ui.navigation.Destination
 import net.azarquiel.marvelcompose.ui.topappbar.LoginTopAppBar
 import net.azarquiel.marvelcompose.viewModel.IHeroesViewModel
 
@@ -31,9 +31,12 @@ fun NavGraphBuilder.HeroesScreen(
     navController: NavHostController,
 ) = screen(
     destination = Destination.HeroList,
-    topAppBar = { viewModel -> HeroesScreenTopAppBar(viewModel = viewModel) },
-    content = { viewModel, padding -> HeroList(Modifier.padding(padding), viewModel) },
-    viewModelFn = { ViewModels.heroesViewModel { navController.navigate(Destination.Login.route) } }
+    topAppBar = { viewModel, _ -> HeroesScreenTopAppBar(viewModel = viewModel) },
+    content = { viewModel, _, padding -> HeroList(Modifier.padding(padding), viewModel) },
+    viewModelFn = { ViewModels.heroesViewModel(
+        loginFn = { navController.navigate(Destination.Login.route) },
+        onHeroClickFn = { navController.navigate(Destination.HeroDetails.createRoute(it)) },
+    ) }
 )
 
 @Composable
@@ -56,7 +59,7 @@ private inline fun HeroList(
             .background(MaterialTheme.colorScheme.background)
             .padding(5.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
-    ) { items(heroes) { HeroCard(hero = it, click = {}) } }
+    ) { items(heroes) { HeroCard(hero = it, click = viewModel::onHeroClick) } }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

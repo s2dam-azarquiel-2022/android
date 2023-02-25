@@ -5,32 +5,32 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import net.azarquiel.marvelcompose.ui.navigation.Destination
+import net.azarquiel.marvelcompose.ui.Destination
 
 //fun NavGraphBuilder.screen(
 //    destination: Destination,
 //    content: @Composable () -> Unit,
 //) = composable(route = destination.route) { content() }
 
-@OptIn(ExperimentalMaterial3Api::class)
 inline fun <T : ViewModel> NavGraphBuilder.screen(
     destination: Destination,
-    crossinline topAppBar: @Composable (T) -> Unit,
-    crossinline content: @Composable (T, PaddingValues) -> Unit,
-    crossinline viewModelFn: @Composable () -> T,
+    crossinline topAppBar: @Composable (T, NavBackStackEntry) -> Unit,
+    crossinline content: @Composable (T, NavBackStackEntry, PaddingValues) -> Unit,
+    crossinline viewModelFn: @Composable (NavBackStackEntry) -> T,
 ) = composable(
     route = destination.route,
+    arguments = destination.arguments,
 ) {
-    val viewModel = viewModelFn()
-    Scaffold(
-        topBar = { topAppBar(viewModel) },
-        content = { padding -> content(viewModel, padding) }
+    val viewModel = viewModelFn(it)
+    Screen(
+        topAppBar = { topAppBar(viewModel, it) },
+        content = { padding -> content(viewModel, it, padding) }
     )
 }
 
-// Meant for previews
 @Suppress("NOTHING_TO_INLINE")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
