@@ -18,3 +18,8 @@ data class Hero (
     @SerializedName("description") @JvmField val description: String,
     @SerializedName("thumbnail") @JvmField val img: MarvelImg,
 )
+
+data class Rate (
+    @SerializedName("idhero") @JvmField val heroId: String,
+    @SerializedName("puntos") @JvmField val rate: Int,
+)

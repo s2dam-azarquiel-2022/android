@@ -1,4 +1,4 @@
-package net.azarquiel.marvelcompose.ui.topappbar
+package net.azarquiel.marvelcompose.ui.topAppBar
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.MaterialTheme
@@ -10,12 +10,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import net.azarquiel.marvelcompose.ui.Previews
-import net.azarquiel.marvelcompose.ui.topappbar.actions.LoginAction
+import net.azarquiel.marvelcompose.ui.topAppBar.actions.LoginAction
 import net.azarquiel.marvelcompose.viewModel.ILoginCheck
 
 @Composable
 @Suppress("NOTHING_TO_INLINE")
-inline fun TopAppBar(
+inline fun ZTopAppBar(
     title: String,
     noinline actions: @Composable (RowScope.() -> Unit),
 ) = SmallTopAppBar(
@@ -32,7 +32,7 @@ inline fun TopAppBar(
 fun LoginTopAppBar(
     title: String,
     viewModel: ILoginCheck,
-) = TopAppBar(title = title) {
+) = ZTopAppBar(title = title) {
     val isLoggedIn by viewModel.isLoggedIn.collectAsState(false)
     LoginAction(
         isLoggedIn = isLoggedIn,

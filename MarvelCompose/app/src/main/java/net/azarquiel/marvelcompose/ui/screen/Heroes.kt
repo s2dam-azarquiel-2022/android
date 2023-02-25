@@ -23,7 +23,7 @@ import net.azarquiel.marvelcompose.model.Hero
 import net.azarquiel.marvelcompose.ui.Destination
 import net.azarquiel.marvelcompose.ui.Previews
 import net.azarquiel.marvelcompose.ui.comon.HeroImage
-import net.azarquiel.marvelcompose.ui.topappbar.LoginTopAppBar
+import net.azarquiel.marvelcompose.ui.topAppBar.LoginTopAppBar
 import net.azarquiel.marvelcompose.viewModel.IHeroesViewModel
 
 @Suppress("FunctionName")

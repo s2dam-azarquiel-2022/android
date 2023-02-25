@@ -11,6 +11,7 @@ import net.azarquiel.marvelcompose.viewModel.IHeroDetailsViewModel
 import net.azarquiel.marvelcompose.viewModel.IHeroesViewModel
 import net.azarquiel.marvelcompose.viewModel.ILoginCheck
 import net.azarquiel.marvelcompose.viewModel.ILoginViewModel
+import kotlin.math.roundToInt
 
 object Previews {
     val Hero = Hero(
@@ -40,8 +41,21 @@ object Previews {
     val HeroDetailsViewModel = object : IHeroDetailsViewModel {
         override val hero: Flow<Hero?> = MutableStateFlow(Hero)
 
+        private val ratings = mutableListOf(3)
+        private val _avgRate = MutableStateFlow(3)
+        override val avgRate = _avgRate
+
         private val isLoggedIn_ = MutableStateFlow(false)
         override val isLoggedIn = isLoggedIn_
+
+        private val _rate = MutableStateFlow(0)
+        override val rate = _rate
+
+        override fun rate(rate: Int) {
+            _rate.value = rate
+            ratings.add(rate)
+            _avgRate.value = ratings.average().roundToInt()
+        }
 
         override fun login() { isLoggedIn_.value = true }
         override fun logout() { isLoggedIn_.value = false }

@@ -1,4 +1,4 @@
-package net.azarquiel.marvelcompose.ui.topappbar.actions
+package net.azarquiel.marvelcompose.ui.topAppBar.actions
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon

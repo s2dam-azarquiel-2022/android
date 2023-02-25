@@ -6,10 +6,7 @@ import net.azarquiel.marvelcompose.model.*
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MarvelAPI {
     @GET("hero")
@@ -17,7 +14,7 @@ interface MarvelAPI {
 
     @GET("hero/{id}/avgpuntos")
     fun getAvgRate(
-        @Path("id") id: Long,
+        @Path("id") id: String,
     ): Deferred<Response<AvgRate>>
 
     @GET("usuario")
@@ -31,6 +28,12 @@ interface MarvelAPI {
         @Query("nick") nick: String,
         @Query("pass") pass: String
     ): Deferred<Response<User>>
+
+    @POST("hero/{id}/punto")
+    fun rate(
+        @Path("id") heroId: String,
+        @Body body: Rate,
+    ): Deferred<Response<RateResponse>>
 
     companion object {
         val service: MarvelAPI by lazy {
@@ -53,7 +56,7 @@ object MarvelRepository {
     suspend fun getHeroes(): List<Hero>? =
         get(MarvelAPI.service::getHeroes) { Heroes(null) }.data
 
-    suspend fun getAvgRate(id: Long): Int =
+    suspend fun getAvgRate(id: String): Int =
         get({ MarvelAPI.service.getAvgRate(id) }) { 0 }
 
     suspend fun login(nick: String, pass: String): UserData? =
@@ -61,4 +64,7 @@ object MarvelRepository {
 
     suspend fun register(nick: String, pass: String): UserData? =
         get({ MarvelAPI.service.register(nick, pass) }) { null }
+
+    suspend fun rate(id: String, rate: Int): Rate? =
+        get({ MarvelAPI.service.rate(id, Rate(id, rate) )}) { null }
 }

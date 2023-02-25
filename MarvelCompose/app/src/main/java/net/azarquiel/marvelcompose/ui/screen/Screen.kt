@@ -41,3 +41,34 @@ inline fun Screen(
     topBar = topAppBar,
     content = content,
 )
+
+inline fun <T : ViewModel> NavGraphBuilder.screen(
+    destination: Destination,
+    crossinline topAppBar: @Composable (T, NavBackStackEntry) -> Unit,
+    crossinline bottomAppBar: @Composable (T, NavBackStackEntry) -> Unit,
+    crossinline content: @Composable (T, NavBackStackEntry, PaddingValues) -> Unit,
+    crossinline viewModelFn: @Composable (NavBackStackEntry) -> T,
+) = composable(
+    route = destination.route,
+    arguments = destination.arguments,
+) {
+    val viewModel = viewModelFn(it)
+    Screen(
+        topAppBar = { topAppBar(viewModel, it) },
+        bottomAppBar = { bottomAppBar(viewModel, it) },
+        content = { padding -> content(viewModel, it, padding) }
+    )
+}
+
+@Suppress("NOTHING_TO_INLINE")
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+inline fun Screen(
+    noinline topAppBar: @Composable () -> Unit,
+    noinline bottomAppBar: @Composable () -> Unit,
+    noinline content: @Composable (PaddingValues) -> Unit,
+) = Scaffold(
+    topBar = topAppBar,
+    bottomBar = bottomAppBar,
+    content = content,
+)

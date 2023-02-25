@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import net.azarquiel.marvelcompose.di.ViewModels
 import net.azarquiel.marvelcompose.ui.Destination
 import net.azarquiel.marvelcompose.ui.Previews
-import net.azarquiel.marvelcompose.ui.topappbar.TopAppBar
+import net.azarquiel.marvelcompose.ui.topAppBar.ZTopAppBar
 import net.azarquiel.marvelcompose.viewModel.ILoginViewModel
 
 @Suppress("FunctionName")
@@ -47,7 +47,7 @@ fun NavGraphBuilder.LoginScreen(
 @Composable
 @Suppress("NOTHING_TO_INLINE")
 private inline fun LoginScreenTopAppBar(
-) = TopAppBar(title = "Login", actions = { })
+) = ZTopAppBar(title = "Login", actions = { })
 
 @Composable
 @Suppress("NOTHING_TO_INLINE")
