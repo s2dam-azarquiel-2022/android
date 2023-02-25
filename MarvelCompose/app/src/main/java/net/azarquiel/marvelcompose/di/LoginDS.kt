@@ -2,16 +2,16 @@ package net.azarquiel.marvelcompose.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import java.io.IOException
 import javax.inject.Singleton
 
 @Module
@@ -26,17 +26,22 @@ object LoginDS {
 
 
     object Utils {
-        suspend fun logout(loginDS: DataStore<Preferences>) {
+        fun getIsLoggedInFlow(loginDS: DataStore<Preferences>) =
+            loginDS.data.catch {
+                if (it is IOException) emit(emptyPreferences())
+                else throw it
+            }.map { it[Field.IsLoggedIn.key] ?: false }
+
+        suspend fun logout(loginDS: DataStore<Preferences>) =
             loginDS.edit {
                 it.clear()
                 it[Field.IsLoggedIn.key] = false
             }
-        }
     }
 
     sealed class Field<T>(val key: Preferences.Key<T>) {
-        object IsLoggedIn: Field<Boolean>(booleanPreferencesKey("isLoggedIn"))
-        object Id: Field<String>(stringPreferencesKey("id"))
-        object Nick: Field<String>(stringPreferencesKey("nick"))
+        object IsLoggedIn : Field<Boolean>(booleanPreferencesKey("isLoggedIn"))
+        object Id : Field<String>(stringPreferencesKey("id"))
+        object Nick : Field<String>(stringPreferencesKey("nick"))
     }
 }

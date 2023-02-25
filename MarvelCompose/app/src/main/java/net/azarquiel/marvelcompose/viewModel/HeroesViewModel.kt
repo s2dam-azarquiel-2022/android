@@ -2,7 +2,6 @@ package net.azarquiel.marvelcompose.viewModel
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.lifecycle.*
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -12,7 +11,6 @@ import kotlinx.coroutines.launch
 import net.azarquiel.marvelcompose.api.MarvelRepository
 import net.azarquiel.marvelcompose.di.LoginDS
 import net.azarquiel.marvelcompose.model.Hero
-import java.io.IOException
 
 interface IHeroesViewModel : ILoginCheck {
     val heroes: LiveData<List<Hero>>
@@ -22,13 +20,11 @@ class HeroesViewModel @AssistedInject constructor(
     private val loginDs: DataStore<Preferences>,
     @Assisted private val loginFn: () -> Unit,
 ) : ViewModel(), IHeroesViewModel {
-    private val isLoggedIn_ = MutableStateFlow(false)
-    override val isLoggedIn = isLoggedIn_
+    override val isLoggedIn = LoginDS.Utils.getIsLoggedInFlow(loginDs)
 
     override fun login() = loginFn()
 
     override fun logout() {
-        isLoggedIn_.value = false
         viewModelScope.launch { LoginDS.Utils.logout(loginDs) }
     }
 
@@ -36,13 +32,7 @@ class HeroesViewModel @AssistedInject constructor(
     override val heroes: LiveData<List<Hero>> = heroes_
 
     init {
-        viewModelScope.launch {
-            loginDs.data.catch {
-                if (it is IOException) emit(emptyPreferences())
-                else throw it
-            }.map { it[LoginDS.Field.IsLoggedIn.key] ?: false }
-            heroes_.value = MarvelRepository.getHeroes()
-        }
+        viewModelScope.launch { heroes_.value = MarvelRepository.getHeroes() }
     }
 
     @AssistedFactory

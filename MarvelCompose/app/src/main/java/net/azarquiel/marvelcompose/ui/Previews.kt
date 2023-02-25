@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.flow.MutableStateFlow
 import net.azarquiel.marvelcompose.model.Hero
 import net.azarquiel.marvelcompose.model.MarvelImg
-import net.azarquiel.marvelcompose.model.UserData
 import net.azarquiel.marvelcompose.viewModel.IHeroesViewModel
 import net.azarquiel.marvelcompose.viewModel.ILoginCheck
 import net.azarquiel.marvelcompose.viewModel.ILoginViewModel
@@ -35,14 +34,15 @@ object Previews {
     }
 
     val LoginViewModel = object : ILoginViewModel {
-        private val login_: MutableLiveData<UserData> = MutableLiveData()
-        val login: LiveData<UserData> = login_
+        private val _nick = MutableStateFlow("")
+        override val nick = _nick
+        override fun onNickChange(v: String) { _nick.value = v }
 
-        override fun login(nick: String, pass: String) {
-            login_.value = UserData(id = "0", nick = nick)
-        }
+        private val _pass = MutableStateFlow("")
+        override val pass = _pass
+        override fun onPassChange(v: String) { _pass.value = v }
 
-        init { login("0", "aru") }
+        override fun onSubmit() { }
     }
 
     val LoginCheck = object : ILoginCheck {

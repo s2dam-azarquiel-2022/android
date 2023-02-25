@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -102,7 +103,7 @@ class LoginViewModel @AssistedInject constructor(
 // Used by view models which need to check login state and support the action to login and logout
 // In this case the login action is to navigate to the LoginScreen while logout does so in-place
 interface ILoginCheck {
-    val isLoggedIn: StateFlow<Boolean>
+    val isLoggedIn: Flow<Boolean>
     fun login()
     fun logout()
 }

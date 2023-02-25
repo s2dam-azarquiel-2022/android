@@ -33,7 +33,7 @@ fun LoginTopAppBar(
     title: String,
     viewModel: ILoginCheck,
 ) = TopAppBar(title = title) {
-    val isLoggedIn by viewModel.isLoggedIn.collectAsState()
+    val isLoggedIn by viewModel.isLoggedIn.collectAsState(false)
     LoginAction(
         isLoggedIn = isLoggedIn,
         login = viewModel::login,
