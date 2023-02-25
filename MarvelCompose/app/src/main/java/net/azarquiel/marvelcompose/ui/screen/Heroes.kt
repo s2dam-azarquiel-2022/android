@@ -94,9 +94,9 @@ private fun HeroCardPreview() = HeroCard(
 @Composable
 @Preview(showBackground = true)
 private fun HeroListPreview(
-    paddingValues: PaddingValues = PaddingValues()
+    modifier: Modifier = Modifier,
 ) = HeroList(
-    modifier = Modifier.padding(paddingValues),
+    modifier = modifier,
     viewModel = Previews.HeroesViewModel,
 )
 
@@ -109,5 +109,5 @@ private fun HeroesScreenTopAppBarPreview() =
 @Preview(showBackground = true)
 private fun HeroesScreenPreview() = Screen(
     topAppBar = { HeroesScreenTopAppBarPreview() },
-    content = { HeroListPreview(it) }
+    content = { HeroListPreview(Modifier.padding(it)) }
 )

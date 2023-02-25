@@ -16,9 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.flow.MutableStateFlow
 import net.azarquiel.marvelcompose.di.ViewModels
+import net.azarquiel.marvelcompose.ui.Previews
 import net.azarquiel.marvelcompose.ui.navigation.Destination
 import net.azarquiel.marvelcompose.ui.topappbar.TopAppBar
 import net.azarquiel.marvelcompose.viewModel.ILoginViewModel
@@ -74,4 +77,31 @@ private fun LoginField(
     value = value,
     onValueChange = onValueChange,
     label = { Text(text = label) }
+)
+
+@Composable
+@Preview(showBackground = true)
+private fun LoginFieldPreview() {
+    val _text = MutableStateFlow("")
+    val text by _text.collectAsState()
+    LoginField(value = text, onValueChange = { _text.value = it }, label = "Text")
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun LoginFieldsPreview(
+    modifier: Modifier = Modifier,
+) =
+    LoginFields(modifier = modifier, viewModel = Previews.LoginViewModel)
+
+@Composable
+@Preview(showBackground = true)
+private fun LoginScreenTopAppBarPreview() =
+    LoginScreenTopAppBar()
+
+@Composable
+@Preview(showBackground = true)
+private fun LoginScreenPreview() = Screen(
+    topAppBar = { LoginScreenTopAppBarPreview() },
+    content = { LoginFieldsPreview(Modifier.padding(it)) },
 )
