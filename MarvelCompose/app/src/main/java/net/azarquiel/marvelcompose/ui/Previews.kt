@@ -3,9 +3,11 @@ package net.azarquiel.marvelcompose.ui
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import net.azarquiel.marvelcompose.model.Hero
 import net.azarquiel.marvelcompose.model.MarvelImg
+import net.azarquiel.marvelcompose.viewModel.IHeroDetailsViewModel
 import net.azarquiel.marvelcompose.viewModel.IHeroesViewModel
 import net.azarquiel.marvelcompose.viewModel.ILoginCheck
 import net.azarquiel.marvelcompose.viewModel.ILoginViewModel
@@ -25,6 +27,18 @@ object Previews {
 
     val HeroesViewModel = object : IHeroesViewModel {
         override val heroes: LiveData<List<Hero>> = MutableLiveData(List(5) { Hero })
+
+        override fun onHeroClick(hero: Hero) { }
+
+        private val isLoggedIn_ = MutableStateFlow(false)
+        override val isLoggedIn = isLoggedIn_
+
+        override fun login() { isLoggedIn_.value = true }
+        override fun logout() { isLoggedIn_.value = false }
+    }
+
+    val HeroDetailsViewModel = object : IHeroDetailsViewModel {
+        override val hero: Flow<Hero?> = MutableStateFlow(Hero)
 
         private val isLoggedIn_ = MutableStateFlow(false)
         override val isLoggedIn = isLoggedIn_
