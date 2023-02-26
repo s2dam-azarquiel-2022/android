@@ -29,11 +29,11 @@ class HeroesViewModel @AssistedInject constructor(
     loginDS = loginDS,
     loginFn = loginFn,
 ), IHeroesViewModel {
-    private val heroes_: MutableLiveData<List<Hero>> = MutableLiveData()
-    override val heroes: LiveData<List<Hero>> = heroes_
+    private val _heroes: MutableLiveData<List<Hero>> = MutableLiveData()
+    override val heroes: LiveData<List<Hero>> = _heroes
 
     init {
-        viewModelScope.launch { heroes_.value = MarvelRepository.getHeroes() }
+        viewModelScope.launch { _heroes.value = MarvelRepository.getHeroes() }
     }
 
     override fun onHeroClick(hero: Hero) {

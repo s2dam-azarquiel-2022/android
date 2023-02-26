@@ -1,3 +1,5 @@
+@file:Suppress("ObjectPropertyName")
+
 package net.azarquiel.marvelcompose.ui
 
 import android.app.Application
@@ -31,11 +33,11 @@ object Previews {
 
         override fun onHeroClick(hero: Hero) { }
 
-        private val isLoggedIn_ = MutableStateFlow(false)
-        override val isLoggedIn = isLoggedIn_
+        private val _isLoggedIn = MutableStateFlow(false)
+        override val isLoggedIn = _isLoggedIn
 
-        override fun login() { isLoggedIn_.value = true }
-        override fun logout() { isLoggedIn_.value = false }
+        override fun login() { _isLoggedIn.value = true }
+        override fun logout() { _isLoggedIn.value = false }
     }
 
     val HeroDetailsViewModel = object : IHeroDetailsViewModel {
@@ -45,8 +47,8 @@ object Previews {
         private val _avgRate = MutableStateFlow(3)
         override val avgRate = _avgRate
 
-        private val isLoggedIn_ = MutableStateFlow(false)
-        override val isLoggedIn = isLoggedIn_
+        private val _isLoggedIn = MutableStateFlow(false)
+        override val isLoggedIn = _isLoggedIn
 
         private val _rate = MutableStateFlow(0)
         override val rate = _rate
@@ -57,8 +59,8 @@ object Previews {
             _avgRate.value = ratings.average().roundToInt()
         }
 
-        override fun login() { isLoggedIn_.value = true }
-        override fun logout() { isLoggedIn_.value = false }
+        override fun login() { _isLoggedIn.value = true }
+        override fun logout() { _isLoggedIn.value = false }
     }
 
     val LoginViewModel = object : ILoginViewModel {
@@ -74,10 +76,10 @@ object Previews {
     }
 
     val LoginCheck = object : ILoginCheck {
-        private val isLoggedIn_ = MutableStateFlow(false)
-        override val isLoggedIn = isLoggedIn_
+        private val _isLoggedIn = MutableStateFlow(false)
+        override val isLoggedIn = _isLoggedIn
 
-        override fun login() { isLoggedIn_.value = true }
-        override fun logout() { isLoggedIn_.value = false }
+        override fun login() { _isLoggedIn.value = true }
+        override fun logout() { _isLoggedIn.value = false }
     }
 }

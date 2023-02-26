@@ -32,20 +32,20 @@ class LoginViewModel @AssistedInject constructor(
     @Assisted private val successfulLoginFn: () -> Unit,
     @Assisted private val unsuccessfulLoginFn: (String) -> Unit,
 ) : ViewModel(), ILoginViewModel {
-    private val nick_ = MutableStateFlow("")
-    override val nick = nick_
+    private val _nick = MutableStateFlow("")
+    override val nick = _nick
     override fun onNickChange(v: String) {
-        nick_.value = v
+        _nick.value = v
     }
 
-    private val pass_ = MutableStateFlow("")
-    override val pass = pass_
+    private val _pass = MutableStateFlow("")
+    override val pass = _pass
     override fun onPassChange(v: String) {
-        pass_.value = v
+        _pass.value = v
     }
 
     override fun onSubmit() {
-        if (nick_.value.isBlank() || pass_.value.isBlank()) {
+        if (_nick.value.isBlank() || _pass.value.isBlank()) {
             unsuccessfulLoginFn("Fill the nick and password fields")
             return
         }
