@@ -3,8 +3,6 @@
 package net.azarquiel.marvelcompose.ui
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -34,7 +32,7 @@ object Previews {
 
     @OptIn(DelicateCoroutinesApi::class)
     val HeroesViewModel = object : IHeroesViewModel {
-        override val heroes: LiveData<List<Hero>> = MutableLiveData(List(5) { Hero })
+        override val heroes = MutableStateFlow(List(5) { Hero })
 
         private val _status: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading )
         override val state = _status
