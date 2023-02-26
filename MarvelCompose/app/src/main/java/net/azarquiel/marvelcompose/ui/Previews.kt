@@ -60,7 +60,7 @@ object Previews {
         private val _avgRate = MutableStateFlow(3)
         override val avgRate = _avgRate
 
-        private val _isLoggedIn = MutableStateFlow(false)
+        private val _isLoggedIn = MutableStateFlow(true)
         override val isLoggedIn = _isLoggedIn
 
         private val _rate = MutableStateFlow(0)
