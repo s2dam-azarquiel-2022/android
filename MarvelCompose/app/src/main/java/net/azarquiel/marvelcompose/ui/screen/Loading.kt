@@ -1,5 +1,7 @@
 package net.azarquiel.marvelcompose.ui.screen
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,20 +20,33 @@ import net.azarquiel.marvelcompose.viewModel.ILoading
 
 @Composable
 @Suppress("NOTHING_TO_INLINE")
+@OptIn(ExperimentalAnimationApi::class)
 inline fun LoadingContent(
     modifier: Modifier,
     viewModel: ILoading,
     loadingText: String,
-    successScreen: @Composable () -> Unit,
-    errorScreen: @Composable () -> Unit,
+    crossinline successScreen: @Composable () -> Unit,
+    crossinline errorScreen: @Composable () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
-    when (state) {
-        UiState.Loading -> LoadingScreen(modifier = modifier, loadingText)
-        UiState.Success -> successScreen()
-        UiState.Error -> errorScreen()
+    AnimatedContent(
+        targetState = state,
+        transitionSpec = { loadingTransition() }
+    ) {
+        when (it) {
+            UiState.Loading -> LoadingScreen(modifier = modifier, loadingText)
+            UiState.Success -> successScreen()
+            UiState.Error -> errorScreen()
+        }
+
     }
 }
+
+@OptIn(ExperimentalAnimationApi::class)
+fun loadingTransition() =
+    fadeIn(animationSpec = tween(100, delayMillis = 50)) +
+            scaleIn(initialScale = 0.90f, animationSpec = tween(200, delayMillis = 50)) with
+            fadeOut(animationSpec = tween(100))
 
 @Composable
 fun LoadingScreen(
