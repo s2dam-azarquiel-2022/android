@@ -13,8 +13,9 @@ import net.azarquiel.marvelcompose.di.HeroesDS
 import net.azarquiel.marvelcompose.di.HeroesDSProvider
 import net.azarquiel.marvelcompose.di.LoginDSProvider
 import net.azarquiel.marvelcompose.model.Hero
+import net.azarquiel.marvelcompose.ui.UiState
 
-interface IHeroesViewModel : ILoginCheck {
+interface IHeroesViewModel : ILoginCheck, ILoading {
     val heroes: LiveData<List<Hero>>
 
     fun onHeroClick(hero: Hero)
@@ -32,8 +33,14 @@ class HeroesViewModel @AssistedInject constructor(
     private val _heroes: MutableLiveData<List<Hero>> = MutableLiveData()
     override val heroes: LiveData<List<Hero>> = _heroes
 
+    private val _state: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+    override val state = _state
+
     init {
-        viewModelScope.launch { _heroes.value = MarvelRepository.getHeroes() }
+        viewModelScope.launch {
+            _heroes.value = MarvelRepository.getHeroes()
+            _state.value = UiState.Success
+        }
     }
 
     override fun onHeroClick(hero: Hero) {

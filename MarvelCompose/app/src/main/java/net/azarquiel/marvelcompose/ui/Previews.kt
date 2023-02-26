@@ -5,8 +5,12 @@ package net.azarquiel.marvelcompose.ui
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import net.azarquiel.marvelcompose.model.Hero
 import net.azarquiel.marvelcompose.model.MarvelImg
 import net.azarquiel.marvelcompose.viewModel.IHeroDetailsViewModel
@@ -28,8 +32,19 @@ object Previews {
 
     val MainActivity = object : Application() { }
 
+    @OptIn(DelicateCoroutinesApi::class)
     val HeroesViewModel = object : IHeroesViewModel {
         override val heroes: LiveData<List<Hero>> = MutableLiveData(List(5) { Hero })
+
+        private val _status: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading )
+        override val state = _status
+
+        init {
+            GlobalScope.launch {
+                delay(2_000)
+                _status.value = UiState.Success
+            }
+        }
 
         override fun onHeroClick(hero: Hero) { }
 

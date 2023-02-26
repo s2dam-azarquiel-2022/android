@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -32,11 +29,18 @@ fun NavGraphBuilder.HeroesScreen(
 ) = screen(
     destination = Destination.HeroList,
     topAppBar = { viewModel, _ -> HeroesScreenTopAppBar(viewModel = viewModel) },
-    content = { viewModel, _, padding -> HeroList(Modifier.padding(padding), viewModel) },
-    viewModelFn = { ViewModels.heroesViewModel(
-        loginFn = { navController.navigate(Destination.Login.route) },
-        onHeroClickFn = { navController.navigate(Destination.HeroDetails.createRoute(it)) },
-    ) }
+    content = { viewModel, _, padding ->
+        HeroesScreenContent(
+            modifier = Modifier.padding(padding),
+            viewModel = viewModel,
+        )
+    },
+    viewModelFn = {
+        ViewModels.heroesViewModel(
+            loginFn = { navController.navigate(Destination.Login.route) },
+            onHeroClickFn = { navController.navigate(Destination.HeroDetails.createRoute(it)) },
+        )
+    }
 )
 
 @Composable
@@ -44,6 +48,19 @@ fun NavGraphBuilder.HeroesScreen(
 private inline fun HeroesScreenTopAppBar(
     viewModel: IHeroesViewModel,
 ) = LoginTopAppBar(title = "Marvel", viewModel = viewModel)
+
+@Composable
+@Suppress("NOTHING_TO_INLINE")
+private inline fun HeroesScreenContent(
+    modifier: Modifier,
+    viewModel: IHeroesViewModel,
+) = LoadingContent(
+    modifier = modifier,
+    viewModel = viewModel,
+    loadingText = "Loading heroes",
+    successScreen = { HeroList(modifier = modifier, viewModel = viewModel) },
+    errorScreen = { Text(text = "Error loading heroes") }
+)
 
 @Composable
 @Suppress("NOTHING_TO_INLINE")
@@ -102,6 +119,12 @@ private fun HeroListPreview(
     modifier = modifier,
     viewModel = Previews.HeroesViewModel,
 )
+
+@Composable
+@Preview(showBackground = true)
+private fun HeroesScreenContentPreview(
+    modifier: Modifier = Modifier,
+) = HeroesScreenContent(modifier = modifier, viewModel = Previews.HeroesViewModel)
 
 @Composable
 @Preview(showBackground = true)
